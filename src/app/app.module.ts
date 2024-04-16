@@ -15,13 +15,13 @@ import { ShelfComponent } from './content/shelf/shelf.component';
 import { StockalertComponent } from './content/stockalert/stockalert.component';
 import { StockComponent } from './content/stock/stock.component';
 import { EmployeeComponent } from './content/employee/employee.component';
-<<<<<<< HEAD
+
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-=======
+
 import { ProductComponent } from './content/product/product.component';
 
->>>>>>> 544caff906e8bc529d707e9159082ad82779e1fc
+
 
 @NgModule({
   declarations: [
@@ -36,10 +36,9 @@ import { ProductComponent } from './content/product/product.component';
     StockalertComponent,
     StockComponent,
     EmployeeComponent,
-<<<<<<< HEAD
-=======
+
     ProductComponent    
->>>>>>> 544caff906e8bc529d707e9159082ad82779e1fc
+
   ],
   imports: [
     BrowserModule,
