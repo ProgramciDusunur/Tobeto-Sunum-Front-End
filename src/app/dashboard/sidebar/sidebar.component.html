@@ -20,7 +20,7 @@
                 </a>
                 <ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start" id="menu">
                     <li class="nav-item" >
-                        <a href="dashboard/home" class="nav-link px-sm-0 px-2" >
+                        <a routerLink="/dashboard/home" class="nav-link px-sm-0 px-2" >
                             <i class="fs-5 bi-house iconColor"></i><span class="ms-1 d-none d-sm-inline contentColor" >Home</span>                          
                         </a>
                       </li>
@@ -30,7 +30,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="dashboard/shelf" class="nav-link px-sm-0 px-2">
+                        <a routerLink="/dashboard/shelf" class="nav-link px-sm-0 px-2">
                             <i class="fs-5 bi-archive iconColor"></i><span class="ms-1 d-none d-sm-inline contentColor">Shelf</span>
                         </a>
                     </li>
@@ -49,22 +49,22 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="dashboard/stock" class="nav-link px-sm-0 px-2">
+                        <a routerLink="dashboard/stock" class="nav-link px-sm-0 px-2">
                             <i class="fs-5 bi-boxes iconColor"></i><span class="ms-1 d-none d-sm-inline contentColor">Stock</span>
                         </a>
                     </li>
                     <li>
-                        <a href="dashboard/product" class="nav-link px-sm-0 px-2">
+                        <a routerLink="dashboard/product" class="nav-link px-sm-0 px-2">
                             <i class="fs-5 bi-boxes iconColor"></i><span class="ms-1 d-none d-sm-inline contentColor">Add Product</span>
                         </a>
                     </li>
                     <li>
-                        <a href="dashboard/employee" class="nav-link px-sm-0 px-2">
+                        <a routerLink="dashboard/employee" class="nav-link px-sm-0 px-2">
                             <i class="fs-5 bi-people iconColor"></i><span class="ms-1 d-none d-sm-inline contentColor">Employee</span> 
                         </a>
                     </li>
                     <li>
-                        <a href="dashboard/stockalert" class="nav-link px-sm-0 px-2">
+                        <a routerLink="dashboard/stockalert" class="nav-link px-sm-0 px-2">
                             <i class="bi bi-exclamation-triangle iconColor"></i><span class="ms-1 d-none d-sm-inline contentColor">Stock Alert</span> </a>
                     </li>
                 </ul>
@@ -73,25 +73,7 @@
         </div>
         
         <div class="col d-flex flex-column h-sm-100">
-            <app-header></app-header>
-            <ng-container *ngIf="currentUrl === '/dashboard/home'">
-                <app-content-home></app-content-home>
-            </ng-container>            
-            <ng-container *ngIf="currentUrl === '/dashboard/shelf'">
-                <app-shelf></app-shelf>
-            </ng-container>
-            <ng-container *ngIf="currentUrl === '/dashboard/stockalert'">
-                <app-stockalert></app-stockalert>
-            </ng-container>  
-            <ng-container *ngIf="currentUrl === '/dashboard/stock'">
-                <app-stock></app-stock>
-            </ng-container>  
-            <ng-container *ngIf="currentUrl === '/dashboard/employee'">
-                <app-employee></app-employee>
-            </ng-container>   
-            <ng-container *ngIf="currentUrl === '/dashboard/product'">
-                <app-product></app-product>
-            </ng-container>   
+            <app-header></app-header>           
             <!--<footer class="row bg-light py-4 mt-auto">
                 <div class="col"> Footer content here... </div>
             </footer>-->

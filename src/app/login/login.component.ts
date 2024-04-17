@@ -33,10 +33,7 @@ export class LoginComponent {
       this.loginService.login(email, password).subscribe({
         next: (resp) => {
           // login başarılı cevabı döndü
-          this.toastr.success('Giriş Yapıldı.');
-          this.loginService.loggedIn = true;
-          this.loginService.globalLogin = true;
-          let userIsAdmin = this.loginService.userHasRole('admin');
+          this.toastr.success('Giriş Yapıldı.');                    
           this.router.navigateByUrl('/dashboard');
         },
         error: (err) => {
