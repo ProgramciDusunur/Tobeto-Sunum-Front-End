@@ -6,10 +6,10 @@ import { Shelf } from '../models/shelf.model';
 
 
 
-
 @Injectable({ providedIn: 'root' })
 export class LoginService {
   loggedIn = false;
+  globalLogin = false;
   token = "";
   email = "";
   password = "";

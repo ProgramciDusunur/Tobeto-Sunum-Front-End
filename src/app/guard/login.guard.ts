@@ -1,20 +1,28 @@
-import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { CanActivate, Router } from '@angular/router';
 import { LoginService } from '../service/login/login.service';
 
-
-
-export const loginGuard: CanActivateFn = (route, state) => {
-  let loginService =  inject(LoginService);
-  let router = inject(Router);
+@Injectable({
+  providedIn: 'root'
+})
+export class LoginGuard implements CanActivate {
   
-
-  if (loginService.loggedIn) {
-    // giriş yapılmış ise istenen sayfanın gösterilmesine izin ver
-    return true;
-  } else {
-    // giriş yapılmamış, izin verme ve login sayfasına yönlendir.
-    router.navigate(['/']);
-    return false;
+  constructor(private loginService: LoginService, private router: Router) {}
+  
+  canActivate(): boolean {
+    if (this.loginService.loggedIn) {
+      // Giriş yapılmışsa istenen sayfanın gösterilmesine izin ver
+      console.log("Çalışıyor!");
+      return true;
+    } else {
+      if (!this.loginService.globalLogin) {
+        console.log("Login false oldu!");
+      // Giriş yapılmamışsa, izin verme ve login sayfasına yönlendir
+      this.router.navigate(['/login']);
+        return false;
+      }
+      
+      return true;
+    }
   }
-};
+}
