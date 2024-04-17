@@ -54,6 +54,11 @@
                         </a>
                     </li>
                     <li>
+                        <a href="dashboard/product" class="nav-link px-sm-0 px-2">
+                            <i class="fs-5 bi-boxes iconColor"></i><span class="ms-1 d-none d-sm-inline contentColor">Add Product</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="dashboard/employee" class="nav-link px-sm-0 px-2">
                             <i class="fs-5 bi-people iconColor"></i><span class="ms-1 d-none d-sm-inline contentColor">Employee</span> 
                         </a>
@@ -83,6 +88,9 @@
             </ng-container>  
             <ng-container *ngIf="currentUrl === '/dashboard/employee'">
                 <app-employee></app-employee>
+            </ng-container>   
+            <ng-container *ngIf="currentUrl === '/dashboard/product'">
+                <app-product></app-product>
             </ng-container>   
             <!--<footer class="row bg-light py-4 mt-auto">
                 <div class="col"> Footer content here... </div>

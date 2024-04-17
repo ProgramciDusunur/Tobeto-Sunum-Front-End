@@ -15,8 +15,13 @@ import { ShelfComponent } from './content/shelf/shelf.component';
 import { StockalertComponent } from './content/stockalert/stockalert.component';
 import { StockComponent } from './content/stock/stock.component';
 import { EmployeeComponent } from './content/employee/employee.component';
+
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ProductComponent } from './content/product/product.component';
+
+
 
 @NgModule({
   declarations: [
@@ -31,6 +36,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     StockalertComponent,
     StockComponent,
     EmployeeComponent,
+
+    ProductComponent    
+
   ],
   imports: [
     BrowserModule,
