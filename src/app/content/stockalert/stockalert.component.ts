@@ -14,14 +14,7 @@ export class StockalertComponent implements OnInit {
   ngOnInit(): void {
     this.stockAlertService.getAllStockAlerts().subscribe(
       (data: StockAlert[]) => {
-        this.stockAlerts = data;
-        console.log(this.stockAlerts[0]);
-        console.log(this.stockAlerts.length);
-        
-        
-  
-        console.log(this.stockAlerts[1]);
-        
+        this.stockAlerts = data;              
       },
       (error) => {
         console.error('Error fetching shelves:', error);

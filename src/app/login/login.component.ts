@@ -13,6 +13,10 @@ import { ToastrService } from "ngx-toastr";
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+  username = "";
+  surname = "";
+
+
   loginForm = this.fb.nonNullable.group({
     email: ['', Validators.email],
     password: '',
@@ -34,13 +38,10 @@ export class LoginComponent {
         next: (resp) => {
           // login başarılı cevabı döndü
           this.toastr.success('Giriş Yapıldı.');                    
-          this.router.navigateByUrl('/dashboard');
-          console.log(localStorage.getItem("token"));
-          console.log(this.loginService.payload);
+          this.router.navigateByUrl('/dashboard');                    
         },
         error: (err) => {
-          this.toastr.error('Kullanıcı adınızı veya şifrenizi kontrol edin.');
-          console.log("Tostr calismayi deniyor.");
+          this.toastr.error('Kullanıcı adınızı veya şifrenizi kontrol edin.');          
           //this.loginService.loggedIn = false;
           // formun tüm alanlarının değerleri değiştirilmek isteniyorsa setValue fonksiyonu kullanılır.
           // Tüm alanların değerleri değiştirilmeyecekse patchValue fonksiyonu kullanılır.

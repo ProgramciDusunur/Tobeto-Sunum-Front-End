@@ -28,13 +28,6 @@ export class StockComponent implements OnInit {
     this.stockService.getAllStocks().subscribe(
       (data: Stock[]) => {
         this.stock = data;
-        console.log(this.stock[0]);
-        console.log(this.stock.length);
-        
-        
-  
-        console.log(this.stock[1]);
-        
       },
       (error) => {
         console.error('Error fetching stock:', error);

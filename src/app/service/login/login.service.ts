@@ -13,6 +13,8 @@ export class LoginService {
   password = "";
   kullanicilarId = "";
   payload="";
+  username = "";
+  surname = "";
   roller: string[] = [];
   apiUrl = environment.serverURL;
 
@@ -42,7 +44,14 @@ export class LoginService {
     localStorage.setItem('token', data.token);
     localStorage.setItem('email', email);
     localStorage.setItem('password', password);
-    this.payload = this.parseJwt(this.token);    
+    this.payload = this.parseJwt(this.token);        
+    const testJsonString = JSON.stringify(this.payload);
+    const payloadObject = JSON.parse(testJsonString);          
+    const jti = payloadObject.jti;
+    const sub = payloadObject.sub;
+    this.username = jti;
+    this.surname = sub;    
+          
   }
   relogin():Observable<any> {
     return this.login(this.email, this.password);
