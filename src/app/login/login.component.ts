@@ -35,6 +35,8 @@ export class LoginComponent {
           // login başarılı cevabı döndü
           this.toastr.success('Giriş Yapıldı.');                    
           this.router.navigateByUrl('/dashboard');
+          console.log(localStorage.getItem("token"));
+          console.log(this.loginService.payload);
         },
         error: (err) => {
           this.toastr.error('Kullanıcı adınızı veya şifrenizi kontrol edin.');

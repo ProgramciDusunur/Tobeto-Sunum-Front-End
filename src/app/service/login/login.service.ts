@@ -12,6 +12,7 @@ export class LoginService {
   email = "";
   password = "";
   kullanicilarId = "";
+  payload="";
   roller: string[] = [];
   apiUrl = environment.serverURL;
 
@@ -41,7 +42,7 @@ export class LoginService {
     localStorage.setItem('token', data.token);
     localStorage.setItem('email', email);
     localStorage.setItem('password', password);
-    let payload = this.parseJwt(this.token);    
+    this.payload = this.parseJwt(this.token);    
   }
   relogin():Observable<any> {
     return this.login(this.email, this.password);
