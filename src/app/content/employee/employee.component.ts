@@ -14,14 +14,7 @@ export class EmployeeComponent implements OnInit {
   ngOnInit(): void {
     this.employeeService.getAllEmployees().subscribe(
       (data: Employee[]) => {
-        this.employees = data;
-        console.log(this.employees[0]);
-        console.log(this.employees.length);
-        
-        
-  
-        console.log(this.employees[1]);
-        
+        this.employees = data;                
       },
       (error) => {
         console.error('Error fetching stock:', error);

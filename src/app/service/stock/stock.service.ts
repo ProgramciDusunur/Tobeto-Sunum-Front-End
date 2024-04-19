@@ -11,15 +11,29 @@ export class StockService {
 
   apiUrl = environment.serverURL;
 
-  private stockAlertUrl = this.apiUrl+'/stock/get/all';
+  private getAllStocksUrl = this.apiUrl+'/stock/get/all';
+  private removeSpecificStockUrl = this.apiUrl + '/stock/del';
 
 
   constructor(private http: HttpClient) { }
 
-  getAllStocks(): Observable<Stock[]> {
+  createAuthHeader() {
     const headers = new HttpHeaders({
-      'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xsZXIiOiJhZG1pbiJ9.NVYeBGDocnb8grigojndDasa-TstTKMIO909UygZ-42JMlSfOIbB--AhisXTqAA1kjTqJu7KhNuAi1p0wU7v2g',      
+      'Authorization': 'Bearer '+ localStorage.getItem("token"),      
     });
-    return this.http.get<Stock[]>(this.stockAlertUrl, {headers});
+    return headers;
+  }
+
+
+  getAllStocks(): Observable<Stock[]> {
+    const headers = this.createAuthHeader();
+    return this.http.get<Stock[]>(this.getAllStocksUrl, {headers});
+  }
+
+  removeSpecificStock(stockId: number): Observable<Stock> {
+    const headers = this.createAuthHeader();
+    const body = { id: stockId }; // Gövde içeriği
+    return this.http.post<Stock>(this.removeSpecificStockUrl, body, { headers });
+    
   }
 }

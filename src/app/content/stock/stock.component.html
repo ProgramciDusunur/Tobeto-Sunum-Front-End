@@ -22,7 +22,7 @@
         <div class="shelfDataDiv">{{ stock.typeId}}</div>                         
         <div class="grid-container">
           <div class="grid-item"><i class="bi bi-pen" data-bs-toggle="modal" data-bs-target="#exampleModalToggle"></i></div>      
-          <div class="grid-item"><i class="bi bi-trash3"></i></div>                     
+          <div class="grid-item"><i class="bi bi-trash3" data-bs-toggle="modal" data-bs-target="#stockRemoveModalToggle"></i></div>                     
         </div> 
       </div>     
 </div>
@@ -575,3 +575,22 @@
   </div>
 </div>
 
+
+<!-- Stok Silme Modal -->
+<div class="modal fade" id="stockRemoveModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalToggleLabel">Stok Ürününü Sil</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="text-center">Bu işlemi gerçekleştirmek istediğinizden emin misiniz?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
+        <button type="button" class="btn btn-danger" (click)="removeStock()">Sil</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -17,9 +17,9 @@ export class StockalertService {
 
   constructor(private http: HttpClient) { }
 
-  getAllStockAlerts(): Observable<StockAlert[]> {
+  getAllStockAlerts(): Observable<StockAlert[]> {    
     const headers = new HttpHeaders({
-      'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xsZXIiOiJhZG1pbiJ9.NVYeBGDocnb8grigojndDasa-TstTKMIO909UygZ-42JMlSfOIbB--AhisXTqAA1kjTqJu7KhNuAi1p0wU7v2g',      
+      'Authorization': 'Bearer '+ localStorage.getItem("token"),      
     });
     return this.http.get<StockAlert[]>(this.stockAlertUrl, {headers});
   }

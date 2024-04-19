@@ -18,7 +18,7 @@ export class EmployeeService {
 
   getAllEmployees(): Observable<Employee[]> {
     const headers = new HttpHeaders({
-      'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xsZXIiOiJhZG1pbiJ9.NVYeBGDocnb8grigojndDasa-TstTKMIO909UygZ-42JMlSfOIbB--AhisXTqAA1kjTqJu7KhNuAi1p0wU7v2g',      
+      'Authorization': 'Bearer '+ localStorage.getItem("token"),      
     });
     return this.http.get<Employee[]>(this.allEmployeesUrl, {headers});
   }

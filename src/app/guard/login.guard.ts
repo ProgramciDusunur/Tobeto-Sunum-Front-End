@@ -9,11 +9,9 @@ export const loginGuardFunc: CanActivateFn = (route, state) => {
   let router = inject(Router);
 
   if (loginService.loggedIn) {
-    // Giriş yapılmışsa istenen sayfanın gösterilmesine izin ver
-    console.log("Çalışıyor!");
+    // Giriş yapılmışsa istenen sayfanın gösterilmesine izin ver    
     return true;
-  } else {
-    console.log("Login false oldu!");
+  } else {    
     // Giriş yapılmamışsa, izin verme ve login sayfasına yönlendir
     router.navigate(['/login']);      
     return false;

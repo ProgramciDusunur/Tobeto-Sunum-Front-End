@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StockService } from '../../service/stock/stock.service';
 import { Stock } from '../../service/models/stock.models';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-stock',
@@ -21,10 +22,18 @@ export class StockComponent implements OnInit {
   ];
 
   selectedType: string = ''; // Initialize selected value
-  constructor(private stockService: StockService) {}
+  constructor(
+    private stockService: StockService,
+    private toastr: ToastrService,
+
+  ) {}
 
   stock: Stock[] = [];
   ngOnInit(): void {
+    this.fetchStocks();
+  }
+
+  fetchStocks(): void {
     this.stockService.getAllStocks().subscribe(
       (data: Stock[]) => {
         this.stock = data;
@@ -36,9 +45,11 @@ export class StockComponent implements OnInit {
   }
 
   selectedStock: any; // Seçilen stokun verilerini tutmak için bir değişken
+  selectedStockIdForRemove: any;
 
   selectStock(index: number) {
-      this.selectedStock = this.stock[index];      
+      this.selectedStock = this.stock[index];
+      this.selectedStockIdForRemove = this.stock[index].id;     
   }
 
   onTypeChange(event: any) {
@@ -64,6 +75,19 @@ export class StockComponent implements OnInit {
     } else {
       return []; // Diğer türler için boş dizi döndür
     }
+  }
+
+  removeStock() {
+    const whichId = this.selectedStockIdForRemove;
+    console.log("Cope bastiktan sonra secilmis stock: ", whichId);
+    this.stockService.removeSpecificStock(whichId).subscribe(
+      (data) => {
+        this.toastr.success("Stock succesfully removed.");        
+      },
+      (error) => {
+        this.toastr.error("Stock can't removed.");        
+      }
+    );
   }
 
 

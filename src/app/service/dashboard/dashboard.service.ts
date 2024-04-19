@@ -22,29 +22,20 @@ export class DashboardService {
     this.renderer = rendererFactory.createRenderer(null, null);
   }
 
-
   ngOnInit(): void {
-    // forkJoin ile tüm istekleri birleştirerek tek bir abonelik oluşturuyoruz
     forkJoin({
       stockAlerts: this.stockAlertService.getAllStockAlerts(),
       stocks: this.stockService.getAllStocks()
     }).subscribe({
       next: (response) => {
-        // Her iki istek de tamamlandığında bu blok çalışır
         this.stockAlerts = response.stockAlerts;
         this.stocks = response.stocks;
-        
-        // StockAlert'ler ile Stocks'u karşılaştır ve koşulu sağlayanları lowStockAlerts listesine ekle
+
         this.lowStockAlerts = this.stockAlerts.filter(alert => {
           const correspondingStock = this.stocks.find(stock => stock.id === alert.stockId);
           return correspondingStock && correspondingStock.quantity <= alert.alertQuantity;
-        });
+        }); 
 
-        console.log("Hey Selamlar StockAlerts: ", this.stockAlerts);
-        console.log("Hey Selamlar Stock: ", this.stocks);
-        console.log("Hey Selamlar Low Stock Alerts: ", this.lowStockAlerts); 
-
-        // DOM manipülasyonu için render metodu çağrılıyor
         this.renderNotification();
       },
       error: (error) => {
@@ -53,18 +44,22 @@ export class DashboardService {
     });
   }
 
-  // DOM manipülasyonunu gerçekleştiren metod
   private renderNotification(): void {
-    const lowStockLength = this.lowStockAlerts.length;
-    console.log("Dashboard componentte stock uyarisi: " + lowStockLength);
+    const lowStockLength = this.lowStockAlerts.length;    
     if (lowStockLength > 0) {
       const notificationElement = document.querySelector('.notification');
-      if (notificationElement) {
-        this.renderer.setStyle(notificationElement, 'color', 'red'); // Kırmızı renk
-        console.log("Uyari alan urunler var!");
-      } else {
-        console.error("Notification element not found");
+      this.renderer.setStyle(notificationElement, 'color', 'red'); // Kırmızı renk
+      // Örnek olarak, başka bir bileşenin ul elementine li ekleyelim
+      const otherComponentUl = document.querySelector('.notificationDropDown');    
+      for (let i = 0; i < lowStockLength;i++) {        
+        if (otherComponentUl) {
+          const li = document.createElement('li');          
+          li.classList.add("dropdown-item");          
+          li.textContent = 'Low Stock Alert Stock ID: ' + this.lowStockAlerts[i].stockId;
+          otherComponentUl.appendChild(li);          
+        }
       }
+            
     }
   }
 }
