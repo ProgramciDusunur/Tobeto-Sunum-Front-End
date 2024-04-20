@@ -8,13 +8,25 @@ import { Employee } from '../models/employee.model';
   providedIn: 'root'
 })
 export class EmployeeService {
+  static addEmployee() {
+    throw new Error('Method not implemented.');
+  }
 
   apiUrl = environment.serverURL;
 
   private allEmployeesUrl = this.apiUrl+'/employee/get/all';
+  private addEmployeeUrl = this.apiUrl+'/employee/add';
+  private removeSpecificEmployeeUrl = this.apiUrl + '/employee/del';
 
 
   constructor(private http: HttpClient) { }
+
+  createAuthHeader() {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer '+ localStorage.getItem("token"),      
+    });
+    return headers;
+  }
 
   getAllEmployees(): Observable<Employee[]> {
     const headers = new HttpHeaders({
@@ -22,4 +34,16 @@ export class EmployeeService {
     });
     return this.http.get<Employee[]>(this.allEmployeesUrl, {headers});
   }
+
+  addEmployee(employee: Employee): Observable<Employee> {
+    const headers = this.createAuthHeader();
+    return this.http.post<Employee>(this.addEmployeeUrl, employee, { headers });
+  }
+
+  removeSpecificEmployee(employeeıd: number): Observable<Employee> {
+    const headers = this.createAuthHeader();
+    const body = { id: employeeıd };
+    return this.http.post<Employee>(this.removeSpecificEmployeeUrl, body,{ headers });
+  }
+  
 }

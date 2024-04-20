@@ -33,9 +33,28 @@
         <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Modal 1</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        Show a second modal and hide this one with the button below.
-      </div>
+      <form>
+        <div class="mb-3">
+          <label for="employeeId" class="form-label">Employee ID</label>
+          <input type="text" class="form-control" id="employeeId" [value]="selectedEmployee?.id">
+        </div>
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" class="form-control" id="name">
+        </div>
+        <div class="mb-3">
+          <label for="surname" class="form-label">Surname</label>
+          <input type="text" class="form-control" id="surname">
+        </div>          
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="text" class="form-control" id="email">
+        </div>
+        <div class="mb-3">
+          <label for="role" class="form-label">Role</label>
+          <input type="text" class="form-control" id="role">
+        </div>
+      </form>
       <div class="modal-footer">
         <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Open second modal</button>
       </div>
