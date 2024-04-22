@@ -1,14 +1,14 @@
 <div class="mainContainer">
-    <div class="homeProductContainer">      
+    <div class="homeProductContainer" (click)="redirectToEmployee()">      
       <i class="fs-1 bi-people iconColor"></i>
-      <h3 class="headerMargin">Employee Panel</h3>
+      <h3 class="headerMargin">Çalışan Panel</h3>
     </div>
-    <div class="homeProductContainer" (click)="redirectToDashboard()">      
+    <div class="homeProductContainer" (click)="redirectToShelf()">      
       <i class="fs-1 bi-archive iconColor"></i>
-      <h3 class="headerMargin">Shelf Panel</h3>
+      <h3 class="headerMargin">Raf Panel</h3>
     </div>
     <div class="homeProductContainer">      
-      <i class="fs-1 bi-boxes iconColor"></i>
-      <h3 class="headerMargin">Product Panel</h3>
+      <i class="fs-1 bi-boxes iconColor" (click)="redirectToProduct()"></i>
+      <h3 class="headerMargin">Ürün Panel</h3>
     </div>   
   </div>

@@ -55,8 +55,13 @@
     font-size: 10px;
 }
 
-
 .col-xl-dynamic {
     flex: 0 0 15%; /* Genişlik 12.5% olacak şekilde ayarlanır */
     max-width: 15%; /* Maksimum genişlik 12.5% olarak belirlenir */
+}
+
+.dashboardHeader {
+    width: 75px;
+    height: 25px;
+    font-size: calc(0.25 * 0.75vw + 0.25 * 0.75vh);
 }

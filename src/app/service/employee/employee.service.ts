@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Employee } from '../models/employee.model';
+import { Employee, RequestEmployee } from '../models/employee.model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,9 +35,9 @@ export class EmployeeService {
     return this.http.get<Employee[]>(this.allEmployeesUrl, {headers});
   }
 
-  addEmployee(employee: Employee): Observable<Employee> {
+  addEmployee(employee: RequestEmployee): Observable<RequestEmployee> {
     const headers = this.createAuthHeader();
-    return this.http.post<Employee>(this.addEmployeeUrl, employee, { headers });
+    return this.http.post<RequestEmployee>(this.addEmployeeUrl, employee, { headers });
   }
 
   removeSpecificEmployee(employeeıd: number): Observable<Employee> {

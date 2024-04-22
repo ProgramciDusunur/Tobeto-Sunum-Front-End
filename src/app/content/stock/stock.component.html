@@ -3,17 +3,17 @@
   <div class="containerComponent">    
     <div></div>
     <div></div>
-    <div><b>Stock</b></div>
+    <div><b>Stok</b></div>
     <div></div>
     <div><button type="button" class="btn btn-primary addProduct" data-bs-toggle="modal" data-bs-target="#exampleModalToggle2">Ürün Ekle</button></div>  
   </div>
 
     <div class="containerComponent">
-        <div class="containerInfo">Stock ID</div>
-        <div class="containerInfo">Type</div>        
-        <div class="containerInfo">Quantity</div>
-        <div class="containerInfo">Type ID</div>
-        <div class="containerInfo">Edit</div>
+        <div class="containerInfo">Ürün ID</div>
+        <div class="containerInfo">Tipi</div>        
+        <div class="containerInfo">Sayısı</div>
+        <div class="containerInfo">Tip ID</div>
+        <div class="containerInfo">Düzenle</div>
     </div>
     <div *ngFor="let stock of stock; let i = index" class="containerComponent" (click)="selectStock(i)">
         <div class="shelfDataDiv">{{ stock.id }}</div>
@@ -39,19 +39,19 @@
         <!-- Stok bilgilerini düzenleme formu -->
         <form>
           <div class="mb-3">
-            <label for="stockId" class="form-label">Stock ID</label>
+            <label for="stockId" class="form-label">Ürün ID</label>
             <input type="text" class="form-control" id="stockId" [value]="selectedStock?.id" disabled>
           </div>
           <div class="mb-3">
-            <label for="type" class="form-label">Type</label>
+            <label for="type" class="form-label">Tip</label>
             <input type="text" class="form-control" id="type" disabled>
           </div>
           <div class="mb-3">
-            <label for="quantity" class="form-label">Quantity</label>
+            <label for="quantity" class="form-label">Sayısı</label>
             <input type="number" class="form-control" id="quantity" aria-label="Number value for quantity" placeholder="Eksi değer stok azaltma, artı değer stok arttırma.">
           </div>          
           <div class="mb-3">
-            <label for="typeId" class="form-label">Type ID</label>
+            <label for="typeId" class="form-label">Tip ID</label>
             <input type="text" class="form-control" id="typeId" disabled>
           </div>
         </form>
@@ -68,22 +68,20 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalToggleLabel">Add Stock</h5>
+        <h5 class="modal-title" id="exampleModalToggleLabel">Ürün Ekle</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <!-- Stok bilgilerini düzenleme formu -->
         <form>
           <div class="mb-3">
-            <label for="type" class="form-label">Type</label>
+            <label for="type" class="form-label">Ürün Tipi</label>
             <select class="form-control" id="type" (change)="onTypeChange($event)">
               <option value="" selected>Seçiniz...</option>
               <option *ngFor="let typeOption of typeOptions" value="{{typeOption.value}}">{{typeOption.label}}</option>
             </select>
           </div>
 
-          <!-- CPU tipi seçildiğinde görüntülenecek içerik -->
-          <div *ngIf="selectedType === 'CPU'">
           <!-- CPU tipi seçildiğinde görüntülenecek içerik -->
           <div *ngIf="selectedType === 'CPU'">
             <div class="mb-3">
@@ -153,12 +151,8 @@
               <input type="number" class="form-control" id="cpuQuantity" min="1">
             </div>
           </div>
-
-          </div>
-
-          <!-- GPU tipi seçildiğinde görüntülenecek içerik -->
-          <div *ngIf="selectedType === 'GPU'">
-                <!-- GPU tipi seçildiğinde görüntülenecek içerik -->
+         
+            <!-- GPU tipi seçildiğinde görüntülenecek içerik -->
             <div *ngIf="selectedType === 'GPU'">
               <div class="mb-3">
                 <label for="gpuBrand" class="form-label">Brand</label>
@@ -217,7 +211,7 @@
                 <input type="number" class="form-control" id="gpuQuantity" min="1">
               </div>
             </div>
-          </div>
+          
 
           <!-- RAM tipi seçildiğinde görüntülenecek içerik -->
           <div *ngIf="selectedType === 'RAM'">
@@ -560,11 +554,7 @@
               <label for="caseQuantity" class="form-label">Quantity</label>
               <input type="number" class="form-control" id="caseQuantity" aria-label="Number value for quantity" min="1">
             </div>
-          </div>
-
-
-          
-          
+          </div>                    
         </form>
       </div>
       <div class="modal-footer">

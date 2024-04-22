@@ -15,7 +15,7 @@ export class LoginService {
   payload="";
   username = "";
   surname = "";
-  roller: string[] = [];
+  rol: string = "";
   apiUrl = environment.serverURL;
 
 
@@ -46,11 +46,15 @@ export class LoginService {
     localStorage.setItem('password', password);
     this.payload = this.parseJwt(this.token);        
     const testJsonString = JSON.stringify(this.payload);
-    const payloadObject = JSON.parse(testJsonString);          
+    const payloadObject = JSON.parse(testJsonString);
+    console.log(payloadObject);
     const jti = payloadObject.jti;
     const sub = payloadObject.sub;
+    const role = payloadObject.roller;
     this.username = jti;
-    this.surname = sub;    
+    this.surname = sub;
+    this.rol = role;
+    alert("Rolünüz: " + this.rol);
           
   }
   relogin():Observable<any> {
@@ -62,7 +66,7 @@ export class LoginService {
     this.email = "";
     this.password = "";
     this.kullanicilarId = "";
-    this.roller = [];
+    this.rol = "";
     localStorage.clear();
   }
   parseJwt (token: string) {
@@ -75,7 +79,7 @@ export class LoginService {
     return JSON.parse(jsonPayload);
   }
 
-  userHasRole(roleAdi: string): boolean {
+  /*userHasRole(roleAdi: string): boolean {
     let hasRole = false;
     this.roller.forEach(rol => {
       if (rol === roleAdi) {
@@ -83,6 +87,6 @@ export class LoginService {
       }
     })
     return hasRole;
-  }
+  }*/
 
 }

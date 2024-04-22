@@ -7,3 +7,13 @@ export interface Employee {
     role: string;
     // Diğer özellikler...
   }
+
+// Interface tanımı
+export interface RequestEmployee {
+  password: any;
+  name: any;
+  surname: any;
+  email: any;
+  role: any;
+  // Diğer özellikler...
+}
