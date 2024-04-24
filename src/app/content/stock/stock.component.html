@@ -75,11 +75,27 @@
         <!-- Stok bilgilerini düzenleme formu -->
         <form>
           <div class="mb-3">
-            <label for="type" class="form-label">Ürün Tipi</label>
-            <select class="form-control" id="type" (change)="onTypeChange($event)">
+            <label for="type" class="form-label">İşlem Tipi</label>
+            <select class="form-control" id="type" (change)="onProcessChange($event)">
               <option value="" selected>Seçiniz...</option>
-              <option *ngFor="let typeOption of typeOptions" value="{{typeOption.value}}">{{typeOption.label}}</option>
+              <option *ngFor="let processOption of processOptions" value="{{processOption.value}}">{{processOption.label}}</option>
             </select>
+          </div>
+          
+          <div *ngIf="selectedProcess === 'Add Product'">
+            <div class="mb-3">
+              <label for="type" class="form-label">Ürün Tipi</label>
+              <select class="form-control" id="type" (change)="onTypeChange($event)">
+                <option value="" selected>Seçiniz...</option>
+                <option *ngFor="let typeOption of typeOptions" value="{{typeOption.value}}">{{typeOption.label}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div *ngIf="selectedProcess === 'Decrease Quantity'">
+            <div class="mb-3">
+              <label for="type" class="form-label">Naber</label>
+            </div>
           </div>
 
           <!-- CPU tipi seçildiğinde görüntülenecek içerik -->

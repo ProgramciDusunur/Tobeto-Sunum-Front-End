@@ -59,6 +59,26 @@ export class EmployeeComponent implements OnInit {
     );
   }
 
+  selectedEmployee: any;
+  selectedEmployeeIdForRemove: any;
+
+  selectEmployee(index: number): void {
+    this.selectedEmployee = this.employees[index];
+    this.selectedEmployeeIdForRemove = this.employees[index].email;
+  }
+
+  removeEmployee() {
+    this.employeeService.removeSpecificEmployee(this.selectedEmployeeIdForRemove).subscribe(
+      (data) => {
+        this.toastr.success("Employee succesfully removed.");        
+      },
+      (error) => {
+        this.toastr.error("Employee can't removed.");        
+      }
+    );
+  }
+  
+
 
   saveUser(): void {        
     const nameControl = this.personForm.get('name');
@@ -87,13 +107,6 @@ export class EmployeeComponent implements OnInit {
       // En az bir form elemanının değeri geçerli değil
       alert("Bütün alanları doldurun.");
     }
-    
-
-    
-    
-    // Benzer şekilde diğer form elemanları için de yapılabilir
-    
-
   }
 
   ngOnInit(): void {
@@ -110,13 +123,7 @@ export class EmployeeComponent implements OnInit {
   
 
 
-  selectedEmployee: any;
-  selectedEmployeeIdForRemove: any;
-
-  selectEmployee(index: number): void {
-    this.selectedEmployee = this.employees[index];
-    this.selectedEmployeeIdForRemove = this.employees[index].id;
-  }
+ 
   
    
 

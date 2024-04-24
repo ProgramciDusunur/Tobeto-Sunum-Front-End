@@ -1,6 +1,6 @@
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { forkJoin } from 'rxjs';
-import { StockalertService } from '../stockalert/stockalert.service';
+import { StockAlertService } from '../stockalert/stockalert.service';
 import { StockService } from '../stock/stock.service';
 import { StockAlert } from '../models/stockalert.model';
 import { Stock } from '../models/stock.models';
@@ -15,7 +15,7 @@ export class DashboardService {
   lowStockAlerts: StockAlert[] = [];
 
   constructor(
-    private stockAlertService: StockalertService,
+    private stockAlertService: StockAlertService,
     private stockService: StockService,
     private rendererFactory: RendererFactory2
   ) {

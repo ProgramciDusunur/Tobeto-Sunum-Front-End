@@ -2,11 +2,41 @@
     <i class="bi bi-person icon"></i>
     <div class="userName" id="username">{{ username }} {{ surname }}</div>
     <div class="notification dropdown dropdown-toggle" data-bs-toggle="dropdown">    
-        <ul class="dropdown-menu dropdown-menu-dark text-small shadow dropdownMenu" aria-labelledby="dropdownMenuButton">
-            <li><a class="dropdown-item" href="#">New project...</a></li>
-            <li><a class="dropdown-item" href="#">Settings</a></li>
-            <li><a class="dropdown-item" href="#">Profile</a></li>                            
+        <ul class="dropdown-menu dropdown-menu-dark text-small shadow dropdownMenu" aria-labelledby="dropdownMenuButton">            
+            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#passwordChangeModal">Settings</a></li>
+            <li><a class="dropdown-item" >Profile</a></li>                            
         </ul>       
     </div>
   </div>
   
+<!-- Şifre Değiştirme Modal -->
+<div class="modal fade" id="passwordChangeModal" aria-hidden="true" aria-labelledby="passwordChangeModalLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="passwordChangeModalLabel">Şifre Değiştirme</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="employeePasswordChangeForm">
+                    <div class="mb-3">
+                        <label for="oldPassword" class="form-label">Mevcut Şifre</label>
+                        <input type="password" formControlName="previousPassword" class="form-control" id="oldPassword" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="newPassword" class="form-label">Yeni Şifre</label>
+                        <input type="password" formControlName="newPassword" class="form-control" id="newPassword" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmNewPassword" class="form-label">Yeni Şifre Onayı</label>
+                        <input type="password" formControlName="newPasswordCheck" class="form-control" id="confirmNewPassword" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
+                <button type="button" class="btn btn-primary" (click)="changePassword()">Değiştir</button>
+            </div>
+        </div>
+    </div>
+</div>

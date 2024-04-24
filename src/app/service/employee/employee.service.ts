@@ -17,6 +17,7 @@ export class EmployeeService {
   private allEmployeesUrl = this.apiUrl+'/employee/get/all';
   private addEmployeeUrl = this.apiUrl+'/employee/add';
   private removeSpecificEmployeeUrl = this.apiUrl + '/employee/del';
+  private changePasswordEmployeeUrl = this.apiUrl+'/employee/edit/password'
 
 
   constructor(private http: HttpClient) { }
@@ -29,9 +30,7 @@ export class EmployeeService {
   }
 
   getAllEmployees(): Observable<Employee[]> {
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer '+ localStorage.getItem("token"),      
-    });
+    const headers = this.createAuthHeader();
     return this.http.get<Employee[]>(this.allEmployeesUrl, {headers});
   }
 
@@ -40,10 +39,18 @@ export class EmployeeService {
     return this.http.post<RequestEmployee>(this.addEmployeeUrl, employee, { headers });
   }
 
-  removeSpecificEmployee(employeeıd: number): Observable<Employee> {
+  removeSpecificEmployee(employeeEmail: number): Observable<Employee> {
     const headers = this.createAuthHeader();
-    const body = { id: employeeıd };
-    return this.http.post<Employee>(this.removeSpecificEmployeeUrl, body,{ headers });
+    const body = { email: employeeEmail };
+    return this.http.post<Employee>(this.removeSpecificEmployeeUrl, body, { headers });
+  }
+
+  changePassword(previousPassword: string, newPassword: string, employeeEmail: string): Observable<Employee> {
+    const headers = this.createAuthHeader();
+    const body = {previousPassword: previousPassword,
+                  newPassword: newPassword,
+                  email: employeeEmail};
+    return this.http.post<Employee>(this.changePasswordEmployeeUrl, body, { headers });
   }
   
 }

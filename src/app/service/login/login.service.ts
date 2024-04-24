@@ -46,16 +46,13 @@ export class LoginService {
     localStorage.setItem('password', password);
     this.payload = this.parseJwt(this.token);        
     const testJsonString = JSON.stringify(this.payload);
-    const payloadObject = JSON.parse(testJsonString);
-    console.log(payloadObject);
+    const payloadObject = JSON.parse(testJsonString);    
     const jti = payloadObject.jti;
     const sub = payloadObject.sub;
     const role = payloadObject.roller;
     this.username = jti;
     this.surname = sub;
-    this.rol = role;
-    alert("Rolünüz: " + this.rol);
-          
+    this.rol = role;              
   }
   relogin():Observable<any> {
     return this.login(this.email, this.password);

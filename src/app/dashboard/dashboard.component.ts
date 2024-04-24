@@ -9,13 +9,15 @@ import { LoginService } from '../service/login/login.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+
+
   componentEnabled: { [key: string]: boolean } = {
-    'Anasayfa': true,
+    'Anasayfa': false,
     'Kontrol Paneli': false,
-    'Raf': true,
-    'Bootstrap': true,
+    'Raf': false,
+    'Bootstrap': false,
     'Ürün': false,
-    'Çalışan': true,
+    'Çalışan': false,
     'Stok Uyarısı': false
   };
   
@@ -32,6 +34,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     // DashboardService'te yapılacak olan işlemleri burada gerçekleştirelim
     this.dashboardService.ngOnInit();   
+    this.filterComponents();
     
   }
   filterComponents() {
@@ -41,14 +44,19 @@ export class DashboardComponent implements OnInit {
     switch (role) {
       case 'admin':
         // Admin rolü için tüm bileşenleri etkinleştir
-        Object.keys(this.componentEnabled).forEach(key => this.componentEnabled[key] = true);
+        Object.keys(this.componentEnabled).forEach(key => this.componentEnabled[key] = true);        
         break;
-      case 'user':
-        // User rolü için belirli bileşenleri etkinleştir veya devre dışı bırak
-        this.componentEnabled['Kontrol Paneli'] = false;
-        this.componentEnabled['Ürün'] = false;
+      case 'depo_sorumlusu':
+        // User rolü için belirli bileşenleri etkinleştir veya devre dışı bırak                
+        this.componentEnabled['Ürün'] = true;
+        this.componentEnabled['Raf'] = true;
         this.componentEnabled['Stok Uyarısı'] = true;
         break;
+      case 'rapor_kullanicisi':
+        this.componentEnabled['Ürün'] = true;
+        this.componentEnabled['Stok Uyarısı'] = true;
+        
+      break;
       // Diğer roller için gerekli işlemler yapılabilir
     }
   }

@@ -15,6 +15,7 @@ export class ShelfService {
 
   private getAllShelvesUrl = this.apiUrl+'/shelf/get/all';
   private removeSpecificShelfUrl = this.apiUrl + '/shelf/del';
+  private addShelfUrl = this.apiUrl+'/shelf/add';
 
   createAuthHeader() {
     const headers = new HttpHeaders({
@@ -33,8 +34,13 @@ export class ShelfService {
   removeSpecificShelf(shelfId: number): Observable<Shelf> {
     const headers = this.createAuthHeader();
     const body = { id: shelfId }; // Gövde içeriği
-    return this.http.post<Shelf>(this.removeSpecificShelfUrl, body, { headers });
-    
+    return this.http.post<Shelf>(this.removeSpecificShelfUrl, body, { headers });    
+  }
+  
+  addShelf(stockId: number, occupiedQuantity: number): Observable<Shelf> {
+    const headers = this.createAuthHeader();
+    const body = { stockId: stockId, occupiedQuantity: occupiedQuantity }; // Gövde içeriği
+    return this.http.post<Shelf>(this.addShelfUrl, body, { headers });    
   }
 
 

@@ -2,15 +2,15 @@
 <div class="container">
   <div class="containerComponent">        
     <div></div>
-    <div class="header"><b>Shelf</b></div>            
-    <div><button type="button" class="btn btn-primary addProduct" data-bs-toggle="modal" data-bs-target="#exampleModalToggle">Ürün Ekle</button></div>  
+    <div class="header"><b>Raf</b></div>            
+    <div><button type="button" class="btn btn-primary addProduct" data-bs-toggle="modal" data-bs-target="#exampleModalToggle2">Raf Panel</button></div>  
   </div>
 
     <div class="containerComponent">
-        <div class="containerInfo">Shelf ID</div>
-        <div class="containerInfo">Shelf Occupied Quantity</div>        
-        <div class="containerInfo">Stock ID</div>
-        <div class="containerInfo">Edit</div>
+        <div class="containerInfo">Raf ID</div>
+        <div class="containerInfo">Raf Ürün Sayısı</div>        
+        <div class="containerInfo">Ürün ID</div>
+        <div class="containerInfo">Düzenle</div>
     </div>
     <div *ngFor="let shelf of shelves; let i = index" class="containerComponent" (click)="selectShelf(i)">
         <div class="shelfDataDiv">{{ shelf.id }}</div>
@@ -21,23 +21,6 @@
           <div class="grid-item"><i class="bi bi-trash3" data-bs-toggle="modal" data-bs-target="#shelfRemoveModalToggle"></i></div>                     
         </div> 
       </div>     
-</div>
-
-<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Modal 1</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Show a second modal and hide this one with the button below.
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Open second modal</button>
-      </div>
-    </div>
-  </div>
 </div>
 
 <!-- Stok Silme Modal -->
@@ -54,6 +37,46 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
         <button type="button" class="btn btn-danger" (click)="removeShelf()">Sil</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalToggleLabel">İşlem Tipi</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Raf ekleme formu -->
+        <form [formGroup]="shelfForm">
+          <div class="mb-3">
+            <label for="type" class="form-label">Ürün Tipi</label>
+            <select class="form-control" id="type" (change)="onTypeChange($event)">
+              <option value="" selected>Seçiniz...</option>
+              <option *ngFor="let typeOption of typeOptions" value="{{typeOption.value}}">{{typeOption.label}}</option>
+            </select>
+          </div>
+
+          <!-- Raf ekleme için görüntülenecek içerik -->
+          <div *ngIf="selectedType === 'Raf Ekle'">           
+            <div class="mb-3">
+              <label for="stockId" class="form-label">Ürün ID</label>
+              <input type="number" formControlName="stockId" class="form-control" id="stockId" min="1">
+            </div>
+            <div class="mb-3">
+              <label for="occupiedQuantity" class="form-label">Raftaki Ürün Sayısı</label>
+              <input type="number" formControlName="occupiedQuantity" class="form-control" id="occupiedQuantity" min="0" max="5">
+            </div>
+          </div>
+                                                                                            
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+        <button type="button" class="btn btn-primary" (click)="saveShelf()">Kaydet</button>
       </div>
     </div>
   </div>

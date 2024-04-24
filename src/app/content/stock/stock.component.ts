@@ -9,6 +9,12 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './stock.component.scss'
 })
 export class StockComponent implements OnInit {
+  processOptions: { value: string; label: string }[] = [
+    { value: 'Add Product', label: 'Add Product' },
+    { value: 'Remove Product', label: 'Remove Product' },
+    { value: 'Decrease Quantity', label: 'Decrease Quantity' }    
+    // Add more options as needed
+  ];
 
   typeOptions: { value: string; label: string }[] = [
     { value: 'CPU', label: 'CPU' },
@@ -20,8 +26,7 @@ export class StockComponent implements OnInit {
     { value: 'CPU Cooler', label: 'CPU Cooler' },
     // Add more options as needed
   ];
-
-  selectedType: string = ''; // Initialize selected value
+  
   constructor(
     private stockService: StockService,
     private toastr: ToastrService,
@@ -52,8 +57,21 @@ export class StockComponent implements OnInit {
       this.selectedStockIdForRemove = this.stock[index].id;     
   }
 
+  selectedType: string = ''; // Initialize selected value
   onTypeChange(event: any) {
     this.selectedType = event.target.value;    
+  }
+
+  selectedProcess: string = ''; // Initialize selected value
+  onProcessChange(event: any) {
+    this.selectedProcess = event.target.value;
+    if (this.selectedProcess === "Decrease Quantity") {
+        this.testMethod();
+    }
+  }
+
+  testMethod() {
+    this.selectedType = '';
   }
 
 

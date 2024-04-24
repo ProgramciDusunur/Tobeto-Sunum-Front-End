@@ -5,3 +5,10 @@ export interface StockAlert {
     stockId: number;
     // Diğer özellikler...
   }
+
+  // Interface tanımı
+export interface RequestStockAlert {
+  stockId: number;  
+  alertQuantity: number;  
+  // Diğer özellikler...
+}

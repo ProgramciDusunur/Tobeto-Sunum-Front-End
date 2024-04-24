@@ -1,22 +1,22 @@
 <div class="container">
 <div class="containerComponent">    
   <div></div>
-  <div class="header"><b>Stock Alert</b></div>
+  <div class="header"><b>Stok Uyarı</b></div>
   <div><button type="button" class="btn btn-primary addProduct" data-bs-toggle="modal" data-bs-target="#exampleModalToggle">Stok Uyarı Bilgisi</button></div>  
 </div>
     <div class="containerComponent">
-        <div class="containerInfo">StockAlert ID</div>
-        <div class="containerInfo">Stock ID</div>        
-        <div class="containerInfo">Alert Quantity</div>
-        <div class="containerInfo">Edit</div>
+        <div class="containerInfo">Stok Uyarı ID</div>
+        <div class="containerInfo">Ürün ID</div>        
+        <div class="containerInfo">Uyarı Miktarı</div>
+        <div class="containerInfo">Düzenle</div>
     </div>
-    <div *ngFor="let stockAlert of stockAlerts" class="containerComponent">
+    <div *ngFor="let stockAlert of stockAlerts; let i = index" class="containerComponent" (click)="selectStockAlert(i)">
         <div class="shelfDataDiv">{{ stockAlert.id }}</div>
         <div class="shelfDataDiv">{{ stockAlert.stockId }}</div>
         <div class="shelfDataDiv">{{ stockAlert.alertQuantity }}</div>                         
         <div class="grid-container">
           <div class="grid-item"><i class="bi bi-pen" data-bs-toggle="modal" data-bs-target="#exampleModalToggle"></i></div>      
-          <div class="grid-item"><i class="bi bi-trash3"></i></div>                     
+          <div class="grid-item"><i class="bi bi-trash3" data-bs-toggle="modal" data-bs-target="#stockAlertRemoveModalToggle"></i></div>                     
         </div> 
       </div>     
 </div>
@@ -25,14 +25,58 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Modal 1</h1>
+        <h5 class="modal-title" id="exampleModalToggleLabel">Kullanıcı Paneli</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Show a second modal and hide this one with the button below.
+        <!-- Stok Uyarı bilgilerini düzenleme formu -->
+        <form [formGroup]="stockAlertForm">
+          <div class="mb-3">
+            <label for="type" class="form-label">İşlem Tipi</label>
+            <select class="form-control" id="type" (change)="onTypeChange($event)">
+              <option value="" selected>Seçiniz...</option>
+              <option *ngFor="let typeOption of typeOptions" value="{{typeOption.value}}">{{typeOption.label}}</option>
+            </select>
+          </div>
+          
+          
+          <!-- Kullanıcı eklemek istendiğinde görüntülenecek içerik -->
+          <div *ngIf="selectedType === 'addStockAlert'">            
+            <div class="mb-3">
+              <label for="stockId" class="form-label">Ürün ID</label>
+              <input type="number" formControlName="stockId"  class="form-control" id="stockId" min="1">
+            </div>
+            <div class="mb-3">
+              <label for="alertQuantity" class="form-label">Stok Uyarı Miktarı</label>
+              <input type="number" formControlName="stockAlertQuantity" class="form-control" id="alertQuantity" min="1">
+            </div>           
+          </div>  
+          
+          
+        </form>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Open second modal</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+        <button type="button" class="btn btn-primary" (click)="saveStockAlert()">Kaydet</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Stok Uyarısı Silme Modal -->
+<div class="modal fade" id="stockAlertRemoveModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalToggleLabel">Stok Ürününü Sil</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="text-center">Bu işlemi gerçekleştirmek istediğinizden emin misiniz?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
+        <button type="button" class="btn btn-danger" (click)="removeStockAlert()">Sil</button>
       </div>
     </div>
   </div>
