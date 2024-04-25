@@ -20,6 +20,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ProductComponent } from './content/product/product.component';
+import { TypeComponent } from './content/type/type.component';
 
 
 
@@ -37,7 +38,8 @@ import { ProductComponent } from './content/product/product.component';
     StockComponent,
     EmployeeComponent,
 
-    ProductComponent    
+    ProductComponent,
+      TypeComponent    
 
   ],
   imports: [

@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
     'Raf': false,
     'Bootstrap': false,
     'Ürün': false,
+    'Stok': false,
     'Çalışan': false,
     'Stok Uyarısı': false
   };

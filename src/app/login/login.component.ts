@@ -37,7 +37,7 @@ export class LoginComponent {
       this.loginService.login(email, password).subscribe({
         next: (resp) => {
           // login başarılı cevabı döndü
-          this.toastr.success('Giriş Yapıldı.');                    
+          this.toastr.info('Giriş Yapıldı.');          
           this.router.navigateByUrl('/dashboard');                    
         },
         error: (err) => {

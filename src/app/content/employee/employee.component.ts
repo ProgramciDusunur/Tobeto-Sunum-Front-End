@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from '../../service/employee/employee.service';
-import { Employee, RequestEmployee } from '../../service/models/employee.model';
+import { AdminPasswordEmployee, Employee, RequestEmployee } from '../../service/models/employee.model';
 import { ToastrService } from 'ngx-toastr';
 import { FormControl, FormGroup } from "@angular/forms";
 
@@ -14,6 +14,7 @@ import { FormControl, FormGroup } from "@angular/forms";
 export class EmployeeComponent implements OnInit {
   typeOptions: { value: string; label: string }[] = [
     { value: 'addUser', label: 'Kullanıcı Ekle' },    
+    { value: 'changePassword', label: 'Şifre Değiştir' },    
     // Add more options as needed
   ];
 
@@ -28,6 +29,11 @@ export class EmployeeComponent implements OnInit {
     email: '',
     role: ''
   };
+
+  changePasswordEmployee: AdminPasswordEmployee = {
+    newPassword: "",
+    email: ""
+  }
   
   employees: Employee[] = [];
   selectedType: string = '';
@@ -43,6 +49,9 @@ export class EmployeeComponent implements OnInit {
     email: new FormControl(""),
     role: new FormControl(""),
     password: new FormControl(""),
+    changePassword: new FormControl(""),
+    changePasswordEmail: new FormControl(""),
+
   });
 
 
@@ -103,6 +112,38 @@ export class EmployeeComponent implements OnInit {
       this.employee.password = passwordControl.value;   
       this.employee.role = roleControl.value;      
       this.addEmployee(this.employee);
+    } else {
+      // En az bir form elemanının değeri geçerli değil
+      alert("Bütün alanları doldurun.");
+    }
+  }
+
+  changePassword(newPassword: string, email: string) {
+    this.employeeService.changePasswordAdmin(newPassword, email).subscribe(
+      (data) => {
+        this.toastr.success("Admin tarafından kullanıcının şifresi başarıyla değiştirildi.");        
+      },
+      (error) => {
+        this.toastr.error("Admin tarafından kullanıcının şifre değişimi başarısız oldu.");        
+      }
+    );
+  }
+
+  saveChangedPassword() {
+    const changePasswordControl = this.personForm.get('changePassword');
+    const changePasswordEmailControl = this.personForm.get('changePasswordEmail');
+
+    const isNameValid = changePasswordControl !== null && changePasswordControl.value !== "";
+    const isSurnameValid = changePasswordEmailControl !== null && changePasswordEmailControl.value !== "";
+
+    const isAllValid = isNameValid && isSurnameValid;
+
+    if (isAllValid) {
+      // Tüm form elemanlarının değerleri geçerli
+      this.changePasswordEmployee.newPassword= changePasswordControl.value;
+      this.changePasswordEmployee.email = changePasswordEmailControl.value
+      alert("Email:  "+ this.changePasswordEmployee.email);
+      this.changePassword(this.changePasswordEmployee.newPassword, this.changePasswordEmployee.email);
     } else {
       // En az bir form elemanının değeri geçerli değil
       alert("Bütün alanları doldurun.");

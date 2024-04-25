@@ -37,7 +37,7 @@
         <!-- Kullanıcı bilgilerini düzenleme formu -->
         <form [formGroup]="personForm">
           <div class="mb-3">
-            <label for="type" class="form-label">Type</label>
+            <label for="type" class="form-label">İşlem Tipi</label>
             <select class="form-control" id="type" (change)="onTypeChange($event)">
               <option value="" selected>Seçiniz...</option>
               <option *ngFor="let typeOption of typeOptions" value="{{typeOption.value}}">{{typeOption.label}}</option>
@@ -72,13 +72,34 @@
               <input type="text" class="form-control" formControlName="password" id="userPassword" min="1">
             </div>
 
-          </div>                                
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+              <button type="button" class="btn btn-primary" (click)="saveUser()">Kaydet</button>
+            </div>
+          </div>  
+
+
+          <div *ngIf="selectedType === 'changePassword'">            
+            <div class="mb-3">
+              <label for="userEmail" class="form-label">Kullanıcı Email</label>
+              <input type="text" formControlName="changePasswordEmail" class="form-control" id="userEmail">
+            </div>
+            <div class="mb-3">
+              <label for="userPassword" class="form-label">Yeni Şifre</label>
+              <input type="text" formControlName="changePassword" class="form-control" id="userPassword">
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+              <button type="button" class="btn btn-primary" (click)="saveChangedPassword()">Kaydet</button>
+            </div>
+            
+          </div>
+          
+          
         </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
-        <button type="button" class="btn btn-primary" (click)="saveUser()">Kaydet</button>
-      </div>
+     
     </div>
   </div>
 </div>

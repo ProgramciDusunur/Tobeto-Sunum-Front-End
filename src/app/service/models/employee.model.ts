@@ -17,3 +17,9 @@ export interface RequestEmployee {
   role: any;
   // Diğer özellikler...
 }
+
+export interface AdminPasswordEmployee {
+  newPassword: any;  
+  email: any;
+  // Diğer özellikler...
+}

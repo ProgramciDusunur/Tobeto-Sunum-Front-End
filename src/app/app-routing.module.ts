@@ -8,6 +8,7 @@ import { HomeComponent } from './content/home/home.component';
 import { StockalertComponent } from './content/stockalert/stockalert.component';
 import { StockComponent } from './content/stock/stock.component';
 import { EmployeeComponent } from './content/employee/employee.component';
+import { TypeComponent } from './content/type/type.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
       {path: 'home', component: HomeComponent},
       {path: 'stockalert', component: StockalertComponent},
       {path: 'stock', component: StockComponent},
+      {path: 'type', component: TypeComponent},
       {path: 'employee', component: EmployeeComponent},
     ]
   },

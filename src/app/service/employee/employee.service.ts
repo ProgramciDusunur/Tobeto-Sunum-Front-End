@@ -18,6 +18,7 @@ export class EmployeeService {
   private addEmployeeUrl = this.apiUrl+'/employee/add';
   private removeSpecificEmployeeUrl = this.apiUrl + '/employee/del';
   private changePasswordEmployeeUrl = this.apiUrl+'/employee/edit/password'
+  private changePasswordAdminEmployeeUrl = this.apiUrl+'/employee/edit/password/admin'
 
 
   constructor(private http: HttpClient) { }
@@ -51,6 +52,13 @@ export class EmployeeService {
                   newPassword: newPassword,
                   email: employeeEmail};
     return this.http.post<Employee>(this.changePasswordEmployeeUrl, body, { headers });
+  }
+
+  changePasswordAdmin(newPassword: string, email: string): Observable<Employee> {
+    const headers = this.createAuthHeader();
+    const body = {newPassword: newPassword,                  
+                  email: email};
+    return this.http.post<Employee>(this.changePasswordAdminEmployeeUrl, body,  {headers});
   }
   
 }

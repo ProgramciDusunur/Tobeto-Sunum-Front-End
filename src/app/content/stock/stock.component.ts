@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { StockService } from '../../service/stock/stock.service';
 import { Stock } from '../../service/models/stock.models';
 import { ToastrService } from 'ngx-toastr';
+import { TypeService } from '../../service/type/type.service';
+import { Cpu } from '../../service/models/type.model';
 
 @Component({
   selector: 'app-stock',
@@ -30,6 +32,7 @@ export class StockComponent implements OnInit {
   constructor(
     private stockService: StockService,
     private toastr: ToastrService,
+    private typeService: TypeService,
 
   ) {}
 
@@ -44,7 +47,7 @@ export class StockComponent implements OnInit {
         this.stock = data;
       },
       (error) => {
-        console.error('Error fetching stock:', error);
+        
       }
     );
   }
@@ -96,16 +99,59 @@ export class StockComponent implements OnInit {
   }
 
   removeStock() {
-    const whichId = this.selectedStockIdForRemove;
-    console.log("Cope bastiktan sonra secilmis stock: ", whichId);
+    const whichId = this.selectedStockIdForRemove;    
     this.stockService.removeSpecificStock(whichId).subscribe(
       (data) => {
         this.toastr.success("Stock succesfully removed.");        
       },
       (error) => {
-        this.toastr.error("Stock can't removed.");        
+        this.toastr.error("Stock can't removed.");          
       }
     );
+  }
+
+
+  cpuInfo: Cpu = {
+    id: 0,
+    brand: "",
+    clockSpeed: 0,
+    socketType: "",
+    generation: "",  
+    series: "",
+    coreCount: 0,
+    model: ""  
+  }
+
+  getCpu(cpuId: number) {    
+    this.typeService.getCpu(cpuId).subscribe(
+      (data) => {
+        this.cpuInfo = data;
+        console.log(data);
+        this.toastr.info("İşlemci bilgisi başarıyla alındı.");        
+      },
+      (error) => {
+        this.toastr.error("İşlemci bilgisi alınamadı.");          
+      }
+    );
+  }
+
+  typeInformation(whichType: string, typeId: number) {    
+    if (whichType === "cpu") {
+      this.getCpu(typeId);
+      alert("Kullanıcı cpu bilgisi istiyor.");
+    } else if (whichType === "gpu") {
+      alert("Kullanıcı gpu bilgisi istiyor.");
+    } else if (whichType === "psu") {
+      alert("Kullanıcı psu bilgisi istiyor.");
+    } else if (whichType === "cpuCooler") {
+      alert("Kullanıcı cpuCooler bilgisi istiyor.");
+    } else if (whichType === "motherboard") {
+      alert("Kullanıcı motherboard bilgisi istiyor.");
+    } else if (whichType === "ram") {
+      alert("Kullanıcı ram bilgisi istiyor.");
+    } else if (whichType === "desktopCase") {
+      alert("Kullanıcı deskstopCase bilgisi istiyor.");
+    }            
   }
 
 

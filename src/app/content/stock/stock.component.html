@@ -5,11 +5,11 @@
     <div></div>
     <div><b>Stok</b></div>
     <div></div>
-    <div><button type="button" class="btn btn-primary addProduct" data-bs-toggle="modal" data-bs-target="#exampleModalToggle2">Ürün Ekle</button></div>  
+    <div><button type="button" class="btn btn-primary addProduct" data-bs-toggle="modal" data-bs-target="#exampleModalToggle2">Ürün Paneli</button></div>  
   </div>
 
     <div class="containerComponent">
-        <div class="containerInfo">Ürün ID</div>
+        <div class="containerInfo">Stok ID</div>
         <div class="containerInfo">Tipi</div>        
         <div class="containerInfo">Sayısı</div>
         <div class="containerInfo">Tip ID</div>
@@ -21,8 +21,9 @@
         <div class="shelfDataDiv">{{ stock.quantity }}</div>
         <div class="shelfDataDiv">{{ stock.typeId}}</div>                         
         <div class="grid-container">
-          <div class="grid-item"><i class="bi bi-pen" data-bs-toggle="modal" data-bs-target="#exampleModalToggle"></i></div>      
+          <div class="grid-item"><i class="bi bi-pen"></i></div>      
           <div class="grid-item"><i class="bi bi-trash3" data-bs-toggle="modal" data-bs-target="#stockRemoveModalToggle"></i></div>                     
+          <div class="grid-item"><i class="bi bi-info-circle" (click)="typeInformation(stock.type, stock.typeId)" data-bs-toggle="modal" data-bs-target="#exampleModalToggle"></i></div>
         </div> 
       </div>     
 </div>
@@ -32,26 +33,26 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalToggleLabel">Stok Bilgilerini Düzenle</h5>
+        <h5 class="modal-title" id="exampleModalToggleLabel">Ürün Bilgileri</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <!-- Stok bilgilerini düzenleme formu -->
         <form>
           <div class="mb-3">
-            <label for="stockId" class="form-label">Ürün ID</label>
+            <label for="stockId" class="form-label">Ürünün Stok ID</label>
             <input type="text" class="form-control" id="stockId" [value]="selectedStock?.id" disabled>
           </div>
           <div class="mb-3">
-            <label for="type" class="form-label">Tip</label>
-            <input type="text" class="form-control" id="type" disabled>
+            <label for="type" class="form-label">Hangi Parça</label>
+            <input type="text" class="form-control" id="type" [value]="selectedStock?.type" disabled>
           </div>
           <div class="mb-3">
-            <label for="quantity" class="form-label">Sayısı</label>
-            <input type="number" class="form-control" id="quantity" aria-label="Number value for quantity" placeholder="Eksi değer stok azaltma, artı değer stok arttırma.">
+            <label for="quantity" class="form-label">Ürün Sayısı</label>
+            <input type="number" class="form-control" id="quantity" aria-label="Number value for quantity" [value]="selectedStock?.quantity" disabled>
           </div>          
           <div class="mb-3">
-            <label for="typeId" class="form-label">Tip ID</label>
+            <label for="typeId" class="form-label">Marka</label>
             <input type="text" class="form-control" id="typeId" disabled>
           </div>
         </form>
