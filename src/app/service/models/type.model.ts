@@ -14,7 +14,7 @@ export interface Cpu {
 export interface CpuCooler {
     id: number;
     type: string;
-    fenLength: string;
+    fanLength: string;
     rpm: number;  
     material: string;  
     led: string;  
@@ -50,7 +50,7 @@ export interface Gpu {
 
 export interface Motherboard {
     id: number;  
-    cpuSockeType: string;  
+    cpuSocketType: string;  
     cpuCompatibility: boolean;  
     ramType: string;  
     size: string;  
@@ -63,7 +63,7 @@ export interface Motherboard {
 export interface Psu {
     id: number;  
     watt: number;  
-    effiency: string;  
+    efficiency: string;  
     modular: boolean;  
     type: string;  
     pcieGen5Support: boolean;  

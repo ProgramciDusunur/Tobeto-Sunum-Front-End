@@ -3,7 +3,7 @@ import { StockService } from '../../service/stock/stock.service';
 import { Stock } from '../../service/models/stock.models';
 import { ToastrService } from 'ngx-toastr';
 import { TypeService } from '../../service/type/type.service';
-import { Cpu } from '../../service/models/type.model';
+import { Cpu, CpuCooler, DesktopCase, Gpu, Motherboard, Psu, Ram } from '../../service/models/type.model';
 
 @Component({
   selector: 'app-stock',
@@ -110,6 +110,14 @@ export class StockComponent implements OnInit {
     );
   }
 
+  /**********************************\
+   ==================================
+
+                 CPU
+
+   ==================================
+  \**********************************/
+
 
   cpuInfo: Cpu = {
     id: 0,
@@ -135,22 +143,232 @@ export class StockComponent implements OnInit {
     );
   }
 
-  typeInformation(whichType: string, typeId: number) {    
+
+  /**********************************\
+   ==================================
+
+              CPU Cooler
+
+   ==================================
+  \**********************************/
+
+
+  cpuCoolerInfo: CpuCooler = {
+    id: 0,
+    type: '',
+    fanLength: '',
+    rpm: 0,
+    material: '',
+    led: '',
+    brand: '',
+    model: ''
+  }
+
+  getCpuCooler(cpuCoolerId: number) {    
+    this.typeService.getCpuCooler(cpuCoolerId).subscribe(
+      (data) => {
+        this.cpuCoolerInfo = data;
+        console.log(data);
+        this.toastr.info("Soğutucu bilgisi başarıyla alındı.");        
+      },
+      (error) => {
+        this.toastr.error("Soğutucu bilgisi alınamadı.");          
+      }
+    );
+  }
+
+
+  /**********************************\
+   ==================================
+
+                 GPU
+
+   ==================================
+  \**********************************/
+
+  gpuInfo: Gpu = {
+    id: 0,
+    brand: "",
+    producer: "",
+    series: "",
+    model: "",      
+    vram: 0,
+    memoryInterface: 0
+  }
+
+  getGpu(gpuId: number) {    
+    this.typeService.getGpu(gpuId).subscribe(
+      (data) => {
+        this.gpuInfo = data;
+        console.log(data);
+        this.toastr.info("Ekran Kartı bilgisi başarıyla alındı.");        
+      },
+      (error) => {
+        this.toastr.error("Ekran Kartı bilgisi alınamadı.");          
+      }
+    );
+  }
+
+
+  /**********************************\
+   ==================================
+
+                 PSU
+
+   ==================================
+  \**********************************/
+
+  psuInfo: Psu = {
+    id: 0,
+    watt: 0,
+    efficiency: "",
+    modular: false,
+    type: "",      
+    pcieGen5Support: false,
+    brand: "",
+    model: ""
+  }
+
+  getPsu(psuId: number) {    
+    this.typeService.getPsu(psuId).subscribe(
+      (data) => {
+        this.psuInfo = data;
+        console.log(data);
+        this.toastr.info("Güç Kaynağı bilgisi başarıyla alındı.");        
+      },
+      (error) => {
+        this.toastr.error("Güç Kaynağı bilgisi alınamadı.");          
+      }
+    );
+  }
+
+
+
+  /**********************************\
+   ==================================
+
+                 RAM
+
+   ==================================
+  \**********************************/
+
+  ramInfo: Ram = {
+    id: 0,
+    type: '',
+    capacity: 0,
+    frequencySpeed: 0,
+    channelType: '',
+    compatibility: '',
+    brand: '',
+    model: ''
+  }
+
+  getRam(ramId: number) {    
+    this.typeService.getRam(ramId).subscribe(
+      (data) => {
+        this.ramInfo = data;
+        console.log(data);
+        this.toastr.info("Ram bilgisi başarıyla alındı.");        
+      },
+      (error) => {
+        this.toastr.error("Ram bilgisi alınamadı.");          
+      }
+    );
+  }
+
+
+
+
+
+
+  /**********************************\
+   ==================================
+
+              Motherboard
+
+   ==================================
+  \**********************************/
+
+  motherboardInfo: Motherboard = {
+    id: 0,
+    cpuSocketType: '',
+    cpuCompatibility: false,
+    ramType: '',
+    size: '',
+    ramSlots: 0,
+    brand: '',
+    model: ''
+  }
+
+  getMotherboard(motherboardId: number) {    
+    this.typeService.getMotherboard(motherboardId).subscribe(
+      (data) => {
+        this.motherboardInfo = data;
+        console.log(data);
+        this.toastr.info("Anakart bilgisi başarıyla alındı.");        
+      },
+      (error) => {
+        this.toastr.error("Anakart bilgisi alınamadı.");          
+      }
+    );
+  }
+
+  /**********************************\
+   ==================================
+
+              Desktop Case
+
+   ==================================
+  \**********************************/
+
+  desktopCaseInfo: DesktopCase = {
+    id: 0,
+    brand: '',
+    model: '',
+    type: '',
+    psu: false,
+    psuLocation: '',
+    transparent: false,
+    psuWatt: 0
+  }
+
+  getDesktopCase(desktopCaseId: number) {    
+    this.typeService.getDesktopCase(desktopCaseId).subscribe(
+      (data) => {
+        this.desktopCaseInfo = data;
+        console.log(data);
+        this.toastr.info("Kasa bilgisi başarıyla alındı.");        
+      },
+      (error) => {
+        this.toastr.error("Kasa bilgisi alınamadı.");          
+      }
+    );
+  }
+
+  selectedGlobalType: string = '';
+
+  typeInformation(whichType: string, typeId: number) {
+    this.selectedGlobalType = whichType;    
     if (whichType === "cpu") {
-      this.getCpu(typeId);
-      alert("Kullanıcı cpu bilgisi istiyor.");
+      this.getCpu(typeId);      
+
     } else if (whichType === "gpu") {
-      alert("Kullanıcı gpu bilgisi istiyor.");
-    } else if (whichType === "psu") {
-      alert("Kullanıcı psu bilgisi istiyor.");
-    } else if (whichType === "cpuCooler") {
-      alert("Kullanıcı cpuCooler bilgisi istiyor.");
+      this.getGpu(typeId);      
+
+    } else if (whichType === "psu") {      
+      this.getPsu(typeId);
+
+    } else if (whichType === "cpuCooler") {      
+      this.getCpuCooler(typeId);
+
     } else if (whichType === "motherboard") {
-      alert("Kullanıcı motherboard bilgisi istiyor.");
+      this.getMotherboard(typeId);
+
     } else if (whichType === "ram") {
-      alert("Kullanıcı ram bilgisi istiyor.");
+      this.getRam(typeId);
+
     } else if (whichType === "desktopCase") {
-      alert("Kullanıcı deskstopCase bilgisi istiyor.");
+      this.getDesktopCase(typeId);
     }            
   }
 
