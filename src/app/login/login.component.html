@@ -1,4 +1,4 @@
-<form id="login-form" [formGroup]="loginForm" (ngSubmit)="submit()">
+<!-- <form id="login-form" [formGroup]="loginForm" (ngSubmit)="submit()">
   <fieldset>
     <legend>Hoşgeldiniz</legend>
     <div>
@@ -11,4 +11,32 @@
     </div>
     <button type="submit" class="buttonMargin">Giriş</button>
   </fieldset>
-</form>
+</form> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+  <div class="page-header header-filter" style="background-image: url('https://cdn.discordapp.com/attachments/1210634869907128361/1233404825517948928/aisle-of-warehouse-free-photo.png?ex=662cf941&is=662ba7c1&hm=37fb9dd95c7edb2f2900b3d8a66968a05fb0837d0ea7b68d891fa264e951034a& 6000w'); background-size: cover; background-position: top center;"></div>
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+        <!-- <i class="bi bi-person icon iconSettings active"></i> -->
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <h2 class="active"> Giriş Yap </h2>
+      </div>
+  
+      <!-- Login Form -->
+      <form id="login-form" [formGroup]="loginForm" (ngSubmit)="submit()">
+        <input type="text" id="email" class="fadeIn second" name="email" placeholder="email" formControlName="email">
+        <input type="password" id="password" class="fadeIn third" name="password" placeholder="password" formControlName="password">
+        <input type="submit" class="fadeIn fourth" value="Giriş">
+      </form>
+          
+    </div>
+  </div>
+
+</body>
+</html>   
