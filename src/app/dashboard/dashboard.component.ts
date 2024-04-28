@@ -8,8 +8,19 @@ import { LoginService } from '../service/login/login.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
+
+
 export class DashboardComponent implements OnInit {
 
+  toggleSidebar() {
+    const sidebar = document.querySelector("#sidebar");
+    if (sidebar instanceof HTMLElement) {
+        sidebar.classList.toggle("expand");
+    } else {
+        console.error("Element with id 'sidebar' not found.");
+    }
+  }
+  
 
   componentEnabled: { [key: string]: boolean } = {
     'Anasayfa': false,

@@ -319,49 +319,19 @@
             </div>
             <div class="mb-3">
               <label for="cpuSocketType" class="form-label">Socket Type</label>
-              <select class="form-control" id="cpuSocketType">     
-                <option value="" selected>Seçiniz...</option>                           
-                <option value="AM5">AM5</option>
-                <option value="AM4">AM4(5000 serisi)</option>
-                <option value="1700">1700</option>
-                <option value="1200">1200(400 serisi)</option>
-              </select>
+              <input type="text" class="form-control" id="cpuSocketType">
             </div>
             <div class="mb-3">
               <label for="cpuGeneration" class="form-label">Generation</label>
-              <select class="form-control" id="cpuGeneration">     
-                <option value="" selected>Seçiniz...</option>                           
-                <option value="12.Nesil">12.Nesil Intel</option>
-                <option value="13.Nesil">13.Nesil Intel</option>
-                <option value="14.Nesil">14.Nesil Intel</option>
-                <option value="RYZEN 5000">RYZEN 5000 Serisi</option>
-                <option value="RYZEN 7000">RYZEN 7000 Serisi</option>
-                <option value="RYZEN 8000">RYZEN 8000 Serisi</option>
-              </select>
+              <input type="text" class="form-control" id="cpuGeneration">
             </div>
             <div class="mb-3">
               <label for="cpuSeries" class="form-label">Series</label>
-              <select class="form-control" id="cpuSeries">     
-                <option value="" selected>Seçiniz...</option>                           
-                <option value="i5">Core i5</option>
-                <option value="i5">Core i7 </option>
-                <option value="i7">Core i9 </option>
-                <option value="Ryzen 5">Ryzen 5</option>
-                <option value="Ryzen 7">Ryzen 7</option>
-                <option value="Ryzen 9">Ryzen 9</option>
-              </select>
+              <input type="text" class="form-control" id="cpuSeries">
             </div>
             <div class="mb-3">
               <label for="cpuCoreCount" class="form-label">Core Count</label>
-              <select class="form-control" id="cpuCoreCount">     
-                <option value="" selected>Seçiniz...</option>                           
-                <option value="6 Çekirdek">6 Çekirdek</option>
-                <option value="8 Çekirdek">8 Çekirdek </option>
-                <option value="10 Çekirdek">10 Çekirdek </option>
-                <option value="12 Çekirdek">12 Çekirdek</option>
-                <option value="14 Çekirdek">14 Çekirdek</option>
-                <option value="16 Çekirdek">16 Çekirdek</option>
-              </select>
+              <input type="text" class="form-control" id="cpuCoreCount">
             </div>
             <div class="mb-3">
               <label for="cpuModel" class="form-label">Model</label>
@@ -369,63 +339,34 @@
             </div>
             <div class="mb-3">
               <label for="cpuQuantity" class="form-label">Quantity</label>
-              <input type="number" class="form-control" id="cpuQuantity" min="1">
+              <input type="number" class="form-control" id="cpuQuantity">
             </div>
-          </div>
-         
+          </div>         
             <!-- GPU tipi seçildiğinde görüntülenecek içerik -->
             <div *ngIf="selectedType === 'GPU'">
               <div class="mb-3">
                 <label for="gpuBrand" class="form-label">Brand</label>
-                <select class="form-control" id="gpuBrand">     
-                  <option value="" selected>Seçiniz...</option>                           
-                  <option value="ASUS">ASUS</option>
-                  <option value="MSI">MSI </option>
-                  <option value="GIGABYTE">GIGABYTE </option>
-                  <option value="PALIT">PALIT</option>
-                </select>
+                <input type="text" class="form-control" id="gpuBrand">
               </div>
               <div class="mb-3">
                 <label for="gpuProducer" class="form-label">GPU Producer</label>
-                <select class="form-control" id="gpuProducer">     
-                  <option value="" selected>Seçiniz...</option>                           
-                  <option value="NVDIA">NVDIA</option>
-                  <option value="AMD">AMD </option>
-                </select>
+                <input type="text" class="form-control" id="gpuProducer">
               </div>
               <div class="mb-3">
                 <label for="gpuSeries" class="form-label">Series</label>
-                <select class="form-control" id="gpuSeries">     
-                  <option value="" selected>Seçiniz...</option>                           
-                  <option value="GeForce 3000">GeForce 3000 Serisi</option>
-                  <option value="GeForce 4000">GeForce 4000 Serisi </option>
-                  <option value="Radeon 6000">Radeon 6000 Serisi </option>
-                  <option value="Radeon 7000">Radeon 7000 Serisi</option>
-                </select>
+                <input type="text" class="form-control" id="gpuSeries">
               </div>
               <div class="mb-3">
                 <label for="gpuModel" class="form-label">Model</label>
-                <input type="text" class="form-control" id="gbuModel">
+                <input type="text" class="form-control" id="gpuModel">
               </div>
               <div class="mb-3">
                 <label for="gpuVram" class="form-label">VRAM</label>
-                <select class="form-control" id="gpuVram">     
-                  <option value="" selected>Seçiniz...</option>                           
-                  <option value="8 GB">8 GB</option>
-                  <option value="12 GB">12 GB </option>
-                  <option value="16 GB">16 GB </option>
-                  <option value="20 GB">20 GB</option>
-                  <option value="24 GB">24 GB</option>
-                </select>
+                <input type="text" class="form-control" id="gpuVram">
               </div>
               <div class="mb-3">
                 <label for="gpuMemoryInterface" class="form-label">Memory Interface</label>
-                <select class="form-control" id="gpuMemoryInterface">     
-                  <option value="" selected>Seçiniz...</option>                           
-                  <option value="128-Bit">128-Bit</option>
-                  <option value="192-Bit">192-Bit </option>
-                  <option value="256-Bit">256-Bit </option>
-                </select>
+                <input type="text" class="form-control" id="gpuVram">
               </div>
               <div class="mb-3">
                 <label for="gpuQuantity" class="form-label">Quantity</label>
@@ -443,22 +384,12 @@
 
             <div class="mb-3">
               <label for="ramType" class="form-label">RAM Type</label>
-              <select class="form-control" id="ramType">     
-                <option value="" selected>Seçiniz...</option>                           
-                <option value="DDR5">DDR5</option>
-              </select>
+              <input type="text" class="form-control" id="ramType">
             </div>
 
             <div class="mb-3">
               <label for="ramCapacity" class="form-label">RAM Capacity</label>
-              <select class="form-control" id="ramCapacity">                
-                <option value="" selected>Seçiniz...</option>
-                <option value="2GB">2GB</option>
-                <option value="4GB">4GB</option>
-                <option value="8GB">8GB</option>
-                <option value="16GB">16GB</option>
-                <option value="32GB">32GB</option>
-              </select>
+              <input type="text" class="form-control" id="ramType">
             </div>
 
             <div class="mb-3">
@@ -500,27 +431,11 @@
           <div *ngIf="selectedType === 'PSU'">
             <div class="mb-3">
               <label for="psuWatt" class="form-label">Watt</label>
-              <select class="form-control" id="psuWatt">     
-                <option value="" selected>Seçiniz...</option>                           
-                <option value="600W">600W</option>
-                <option value="650W">650W </option>
-                <option value="700W">700W </option>
-                <option value="750W">750W</option>
-                <option value="850W">850W </option>
-                <option value="1000W">1000W </option>
-                <option value="1200W">1200W </option>
-                <option value="1600W">1600W </option>
-              </select>
+              <input type="number" class="form-control" id="psuWatt">
             </div>
             <div class="mb-3">
               <label for="psuEfficiency" class="form-label">Efficiency</label>
-              <select class="form-control" id="psuEfficiency">     
-                <option value="" selected>Seçiniz...</option>                           
-                <option value="80 TITANIUM">80 PLUS TITANIUM</option>
-                <option value="80 PLATINUM">80 PLUS PLATINUM </option>
-                <option value="80 GOLD">80 PLUS GOLD </option>
-                <option value="80 BRONZE">80 PLUS BRONZE</option>
-              </select>
+              <input type="text" class="form-control" id="psuEfficiency">
             </div>
             <div class="mb-3">
               <label for="psuModular" class="form-label">Modular</label>
@@ -533,12 +448,7 @@
             </div>
             <div class="mb-3">
               <label for="psuType" class="form-label">Type</label>
-              <select class="form-control" id="psuType">
-                <option value="" selected>Seçiniz...</option>
-                <option value="ATX">ATX</option>
-                <option value="ATX12V">ATX12V</option>
-                <option value="SFX">SFX</option>
-              </select>
+              <input type="text" class="form-control" id="psuWatt">
             </div>
             <div class="mb-3">
               <label for="psuPcieGen5Support" class="form-label">PCIe Gen 5 Support</label>
