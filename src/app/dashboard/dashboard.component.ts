@@ -5,6 +5,8 @@ import { LoginService } from '../service/login/login.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { EmployeeService } from '../service/employee/employee.service';
 import { ToastrService } from 'ngx-toastr';
+import { Injectable } from '@angular/core';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +15,9 @@ import { ToastrService } from 'ngx-toastr';
 })
 
 
+
 export class DashboardComponent implements OnInit {
+
 
   toggleSidebar() {
     const sidebar = document.querySelector("#sidebar");
@@ -43,7 +47,9 @@ export class DashboardComponent implements OnInit {
     private dashboardService: DashboardService,
     private loginService: LoginService,
     private employeeService: EmployeeService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    
+    
     
   ) {
     this.currentUrl = this.router.url;    
@@ -122,6 +128,17 @@ export class DashboardComponent implements OnInit {
       // En az bir form elemanının değeri geçerli değil
       alert("Bütün alanları doldurun.");
     }
-  }
   
+    logout() ;{
+      this.logout();
+      this.router.navigateByUrl('/login');
+    }
+  }
+  public logout() {
+    this.router.navigate(['login']);
+  }
 }
+function logout() {
+  throw new Error('Function not implemented.');
+}
+
