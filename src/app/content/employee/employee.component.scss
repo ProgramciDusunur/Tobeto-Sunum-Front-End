@@ -1,5 +1,5 @@
 .container {
-    background-color: white;
+    background-color: #e6e6e6;
     border-radius: 5px;
     margin-top: 5vh;
 }
@@ -59,12 +59,12 @@
 .header {
     grid-column-start: 3; 
     grid-column: span 4;
-  }
+}
 
 
-  .addEmployee {
+.addEmployee {
     grid-column: 6;        
-  }
+}
 
 
   
