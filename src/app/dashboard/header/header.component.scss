@@ -2,13 +2,23 @@
     display: flex;
     justify-content: space-around; /* Elemanlar arasında boşluk bırakarak ortalama */
     align-items: center; /* Dikey olarak ortalama */
-    width: 12.5%;
+    width: 10%;
     height: 5vh;
     margin-right: 0;
-    margin-left: auto;
-    border-radius: 10%;
-    background-color: #222831;
+    margin-left: auto;    
+    background-color: #2862a4;
     color: whitesmoke;
+    border-radius: 10px;
+}
+
+ 
+.iconContainer {
+    display: flex;
+    justify-content: space-around; /* Elemanlar arasında boşluk bırakarak ortalama */
+    align-items: center; /* Dikey olarak ortalama */
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;    
 }
 
 .userAvatar {
@@ -18,7 +28,8 @@
 }
 
 .icon {
-    font-size: 25px;
+    font-size: 30px;
+    color: whitesmoke;
 }
 
 .userName{
