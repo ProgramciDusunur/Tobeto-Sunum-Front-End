@@ -56,16 +56,14 @@ export class EmployeeComponent implements OnInit {
 
 
   addEmployee(employee: RequestEmployee): void {    
-    this.employeeService.addEmployee(employee).subscribe(
-      (data: any) => {
-        this.toastr.success('Employee added successfully');
-        console.log('Employee added successfully');
+    this.employeeService.addEmployee(employee).subscribe({
+      next: (data) => {        
+        this.toastr.info("Kullanıcı başarıyla eklendi.");
       },
-      (error: any) => {
-        this.toastr.error('Error adding employee.');
-        console.error('Error adding employee:', error);
+      error: (error) => {
+        this.toastr.error("Kullanıcı eklemesi başarısız.");
       }
-    );
+    });   
   }
 
   selectedEmployee: any;

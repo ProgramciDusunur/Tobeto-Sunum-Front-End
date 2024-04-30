@@ -40,15 +40,15 @@ export class StockalertComponent implements OnInit {
 
   stockAlerts: StockAlert[] = [];
   ngOnInit(): void {
-    this.stockAlertService.getAllStockAlerts().subscribe(
-      (data: StockAlert[]) => {
+    this.stockAlertService.getAllStockAlerts().subscribe({
+      next: (data: StockAlert[]) => {
         this.stockAlerts = data;              
       },
-      (error) => {
-        console.error('Error fetching shelves:', error);
+      error: (error) => {
+        this.toastr.error('Stok uyarıları alınırken hata oluştu. Lütfen daha sonra tekrar deneyin.');
       }
-    );
-  }
+    });
+}
 
   selectedStockAlert: any; // Seçilen stokun verilerini tutmak için bir değişken
   selectedStockAlertIdForRemove: any;
@@ -59,26 +59,26 @@ export class StockalertComponent implements OnInit {
   }
 
   removeStockAlert(): void {    
-    this.stockAlertService.removeStockAlert(this.selectedStockAlertIdForRemove).subscribe(
-      (data: any) => {
-        this.toastr.success('Stock Alert removed successfully');
+    this.stockAlertService.removeStockAlert(this.selectedStockAlertIdForRemove).subscribe({
+      next: (data: any) => {
+        this.toastr.success('Stok Uyarısı başarıyla kaldırıldı');
       },
-      (error: any) => {
-        this.toastr.error('Error removing stock alert.');        
+      error: (error: any) => {
+        this.toastr.error('Stok uyarısı kaldırılırken hata oluştu. Lütfen daha sonra tekrar deneyin.');        
       }
-    );
-  }
+    });
+}
 
-  addStockAlert(stockAlert: RequestStockAlert): void {    
-    this.stockAlertService.addStockAlert(stockAlert.stockId, stockAlert.alertQuantity).subscribe(
-      (data: any) => {
-        this.toastr.success('Stock Alert added successfully');
-      },
-      (error: any) => {
-        this.toastr.error('Error adding stockalert.');        
-      }
-    );
-  }
+addStockAlert(stockAlert: RequestStockAlert): void {    
+  this.stockAlertService.addStockAlert(stockAlert.stockId, stockAlert.alertQuantity).subscribe({
+    next: (data: any) => {
+      this.toastr.success('Stok Uyarısı başarıyla eklendi');
+    },
+    error: (error: any) => {
+      this.toastr.error('Stok uyarısı eklenirken hata oluştu. Lütfen daha sonra tekrar deneyin.');        
+    }
+  });
+}
 
   saveStockAlert(): void {        
     const stockIdControl = this.stockAlertForm.get('stockId');

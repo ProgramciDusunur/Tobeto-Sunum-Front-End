@@ -44,15 +44,15 @@ export class StockComponent implements OnInit {
   }
 
   fetchStocks(): void {
-    this.stockService.getAllStocks().subscribe(
-      (data: Stock[]) => {
+    this.stockService.getAllStocks().subscribe({
+      next: (data: Stock[]) => {
         this.stock = data;
       },
-      (error) => {
-        
+      error: (error) => {
+        this.toastr.error('Stoklar alınırken hata oluştu. Lütfen daha sonra tekrar deneyin.');
       }
-    );
-  }
+    });
+}
 
   selectedStock: any; // Seçilen stokun verilerini tutmak için bir değişken
   selectedStockIdForRemove: any;
@@ -82,15 +82,15 @@ export class StockComponent implements OnInit {
 
   removeStock() {
     const whichId = this.selectedStockIdForRemove;    
-    this.stockService.removeSpecificStock(whichId).subscribe(
-      (data) => {
-        this.toastr.success("Stock succesfully removed.");        
+    this.stockService.removeSpecificStock(whichId).subscribe({
+      next: (data) => {
+        this.toastr.success("Stok başarıyla kaldırıldı.");
       },
-      (error) => {
-        this.toastr.error("Stock can't removed.");          
+      error: (error) => {
+        this.toastr.error("Stok kaldırılırken hata oluştu. Lütfen daha sonra tekrar deneyin.");
       }
-    );
-  }
+    });
+}
 
   addStock(stock: Stock) {
     this.stockService.addStock(stock).subscribe({
@@ -143,17 +143,17 @@ export class StockComponent implements OnInit {
   });
 
   getCpu(cpuId: number) {    
-    this.typeService.getCpu(cpuId).subscribe(
-      (data) => {
+    this.typeService.getCpu(cpuId).subscribe({
+      next: (data) => {
         this.cpuInfo = data;        
         console.log(data);
         this.toastr.info("İşlemci bilgisi başarıyla alındı.");        
       },
-      (error) => {
+      error: (error) => {
         this.toastr.error("İşlemci bilgisi alınamadı.");          
       }
-    );
-  }
+    });
+}
 
   addCpu(cpu: Cpu, quantity: number) {
     this.typeService.addCpu(cpu).subscribe({
@@ -259,17 +259,17 @@ export class StockComponent implements OnInit {
   });
 
   getCpuCooler(cpuCoolerId: number) {    
-    this.typeService.getCpuCooler(cpuCoolerId).subscribe(
-      (data) => {
+    this.typeService.getCpuCooler(cpuCoolerId).subscribe({
+      next: (data) => {
         this.cpuCoolerInfo = data;
         console.log(data);
         this.toastr.info("Soğutucu bilgisi başarıyla alındı.");        
       },
-      (error) => {
+      error: (error) => {
         this.toastr.error("Soğutucu bilgisi alınamadı.");          
       }
-    );
-  }
+    });
+}
 
   addCpuCooler() {
     
@@ -304,17 +304,17 @@ export class StockComponent implements OnInit {
   });
 
   getGpu(gpuId: number) {    
-    this.typeService.getGpu(gpuId).subscribe(
-      (data) => {
+    this.typeService.getGpu(gpuId).subscribe({
+      next: (data) => {
         this.gpuInfo = data;
         console.log(data);
         this.toastr.info("Ekran Kartı bilgisi başarıyla alındı.");        
       },
-      (error) => {
+      error: (error) => {
         this.toastr.error("Ekran Kartı bilgisi alınamadı.");          
       }
-    );
-  }
+    });
+}
 
   addGpu() {
     
@@ -351,17 +351,17 @@ export class StockComponent implements OnInit {
   });
 
   getPsu(psuId: number) {    
-    this.typeService.getPsu(psuId).subscribe(
-      (data) => {
+    this.typeService.getPsu(psuId).subscribe({
+      next: (data) => {
         this.psuInfo = data;
         console.log(data);
         this.toastr.info("Güç Kaynağı bilgisi başarıyla alındı.");        
       },
-      (error) => {
+      error: (error) => {
         this.toastr.error("Güç Kaynağı bilgisi alınamadı.");          
       }
-    );
-  }
+    });
+}
 
   addPsu() {
     
@@ -399,17 +399,17 @@ export class StockComponent implements OnInit {
   });
 
   getRam(ramId: number) {    
-    this.typeService.getRam(ramId).subscribe(
-      (data) => {
+    this.typeService.getRam(ramId).subscribe({
+      next: (data) => {
         this.ramInfo = data;
         console.log(data);
-        this.toastr.info("Ram bilgisi başarıyla alındı.");        
+        this.toastr.info("RAM bilgisi başarıyla alındı.");        
       },
-      (error) => {
-        this.toastr.error("Ram bilgisi alınamadı.");          
+      error: (error) => {
+        this.toastr.error("RAM bilgisi alınamadı.");          
       }
-    );
-  }
+    });
+}
 
   addRam() {
     
@@ -450,17 +450,17 @@ export class StockComponent implements OnInit {
   });
 
   getMotherboard(motherboardId: number) {    
-    this.typeService.getMotherboard(motherboardId).subscribe(
-      (data) => {
+    this.typeService.getMotherboard(motherboardId).subscribe({
+      next: (data) => {
         this.motherboardInfo = data;
         console.log(data);
         this.toastr.info("Anakart bilgisi başarıyla alındı.");        
       },
-      (error) => {
+      error: (error) => {
         this.toastr.error("Anakart bilgisi alınamadı.");          
       }
-    );
-  }
+    });
+}
 
   addMotherboard() {
     

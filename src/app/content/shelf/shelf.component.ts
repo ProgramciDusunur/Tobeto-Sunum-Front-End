@@ -53,27 +53,29 @@ export class ShelfComponent  {
  
 
   ngOnInit(): void {
-    this.shelfService.getAllShelves().subscribe(
-      (data: Shelf[]) => {
-        this.shelves = data;        
-        
+    this.shelfService.getAllShelves().subscribe({
+      next: (data: Shelf[]) => {
+        this.shelves = data;
       },
-      (error) => {
-        console.error('Error fetching shelves:', error);
+      error: (error) => {
+        console.error('Raf bilgileri alınırken hata oluştu:', error);
+        // Hata durumunda kullanıcıya bir hata mesajı gösterilebilir
+        this.toastr.error('Raf bilgileri alınırken hata oluştu. Lütfen daha sonra tekrar deneyin.');
       }
-    );
-  }
+    });
+}
 
-  addShelf(shelf: RequestShelf): void {    
-    this.shelfService.addShelf(shelf.stockId, shelf.occupiedQuantity).subscribe(
-      (data: any) => {
-        this.toastr.success('Shelf added successfully');
-      },
-      (error: any) => {
-        this.toastr.error('Error adding shelf.');        
-      }
-    );
-  }
+addShelf(shelf: RequestShelf): void {    
+  this.shelfService.addShelf(shelf.stockId, shelf.occupiedQuantity).subscribe({
+    next: (data: any) => {
+      this.toastr.success('Raf başarıyla eklendi.');
+    },
+    error: (error: any) => {
+      console.error('Raf eklenirken hata oluştu:', error);
+      this.toastr.error('Raf eklenirken hata oluştu. Lütfen daha sonra tekrar deneyin.');
+    }
+  });
+}
 
   saveShelf() {    
     const stockIdControl = this.shelfForm.get('stockId');
@@ -103,14 +105,15 @@ export class ShelfComponent  {
 
   removeShelf() {
     const whichId = this.selectedShelfIdForRemove;    
-    this.shelfService.removeSpecificShelf(whichId).subscribe(
-      (data) => {
-        this.toastr.success("Shelf succesfully removed.");        
+    this.shelfService.removeSpecificShelf(whichId).subscribe({
+      next: (data) => {
+        this.toastr.success("Raf başarıyla kaldırıldı.");
       },
-      (error) => {
-        this.toastr.error("Shelf can't removed.");        
+      error: (error) => {
+        console.error("Raf kaldırılırken hata oluştu:", error);
+        this.toastr.error("Raf kaldırılırken hata oluştu. Lütfen daha sonra tekrar deneyin.");
       }
-    );
-  }
+    });
+}
   
 }
