@@ -292,7 +292,7 @@
               <label for="type" class="form-label">Ürün Tipi</label>
               <select class="form-control" id="type" (change)="onTypeChange($event)">
                 <option value="" selected>Seçiniz...</option>
-                <option *ngFor="let typeOption of typeOptions" value="{{typeOption.value}}">{{typeOption.label}}</option>
+                <option *ngFor="let typeOption of componentTypeOptions" value="{{typeOption.value}}">{{typeOption.label}}</option>
               </select>
             </div>
           </div>
@@ -483,13 +483,8 @@
           <!-- Anakart tipi seçildiğinde görüntülenecek içerik -->
           <div *ngIf="selectedType === 'Motherboard'">
             <div class="mb-3">
-              <label for="motherboardBrand" class="form-label">Brand</label>
-              <select class="form-control" id="motherboardBrand">
-                <option value="" selected>Seçiniz...</option>
-                <option value="ASUS">ASUS</option>
-                <option value="MSI">MSI</option>
-                <option value="GIGABYTE">GIGABYTE</option>  
-              </select>
+              <label for="motherboardBrand" class="form-label">Brand</label>              
+              <input type="text" class="form-control" id="motherboardBrand">
             </div>
             <div class="mb-3">
               <label for="motherboardCpuCompatibility" class="form-label">CPU Compatibility</label>
@@ -501,38 +496,19 @@
             </div>
             <div class="mb-3">
               <label for="motherboardCpuSocketType" class="form-label">CPU Socket Type</label>
-              <select class="form-control" id="motherboardCpuSocketType">
-                <option value="" selected>Seçiniz...</option>
-                <option value="1700">1700</option>
-                <option value="1151">1151</option>
-                <option value="AM4">AM4</option>
-                <option value="AM5">AM5</option>
-              </select>
+              <input type="text" class="form-control" id="motherboardCpuSocketType">
             </div>
             <div class="mb-3">
               <label for="motherboardRamType" class="form-label">RAM Type</label>
-              <select class="form-control" id="motherboardRamType">
-                <option value="" selected>Seçiniz...</option>
-                <option value="DDR4">DDR4</option>
-                <option value="DDR5">DDR5</option>
-              </select>
+              <input type="text" class="form-control" id="motherboardRamType">
             </div>
             <div class="mb-3">
               <label for="motherboardSize" class="form-label">Size</label>
-              <select class="form-control" id="motherboardSize">
-                <option value="" selected>Seçiniz...</option>
-                <option value="ATX">ATX</option>
-                <option value="Micro ATX">Micro ATX</option>   
-                <option value="Mini ITX">Mini ITX</option>
-              </select>
+              <input type="text" class="form-control" id="motherboardSize">
             </div>
             <div class="mb-3">
               <label for="motherboardRamSlots" class="form-label">RAM Slots</label>
-              <select class="form-control" id="motherboardRamSlots">
-                <option value="" selected>Seçiniz...</option>
-                <option value="2">2</option>
-                <option value="4">4</option>   
-              </select>
+              <input type="quantity" class="form-control" id="motherboardRamSlots" min="2">
             </div>
 
             <div class="mb-3">
@@ -558,51 +534,24 @@
             </div>
             <div class="mb-3">
               <label for="cpuCoolerFanLength" class="form-label">Fan Length</label>
-              <select class="form-control" id="cpuCoolerFanLength">
-                <option value="" selected>Seçiniz...</option>
-                <option value="110mm ">110mm</option>
-                <option value="120mm">120mm</option>   
-                <option value="140mm">140mm</option>  
-              </select>
+              <input type="text" class="form-control" id="cpuCoolerFanLength">
             </div>
             <div class="mb-3">
               <label for="cpuCoolerRPM" class="form-label">RPM</label>
-              <select class="form-control" id="cpuCoolerRPM">
-                <option value="" selected>Seçiniz...</option>
-                <option value="2400 RPM ">2400 RPM</option>
-                <option value="2800 RPM">2800 RPM</option>   
-                <option value="3200 RPM">3200 RPM</option>  
-              </select>
+              <input type="number" class="form-control" id="cpuCoolerRPM">
             </div>
             <div class="mb-3">
               <label for="cpuCoolerMaterial" class="form-label">Material</label>
-              <select class="form-control" id="cpuCoolerMaterial">
-                <option value="" selected>Seçiniz...</option>
-                <option value="Aluminyum ">Aluminyum</option>
-                <option value="Bakır">Bakır</option>   
-              </select>
+              <input type="text" class="form-control" id="cpuCoolerMaterial">
             </div>
             <div class="mb-3">
               <label for="cpuCoolerLED"class="form-label">LED</label>
-              <select class="form-control" id="cpuCoolerLED">
-                <option value="" selected>Seçiniz...</option>
-                <option value="RGB ">RGB</option>
-                <option value="Beyaz">Beyaz</option>   
-                <option value="Mavi">Mavi</option>   
-              </select>
+              <input type="text" class="form-control" id="cpuCoolerLED">
             
             </div>
             <div class="mb-3">
               <label for="cpuCoolerBrand" class="form-label">Brand</label>
-              <select class="form-control" id="cpuCoolerBrand">
-                <option value="" selected>Seçiniz...</option>
-                <option value="ASUS">ASUS</option>
-                <option value="MSI">MSI</option>
-                <option value="CORSAIR">CORSAIR</option>  
-                <option value="COOLER MASTER">COOLER MASTER</option>
-                <option value="GIGABYTE">GIGABYTE</option>
-                <option value="THERMALTAKE">THERMALTAKE </option>  
-              </select>
+              <input type="text" class="form-control" id="cpuCoolerBrand">
             </div>
             <div class="mb-3">
               <label for="cpuCoolerModel" class="form-label">Model</label>
@@ -618,17 +567,7 @@
           <div *ngIf="selectedType === 'Computer Case'">
             <div class="mb-3">
               <label for="caseBrand" class="form-label">Brand</label>
-              <select class="form-control" id="caseBrand">
-                <option value="" selected>Seçiniz...</option>
-                <option value="ASUS">ASUS</option>
-                <option value="MSI">MSI</option>
-                <option value="CORSAIR">CORSAIR</option>  
-                <option value="COOLER MASTER">COOLER MASTER</option>
-                <option value="GIGABYTE">GIGABYTE</option>
-                <option value="THERMALTAKE">THERMALTAKE </option>  
-                <option value="BITFENIX">BITFENIX</option>
-                <option value="VENTO">VENTO </option>  
-              </select>
+              <input type="text" class="form-control" id="caseBrand">
             </div>
             <div class="mb-3">
               <label for="caseModel" class="form-label">Model</label>
@@ -671,15 +610,7 @@
             </div>
             <div class="mb-3">
               <label for="casePSUWatt" class="form-label">PSU Watt</label>
-              <select class="form-control" id="psuWatt">     
-                <option value="" selected>Seçiniz...</option>                           
-                <option value="600W">600W</option>
-                <option value="650W">650W </option>
-                <option value="700W">700W </option>
-                <option value="750W">750W</option>
-                <option value="850W">850W </option>
-                <option value="1000W">1000W </option>
-              </select>
+              <input type="number" class="form-control" id="casePSUWatt" min="100">
             </div>
             <div class="mb-3">
               <label for="caseQuantity" class="form-label">Quantity</label>
@@ -690,7 +621,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
-        <button type="button" class="btn btn-primary">Kaydet</button>
+        <button type="button" class="btn btn-primary" (click)="addProductAndStock()">Kaydet</button>
       </div>
     </div>
   </div>

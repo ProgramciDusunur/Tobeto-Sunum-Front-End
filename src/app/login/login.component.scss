@@ -1,68 +1,3 @@
-// .container {
-//     position: relative;    
-//     justify-content: center; /* Yatayda ortala */
-//     align-items: center; /* Dikeyde ortala */
-//     height: 50vh; /* Ekran yüksekliği kadar alan kapla */
-    
-//   }
-  
-//   #login-form {
-//     width: 20vw; /* View width kadar genişlet */
-//     margin: 0 auto; /* Formu yatayda ortala */
-//     position: absolute;
-//     top: 50%;
-//     left: 50%;
-//     transform: translate(-50%, -50%);    
-//   }
-  
-//   fieldset {
-//     padding: 3.75vh;
-//     border: 1px solid #ccc;
-//     font-size: calc(0.5vw + 0.125vh);
-//   }
-  
-//   legend {
-//     font-weight: bold;
-//     margin-bottom: 0px;
-//     color: #EEEEEE;
-//     text-align: center; /* Yazıyı ortala */
-//     font-size: calc(1.0vw + 0.125vh);
-//   }
-  
-//   div {
-//     margin-bottom: 10px;
-//   }
-  
-//   label {
-//     display: block;
-//     color: #EEEEEE;
-
-//   }
-  
-//   input[type="text"],
-//   input[type="password"] {
-//     width: 100%;
-//     padding: 0.5vh;
-//     box-sizing: border-box;
-//   }
-  
-//   button {
-//     width: 100%;
-//     padding: 10px;
-//     background-color: #007bff;
-//     color: #fff;
-//     border: none;
-//     cursor: pointer;
-//   }
-  
-//   button:hover {
-//     background-color: #0056b3;
-//   }
-
-//   .buttonMargin {
-//     margin-top: 5%;
-//   }
-  
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 
 /* BASIC */
@@ -75,13 +10,14 @@ html {
 body {
   font-family: "Poppins", sans-serif;
   height: 100vh;
-  background-image: url('https://cdn.discordapp.com/attachments/1210634869907128361/1233404825517948928/aisle-of-warehouse-free-photo.png?ex=662cf941&is=662ba7c1&hm=37fb9dd95c7edb2f2900b3d8a66968a05fb0837d0ea7b68d891fa264e951034a&');
+  background-image: url('../../assets/loginBackground3.png');
   background-size: cover; /* Kaplamalı arka plan */
   background-position: top center; /* Arka planın konumu */
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center;  
 }
+
 
 a {
   color: #92badd;
@@ -364,3 +300,9 @@ input[type=text]:placeholder {
  font-size: 30px;
  color: #fafafa;
 }
+
+.noneFilter {
+  z-index: 10;
+}
+
+

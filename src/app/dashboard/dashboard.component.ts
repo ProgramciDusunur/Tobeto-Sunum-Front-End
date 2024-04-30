@@ -5,7 +5,6 @@ import { LoginService } from '../service/login/login.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { EmployeeService } from '../service/employee/employee.service';
 import { ToastrService } from 'ngx-toastr';
-import { Injectable } from '@angular/core';
 
 
 @Component({
@@ -129,16 +128,11 @@ export class DashboardComponent implements OnInit {
       alert("Bütün alanları doldurun.");
     }
   
-    logout() ;{
-      this.logout();
-      this.router.navigateByUrl('/login');
-    }
+    
   }
-  public logout() {
+
+  logout() {
+    this.loginService.logout();
     this.router.navigate(['login']);
   }
 }
-function logout() {
-  throw new Error('Function not implemented.');
-}
-

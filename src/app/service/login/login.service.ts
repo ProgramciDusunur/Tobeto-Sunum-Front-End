@@ -64,6 +64,10 @@ export class LoginService {
     this.password = "";
     this.kullanicilarId = "";
     this.rol = "";
+    this.payload = "";
+    this.username = "";
+    this.surname = "";
+    this.rol = "";
     localStorage.clear();
   }
   parseJwt (token: string) {

@@ -18,7 +18,7 @@ export class StockComponent implements OnInit {
     // Add more options as needed
   ];
 
-  typeOptions: { value: string; label: string }[] = [
+  componentTypeOptions: { value: string; label: string }[] = [
     { value: 'CPU', label: 'CPU' },
     { value: 'GPU', label: 'GPU' },
     { value: 'PSU', label: 'PSU' },
@@ -69,34 +69,14 @@ export class StockComponent implements OnInit {
   onProcessChange(event: any) {
     this.selectedProcess = event.target.value;
     if (this.selectedProcess === "Decrease Quantity") {
-        this.testMethod();
+        this.resetSelectedType();
     }
   }
 
-  testMethod() {
+  resetSelectedType() {
     this.selectedType = '';
   }
-
-
-
-  selectedRamType: string = ''; // Seçilen RAM türünü tutacak değişken
-  ramCapacityOptions: string[] = []; // RAM kapasite seçeneklerini tutacak dizi
-
-  onRamTypeChange(ramType: string) {
-    this.selectedRamType = ramType; // Seçilen RAM türünü güncelle
-    // Seçilen RAM türüne göre kapasite seçeneklerini güncelle
-    this.ramCapacityOptions = this.getRamCapacityOptions(ramType);
-  }
-
-  getRamCapacityOptions(ramType: string): string[] {
-    if (ramType === 'DDR4') {
-      return ['2GB', '4GB', '8GB', '16GB', '32GB'];
-    } else if (ramType === 'DDR5') {
-      return ['8GB', '16GB', '32GB', '64GB'];
-    } else {
-      return []; // Diğer türler için boş dizi döndür
-    }
-  }
+  
 
   removeStock() {
     const whichId = this.selectedStockIdForRemove;    
@@ -143,6 +123,10 @@ export class StockComponent implements OnInit {
     );
   }
 
+  addCpu() {
+
+  }
+
 
   /**********************************\
    ==================================
@@ -177,6 +161,10 @@ export class StockComponent implements OnInit {
     );
   }
 
+  addCpuCooler() {
+    
+  }
+
 
   /**********************************\
    ==================================
@@ -207,6 +195,10 @@ export class StockComponent implements OnInit {
         this.toastr.error("Ekran Kartı bilgisi alınamadı.");          
       }
     );
+  }
+
+  addGpu() {
+    
   }
 
 
@@ -242,6 +234,10 @@ export class StockComponent implements OnInit {
     );
   }
 
+  addPsu() {
+    
+  }
+
 
 
   /**********************************\
@@ -274,6 +270,10 @@ export class StockComponent implements OnInit {
         this.toastr.error("Ram bilgisi alınamadı.");          
       }
     );
+  }
+
+  addRam() {
+    
   }
 
 
@@ -313,6 +313,10 @@ export class StockComponent implements OnInit {
     );
   }
 
+  addMotherboard() {
+    
+  }
+
   /**********************************\
    ==================================
 
@@ -332,17 +336,21 @@ export class StockComponent implements OnInit {
     psuWatt: 0
   }
 
-  getDesktopCase(desktopCaseId: number) {    
-    this.typeService.getDesktopCase(desktopCaseId).subscribe(
-      (data) => {
+  getDesktopCase(desktopCaseId: number) {
+    this.typeService.getDesktopCase(desktopCaseId).subscribe({
+      next: (data) => {
         this.desktopCaseInfo = data;
         console.log(data);
-        this.toastr.info("Kasa bilgisi başarıyla alındı.");        
+        this.toastr.info("Kasa bilgisi başarıyla alındı.");
       },
-      (error) => {
-        this.toastr.error("Kasa bilgisi alınamadı.");          
+      error: (error) => {
+        this.toastr.error("Kasa bilgisi alınamadı.");
       }
-    );
+    });    
+  }
+  
+  addDesktopCase() {
+    
   }
 
   selectedGlobalType: string = '';
@@ -372,5 +380,49 @@ export class StockComponent implements OnInit {
     }            
   }
 
+  /**********************************\
+   ==================================
+
+              Type Operations
+
+   ==================================
+  \**********************************/
+
+  addProductAndStock() {
+    
+    if (this.selectedProcess === "Add Product") {
+      switch(this.selectedType) {
+        case "CPU":
+          alert("CPU eklemek istiyorsunuz.");
+        break;
+
+        case "GPU":
+          alert("GPU eklemek istiyorsunuz.");
+        break;
+
+        case "RAM":
+          alert("RAM eklemek istiyorsunuz.");
+        break;
+
+        case "PSU":
+          alert("PSU eklemek istiyorsunuz.");
+        break;
+
+        case "Motherboard":
+          alert("Anakart eklemek istiyorsunuz.");
+        break;
+
+
+        case "Computer Case":
+          alert("Kasa eklemek istiyorsunuz.");
+        break;
+
+        case "CPU Cooler":
+          alert("Soğutucu eklemek istiyorsunuz.");
+        break;
+        
+      }      
+    }
+  }
 
 }
