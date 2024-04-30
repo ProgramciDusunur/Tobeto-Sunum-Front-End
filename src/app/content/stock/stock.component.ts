@@ -4,6 +4,7 @@ import { Stock } from '../../service/models/stock.models';
 import { ToastrService } from 'ngx-toastr';
 import { TypeService } from '../../service/type/type.service';
 import { Cpu, CpuCooler, DesktopCase, Gpu, Motherboard, Psu, Ram } from '../../service/models/type.model';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-stock',
@@ -33,6 +34,7 @@ export class StockComponent implements OnInit {
     private stockService: StockService,
     private toastr: ToastrService,
     private typeService: TypeService,
+    
 
   ) {}
 
@@ -90,6 +92,25 @@ export class StockComponent implements OnInit {
     );
   }
 
+  addStock(stock: Stock) {
+    this.stockService.addStock(stock).subscribe({
+      next: (data) => {        
+        this.toastr.info("Stok başarıyla eklendi.");
+      },
+      error: (error) => {
+        this.toastr.error("Stok eklemesi başarısız.");
+      }
+    });   
+  }
+
+
+  typeStock: Stock = {
+    id: 0,
+    type: '',
+    quantity: 0,
+    typeId: 0
+  }
+
   /**********************************\
    ==================================
 
@@ -110,10 +131,21 @@ export class StockComponent implements OnInit {
     model: ""  
   }
 
+  cpuForm = new FormGroup({
+    brand: new FormControl(""),
+    model: new FormControl(""),
+    clockSpeed: new FormControl(0),
+    socketType: new FormControl(""),
+    generation: new FormControl(""),
+    series: new FormControl(""),
+    coreCount: new FormControl(0),
+    quantity: new FormControl(0)
+  });
+
   getCpu(cpuId: number) {    
     this.typeService.getCpu(cpuId).subscribe(
       (data) => {
-        this.cpuInfo = data;
+        this.cpuInfo = data;        
         console.log(data);
         this.toastr.info("İşlemci bilgisi başarıyla alındı.");        
       },
@@ -123,7 +155,75 @@ export class StockComponent implements OnInit {
     );
   }
 
-  addCpu() {
+  addCpu(cpu: Cpu, quantity: number) {
+    this.typeService.addCpu(cpu).subscribe({
+      next: (data) => {
+        this.cpuInfo = data;
+        this.typeStock.typeId = data.id;    
+        this.typeStock.type = "cpu";
+        this.typeStock.quantity = quantity;        
+        this.addStock(this.typeStock);
+        console.log(data);
+        this.toastr.info("İşlemci başarıyla eklendi.");
+      },
+      error: (error) => {
+        this.toastr.error("İşlemci eklemesi başarısız.");
+      }
+    });  
+    
+  }
+  
+
+
+
+  cpuFormCheck() {
+    const brandControl = this.cpuForm.get('brand');
+    const modelControl = this.cpuForm.get('model');
+    const clockSpeedControl = this.cpuForm.get('clockSpeed');    
+    const socketTypeControl = this.cpuForm.get('socketType');    
+    const generationControl = this.cpuForm.get('generation');    
+    const seriesControl = this.cpuForm.get('series');
+    const coreCountControl = this.cpuForm.get('coreCount');
+    const quantityControl = this.cpuForm.get('quantity');
+    
+    const brandValue = brandControl !== null ? (brandControl.value !== null ? brandControl.value : "") : "";
+    const modelValue = modelControl !== null ? (modelControl.value !== null ? modelControl.value : "") : "";
+    const clockSpeedValue = clockSpeedControl !== null ? (clockSpeedControl.value !== null ? clockSpeedControl.value : 0) : 0;
+    const socketTypeValue = socketTypeControl !== null ? (socketTypeControl.value !== null ? socketTypeControl.value : "") : "";
+    const generationValue = generationControl !== null ? (generationControl.value !== null ? generationControl.value : "") : "";
+    const seriesValue = seriesControl !== null ? (seriesControl.value !== null ? seriesControl.value : "") : "";
+    const coreCountValue = coreCountControl !== null ? (coreCountControl.value !== null ? coreCountControl.value : 0) : 0;
+    const quantityValue = quantityControl !== null ? (quantityControl.value !== null ? quantityControl.value : 0) : 0;
+
+    const isBrandValid = brandValue !== null && brandValue !== "";
+    const isModelValid = modelValue !== null && modelValue !== "";
+    const isClockSpeedValid = clockSpeedValue !== null && clockSpeedValue !== 0;
+    const isSocketTypeValid = socketTypeValue !== null && socketTypeValue !== "";
+    const isGenerationValid = generationValue !== null && generationValue !== "";
+    const isSeriesValid = seriesValue !== null && seriesValue !== "";
+    const isCoreCountValid = coreCountValue !== null && coreCountValue !== 0;
+    const isQuantityValid = quantityValue !== null && quantityValue !== 0;
+
+    
+    const isAllValid = isBrandValid && isModelValid && isClockSpeedValid && isSocketTypeValid && isGenerationValid && isSeriesValid && isCoreCountValid && isQuantityValid;
+    
+    
+    if (isAllValid) {
+      // Tüm form elemanlarının değerleri geçerli
+      this.cpuInfo.brand = brandValue;
+      this.cpuInfo.clockSpeed = clockSpeedValue;
+      this.cpuInfo.coreCount = coreCountValue;
+      this.cpuInfo.generation = generationValue;
+      this.cpuInfo.model = modelValue;
+      this.cpuInfo.series = seriesValue;
+      this.cpuInfo.socketType = socketTypeValue;
+      const stockQuantity = quantityValue;
+      this.addCpu(this.cpuInfo, stockQuantity);
+      
+    } else {
+      // En az bir form elemanının değeri geçerli değil
+      alert("Bütün alanları doldurun.");
+    }
 
   }
 
@@ -147,6 +247,16 @@ export class StockComponent implements OnInit {
     brand: '',
     model: ''
   }
+
+  cpuCoolerForm = new FormGroup({
+    brand: new FormControl(""),
+    model: new FormControl(""),
+    fanLength: new FormControl(""),
+    led: new FormControl(""),
+    rpm: new FormControl(0),
+    material: new FormControl(""),
+    type: new FormControl("")
+  });
 
   getCpuCooler(cpuCoolerId: number) {    
     this.typeService.getCpuCooler(cpuCoolerId).subscribe(
@@ -183,6 +293,15 @@ export class StockComponent implements OnInit {
     vram: 0,
     memoryInterface: 0
   }
+
+  gpuForm = new FormGroup({
+    brand: new FormControl(""),
+    model: new FormControl(""),
+    producer: new FormControl(""),
+    series: new FormControl(""),
+    vram: new FormControl(0),
+    memoryInterface: new FormControl(0)    
+  });
 
   getGpu(gpuId: number) {    
     this.typeService.getGpu(gpuId).subscribe(
@@ -221,6 +340,16 @@ export class StockComponent implements OnInit {
     model: ""
   }
 
+  psuForm = new FormGroup({
+    watt: new FormControl(0),
+    efficiency: new FormControl(""),
+    modular: new FormControl(false),
+    type: new FormControl(""),
+    pcieGen5Support: new FormControl(false),
+    brand: new FormControl(""),
+    model: new FormControl("")        
+  });
+
   getPsu(psuId: number) {    
     this.typeService.getPsu(psuId).subscribe(
       (data) => {
@@ -258,6 +387,16 @@ export class StockComponent implements OnInit {
     brand: '',
     model: ''
   }
+
+  ramForm = new FormGroup({
+    type: new FormControl(""),
+    capacity: new FormControl(0),
+    frequencySpeed: new FormControl(0),
+    channelType: new FormControl(""),
+    compatibility: new FormControl(""),
+    brand: new FormControl(""),
+    model: new FormControl("")        
+  });
 
   getRam(ramId: number) {    
     this.typeService.getRam(ramId).subscribe(
@@ -300,6 +439,16 @@ export class StockComponent implements OnInit {
     model: ''
   }
 
+  motherboardForm = new FormGroup({
+    brand: new FormControl(""),
+    size: new FormControl(""),
+    model: new FormControl(""),
+    ramType: new FormControl(""),
+    ramSlots: new FormControl(0),
+    cpuSocketType: new FormControl(""),
+    cpuCompatibility: new FormControl(false)        
+  });
+
   getMotherboard(motherboardId: number) {    
     this.typeService.getMotherboard(motherboardId).subscribe(
       (data) => {
@@ -335,6 +484,17 @@ export class StockComponent implements OnInit {
     transparent: false,
     psuWatt: 0
   }
+
+  desktopCaseForm = new FormGroup({
+    psu: new FormControl(false),
+    psuLocation: new FormControl(""),
+    transparent: new FormControl(false),
+    psuWatt: new FormControl(0),
+    brand: new FormControl(""),
+    model: new FormControl(""),
+    type: new FormControl("")        
+  });
+
 
   getDesktopCase(desktopCaseId: number) {
     this.typeService.getDesktopCase(desktopCaseId).subscribe({
@@ -394,6 +554,7 @@ export class StockComponent implements OnInit {
       switch(this.selectedType) {
         case "CPU":
           alert("CPU eklemek istiyorsunuz.");
+          this.cpuFormCheck();
         break;
 
         case "GPU":

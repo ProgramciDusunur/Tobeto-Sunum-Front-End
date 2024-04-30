@@ -52,210 +52,195 @@
             <input type="number" class="form-control" id="quantity" aria-label="Number value for quantity" [value]="selectedStock?.quantity" disabled>
           </div>        
           @if (selectedGlobalType === 'gpu') {
-            <div class="mb-3">
-              <label for="typeBrand" class="form-label">Marka</label>
-              <input type="text" class="form-control" id="typeBrand" disabled [value]="gpuInfo.brand">
-            </div> 
-            <div class="mb-3">
-              <label for="typeModel" class="form-label">Model</label>
-              <input type="text" class="form-control" id="typeModel" disabled [value]="gpuInfo.model">
-            </div> 
-            <div class="mb-3">
-              <label for="typeProducer" class="form-label">Üretici</label>
-              <input type="text" class="form-control" id="typeProducer" disabled [value]="gpuInfo.producer">
-            </div> 
-            <div class="mb-3">
-              <label for="typeSeries" class="form-label">Seri</label>
-              <input type="text" class="form-control" id="typeSeries" disabled [value]="gpuInfo.series">
-            </div>  
-            <div class="mb-3">
-              <label for="typeVram" class="form-label">Grafik Belleği</label>
-              <input type="text" class="form-control" id="typeVram" disabled [value]="gpuInfo.vram">
-            </div>  
-            <div class="mb-3">
-              <label for="typeMemoryInterface" class="form-label">Bellek Arayüzü</label>
-              <input type="text" class="form-control" id="typeMemoryInterface" disabled [value]="gpuInfo.memoryInterface">
-            </div>
+            <form>
+              <div class="mb-3">
+                <label for="typeBrand" class="form-label">Marka</label>
+                <input type="text" class="form-control" id="typeBrand" disabled [value]="gpuInfo.brand">
+              </div> 
+              <div class="mb-3">
+                <label for="typeModel" class="form-label">Model</label>
+                <input type="text" class="form-control" id="typeModel" disabled [value]="gpuInfo.model">
+              </div> 
+              <div class="mb-3">
+                <label for="typeProducer" class="form-label">Üretici</label>
+                <input type="text" class="form-control" id="typeProducer" disabled [value]="gpuInfo.producer">
+              </div> 
+              <div class="mb-3">
+                <label for="typeSeries" class="form-label">Seri</label>
+                <input type="text" class="form-control" id="typeSeries" disabled [value]="gpuInfo.series">
+              </div>  
+              <div class="mb-3">
+                <label for="typeVram" class="form-label">Grafik Belleği</label>
+                <input type="text" class="form-control" id="typeVram" disabled [value]="gpuInfo.vram">
+              </div>  
+              <div class="mb-3">
+                <label for="typeMemoryInterface" class="form-label">Bellek Arayüzü</label>
+                <input type="text" class="form-control" id="typeMemoryInterface" disabled [value]="gpuInfo.memoryInterface">
+              </div>
+            </form>            
             
           } @else if (selectedGlobalType === 'cpu') {
-            <div class="mb-3">
-              <label for="cpuBrand" class="form-label">Marka</label>
-              <input type="text" class="form-control" id="cpuBrand" disabled [value]="cpuInfo.brand">
-            </div>
-            <div class="mb-3">
-              <label for="cpuClockSpeed" class="form-label">Clock Hızı</label>
-              <input type="text" class="form-control" id="cpuClockSpeed" disabled [value]="cpuInfo.clockSpeed">
-            </div>
-            <div class="mb-3">
-              <label for="cpuSocketType" class="form-label">Soket Tipi</label>
-              <input type="text" class="form-control" id="cpuSocketType" disabled [value]="cpuInfo.socketType">
-            </div>
-            <div class="mb-3">
-              <label for="cpuGeneration" class="form-label">Nesil</label>
-              <input type="text" class="form-control" id="cpuGeneration" disabled [value]="cpuInfo.generation">
-            </div>
-            <div class="mb-3">
-              <label for="cpuSeries" class="form-label">Seri</label>
-              <input type="text" class="form-control" id="cpuSeries" disabled [value]="cpuInfo.series">
-            </div>
-            <div class="mb-3">
-              <label for="cpuCoreCount" class="form-label">Çekirdek Sayısı</label>
-              <input type="text" class="form-control" id="cpuCoreCount" disabled [value]="cpuInfo.coreCount">
-            </div>
-            <div class="mb-3">
-              <label for="cpuModel" class="form-label">Model</label>
-              <input type="text" class="form-control" id="cpuModel" disabled [value]="cpuInfo.model">
-            </div>
-
+            <form>
+              <div class="mb-3">
+                <label for="cpuBrand" class="form-label">Marka</label>
+                <input type="text" class="form-control" id="cpuBrand" disabled [value]="cpuInfo.brand">
+              </div>
+              <div class="mb-3">
+                <label for="cpuClockSpeed" class="form-label">Clock Hızı</label>
+                <input type="text" class="form-control" id="cpuClockSpeed" disabled [value]="cpuInfo.clockSpeed">
+              </div>
+              <div class="mb-3">
+                <label for="cpuSocketType" class="form-label">Soket Tipi</label>
+                <input type="text" class="form-control" id="cpuSocketType" disabled [value]="cpuInfo.socketType">
+              </div>
+              <div class="mb-3">
+                <label for="cpuGeneration" class="form-label">Nesil</label>
+                <input type="text" class="form-control" id="cpuGeneration" disabled [value]="cpuInfo.generation">
+              </div>
+              <div class="mb-3">
+                <label for="cpuSeries" class="form-label">Seri</label>
+                <input type="text" class="form-control" id="cpuSeries" disabled [value]="cpuInfo.series">
+              </div>
+              <div class="mb-3">
+                <label for="cpuCoreCount" class="form-label">Çekirdek Sayısı</label>
+                <input type="text" class="form-control" id="cpuCoreCount" disabled [value]="cpuInfo.coreCount">
+              </div>
+              <div class="mb-3">
+                <label for="cpuModel" class="form-label">Model</label>
+                <input type="text" class="form-control" id="cpuModel" disabled [value]="cpuInfo.model">
+              </div>
+            </form>            
           } @else if (selectedGlobalType === 'psu') {
-            <div class="mb-3">
-              <label for="psuWatt" class="form-label">Watt</label>
-              <input type="text" class="form-control" id="psuWatt" disabled [value]="psuInfo.watt">
-            </div>
-            <div class="mb-3">
-              <label for="psuEfficiency" class="form-label">Verimlilik</label>
-              <input type="text" class="form-control" id="psuEfficiency" disabled [value]="psuInfo.efficiency">
-            </div>
-            <div class="mb-3">
-              <label for="psuModular" class="form-label">Modüler</label>
-              <input type="text" class="form-control" id="psuModular" disabled [value]="psuInfo.modular">
-            </div>
-            <div class="mb-3">
-              <label for="psuType" class="form-label">Tip</label>
-              <input type="text" class="form-control" id="psuType" disabled [value]="psuInfo.type">
-            </div>
-            <div class="mb-3">
-              <label for="psuPcieGen5Support" class="form-label">PCIe Gen5 Desteği</label>
-              <input type="text" class="form-control" id="psuPcieGen5Support" disabled [value]="psuInfo.pcieGen5Support">
-            </div>
-            <div class="mb-3">
-              <label for="psuBrand" class="form-label">Marka</label>
-              <input type="text" class="form-control" id="psuBrand" disabled [value]="psuInfo.brand">
-            </div>
-            <div class="mb-3">
-              <label for="psuModel" class="form-label">Model</label>
-              <input type="text" class="form-control" id="psuModel" disabled [value]="psuInfo.model">
-            </div>
+            <form>
+              <div class="mb-3">
+                <label for="psuWatt" class="form-label">Watt</label>
+                <input type="text" class="form-control" id="psuWatt" disabled [value]="psuInfo.watt">
+              </div>
+              <div class="mb-3">
+                <label for="psuEfficiency" class="form-label">Verimlilik</label>
+                <input type="text" class="form-control" id="psuEfficiency" disabled [value]="psuInfo.efficiency">
+              </div>
+              <div class="mb-3">
+                <label for="psuModular" class="form-label">Modüler</label>
+                <input type="text" class="form-control" id="psuModular" disabled [value]="psuInfo.modular">
+              </div>
+              <div class="mb-3">
+                <label for="psuType" class="form-label">Tip</label>
+                <input type="text" class="form-control" id="psuType" disabled [value]="psuInfo.type">
+              </div>
+              <div class="mb-3">
+                <label for="psuPcieGen5Support" class="form-label">PCIe Gen5 Desteği</label>
+                <input type="text" class="form-control" id="psuPcieGen5Support" disabled [value]="psuInfo.pcieGen5Support">
+              </div>
+              <div class="mb-3">
+                <label for="psuBrand" class="form-label">Marka</label>
+                <input type="text" class="form-control" id="psuBrand" disabled [value]="psuInfo.brand">
+              </div>
+              <div class="mb-3">
+                <label for="psuModel" class="form-label">Model</label>
+                <input type="text" class="form-control" id="psuModel" disabled [value]="psuInfo.model">
+              </div>
+            </form>           
           } @else if (selectedGlobalType === 'ram') {
-
-            <div class="mb-3">
-              <label for="ramType" class="form-label">RAM Türü</label>
-              <input type="text" class="form-control" id="ramType" disabled [value]="ramInfo.type">
-            </div>
-            <div class="mb-3">
-              <label for="ramSize" class="form-label">Boyut</label>
-              <input type="text" class="form-control" id="ramSize" disabled [value]="ramInfo.capacity">
-            </div>
-            <div class="mb-3">
-              <label for="ramFrequency" class="form-label">Frekans Hızı</label>
-              <input type="text" class="form-control" id="ramFrequency" disabled [value]="ramInfo.frequencySpeed">
-            </div>
-            <div class="mb-3">
-              <label for="ramChannelType" class="form-label">Tek Yada Çift Kanal</label>
-              <input type="text" class="form-control" id="ramChannelType" disabled [value]="ramInfo.channelType">
-            </div>
-            <div class="mb-3">
-              <label for="ramCompatibility" class="form-label">RAM Uyumluluğu</label>
-              <input type="text" class="form-control" id="ramCompatibility" disabled [value]="ramInfo.compatibility">
-            </div>
-            <div class="mb-3">
-              <label for="ramBrand" class="form-label">Brand</label>
-              <input type="text" class="form-control" id="ramBrand" disabled [value]="ramInfo.brand">
-            </div>
-            <div class="mb-3">
-              <label for="ramModel" class="form-label">Model</label>
-              <input type="text" class="form-control" id="ramModel" disabled [value]="ramInfo.model">
-            </div>
+            <form>
+              <div class="mb-3">
+                <label for="ramType" class="form-label">RAM Türü</label>
+                <input type="text" class="form-control" id="ramType" disabled [value]="ramInfo.type">
+              </div>
+              <div class="mb-3">
+                <label for="ramSize" class="form-label">Boyut</label>
+                <input type="text" class="form-control" id="ramSize" disabled [value]="ramInfo.capacity">
+              </div>
+              <div class="mb-3">
+                <label for="ramFrequency" class="form-label">Frekans Hızı</label>
+                <input type="text" class="form-control" id="ramFrequency" disabled [value]="ramInfo.frequencySpeed">
+              </div>
+              <div class="mb-3">
+                <label for="ramChannelType" class="form-label">Tek Yada Çift Kanal</label>
+                <input type="text" class="form-control" id="ramChannelType" disabled [value]="ramInfo.channelType">
+              </div>
+              <div class="mb-3">
+                <label for="ramCompatibility" class="form-label">RAM Uyumluluğu</label>
+                <input type="text" class="form-control" id="ramCompatibility" disabled [value]="ramInfo.compatibility">
+              </div>
+              <div class="mb-3">
+                <label for="ramBrand" class="form-label">Brand</label>
+                <input type="text" class="form-control" id="ramBrand" disabled [value]="ramInfo.brand">
+              </div>
+              <div class="mb-3">
+                <label for="ramModel" class="form-label">Model</label>
+                <input type="text" class="form-control" id="ramModel" disabled [value]="ramInfo.model">
+              </div>
+            </form>            
 
           } @else if (selectedGlobalType === 'motherboard') {
-            <div class="mb-3">
-              <label for="mbCpuSocketType" class="form-label">CPU Soket Tipi</label>
-              <input type="text" class="form-control" id="mbCpuSocketType" disabled [value]="motherboardInfo.cpuSocketType">
-            </div>
-            <div class="mb-3">
-              <label for="mbCpuCompatibility" class="form-label">CPU Uyumluluğu</label>
-              <input type="text" class="form-control" id="mbCpuCompatibility" disabled [value]="motherboardInfo.cpuCompatibility">
-            </div>
-            <div class="mb-3">
-              <label for="mbRamType" class="form-label">RAM Türü</label>
-              <input type="text" class="form-control" id="mbRamType" disabled [value]="motherboardInfo.ramType">
-            </div>
-            <div class="mb-3">
-              <label for="mbSize" class="form-label">Boyut</label>
-              <input type="text" class="form-control" id="mbSize" disabled [value]="motherboardInfo.size">
-            </div>
-            <div class="mb-3">
-              <label for="mbRamSlots" class="form-label">RAM Yuvaları</label>
-              <input type="text" class="form-control" id="mbRamSlots" disabled [value]="motherboardInfo.ramSlots">
-            </div>
-            <div class="mb-3">
-              <label for="mbBrand" class="form-label">Marka</label>
-              <input type="text" class="form-control" id="mbBrand" disabled [value]="motherboardInfo.brand">
-            </div>
-            <div class="mb-3">
-              <label for="mbModel" class="form-label">Model</label>
-              <input type="text" class="form-control" id="mbModel" disabled [value]="motherboardInfo.model">
-            </div>
-
+            <form>
+              <div class="mb-3">
+                <label for="mbCpuSocketType" class="form-label">CPU Soket Tipi</label>
+                <input type="text" class="form-control" id="mbCpuSocketType" disabled [value]="motherboardInfo.cpuSocketType">
+              </div>
+              <div class="mb-3">
+                <label for="mbCpuCompatibility" class="form-label">CPU Uyumluluğu</label>
+                <input type="text" class="form-control" id="mbCpuCompatibility" disabled [value]="motherboardInfo.cpuCompatibility">
+              </div>
+              <div class="mb-3">
+                <label for="mbRamType" class="form-label">RAM Türü</label>
+                <input type="text" class="form-control" id="mbRamType" disabled [value]="motherboardInfo.ramType">
+              </div>
+              <div class="mb-3">
+                <label for="mbSize" class="form-label">Boyut</label>
+                <input type="text" class="form-control" id="mbSize" disabled [value]="motherboardInfo.size">
+              </div>
+              <div class="mb-3">
+                <label for="mbRamSlots" class="form-label">RAM Yuvaları</label>
+                <input type="text" class="form-control" id="mbRamSlots" disabled [value]="motherboardInfo.ramSlots">
+              </div>
+              <div class="mb-3">
+                <label for="mbBrand" class="form-label">Marka</label>
+                <input type="text" class="form-control" id="mbBrand" disabled [value]="motherboardInfo.brand">
+              </div>
+              <div class="mb-3">
+                <label for="mbModel" class="form-label">Model</label>
+                <input type="text" class="form-control" id="mbModel" disabled [value]="motherboardInfo.model">
+              </div>
+            </form>
+            
           } @else if (selectedGlobalType === 'desktopCase') {
-            <div class="mb-3">
-              <label for="desktopCaseBrand" class="form-label">Marka</label>
-              <input type="text" class="form-control" id="desktopCaseBrand" disabled [value]="desktopCaseInfo.brand">
-            </div>
-            <div class="mb-3">
-              <label for="desktopCasePsu" class="form-label">PSU</label>
-              <input type="text" class="form-control" id="desktopCasePsu" disabled [value]="desktopCaseInfo.psu ? 'Evet' : 'Hayır'">
-            </div>
-            <div class="mb-3">
-              <label for="desktopCasePsuLocation" class="form-label">PSU Yeri</label>
-              <input type="text" class="form-control" id="desktopCasePsuLocation" disabled [value]="desktopCaseInfo.psuLocation">
-            </div>
-            <div class="mb-3">
-              <label for="desktopCaseTransparent" class="form-label">Şeffaflık</label>
-              <input type="text" class="form-control" id="desktopCaseTransparent" disabled [value]="desktopCaseInfo.transparent ? 'Evet' : 'Hayır'">
-            </div>
-            <div class="mb-3">
-              <label for="desktopCasePsuWatt" class="form-label">PSU Watt</label>
-              <input type="text" class="form-control" id="desktopCasePsuWatt" disabled [value]="desktopCaseInfo.psuWatt">
-            </div>
-            <div class="mb-3">
-              <label for="desktopCaseModel" class="form-label">Model</label>
-              <input type="text" class="form-control" id="desktopCaseModel" disabled [value]="desktopCaseInfo.model">
-            </div>
-            <div class="mb-3">
-              <label for="desktopCaseType" class="form-label">Tip</label>
-              <input type="text" class="form-control" id="desktopCaseType" disabled [value]="desktopCaseInfo.type">
-            </div>
+            <form>
+              <div class="mb-3">
+                <label for="desktopCaseBrand" class="form-label">Marka</label>
+                <input type="text" class="form-control" id="desktopCaseBrand" disabled [value]="desktopCaseInfo.brand">
+              </div>
+              <div class="mb-3">
+                <label for="desktopCasePsu" class="form-label">PSU</label>
+                <input type="text" class="form-control" id="desktopCasePsu" disabled [value]="desktopCaseInfo.psu ? 'Evet' : 'Hayır'">
+              </div>
+              <div class="mb-3">
+                <label for="desktopCasePsuLocation" class="form-label">PSU Yeri</label>
+                <input type="text" class="form-control" id="desktopCasePsuLocation" disabled [value]="desktopCaseInfo.psuLocation">
+              </div>
+              <div class="mb-3">
+                <label for="desktopCaseTransparent" class="form-label">Şeffaflık</label>
+                <input type="text" class="form-control" id="desktopCaseTransparent" disabled [value]="desktopCaseInfo.transparent ? 'Evet' : 'Hayır'">
+              </div>
+              <div class="mb-3">
+                <label for="desktopCasePsuWatt" class="form-label">PSU Watt</label>
+                <input type="text" class="form-control" id="desktopCasePsuWatt" disabled [value]="desktopCaseInfo.psuWatt">
+              </div>
+              <div class="mb-3">
+                <label for="desktopCaseModel" class="form-label">Model</label>
+                <input type="text" class="form-control" id="desktopCaseModel" disabled [value]="desktopCaseInfo.model">
+              </div>
+              <div class="mb-3">
+                <label for="desktopCaseType" class="form-label">Tip</label>
+                <input type="text" class="form-control" id="desktopCaseType" disabled [value]="desktopCaseInfo.type">
+              </div>
+            </form>            
 
           } @else if (selectedGlobalType === 'cpuCooler') {
-            <div class="mb-3">
-              <label for="cpuCoolerType" class="form-label">Tip</label>
-              <input type="text" class="form-control" id="cpuCoolerType" disabled [value]="cpuCoolerInfo.type">
-            </div>
-            <div class="mb-3">
-              <label for="cpuCoolerFanLength" class="form-label">Fan Uzunluğu</label>
-              <input type="text" class="form-control" id="cpuCoolerFanLength" disabled [value]="cpuCoolerInfo.fanLength">
-            </div>
-            <div class="mb-3">
-              <label for="cpuCoolerRpm" class="form-label">RPM</label>
-              <input type="text" class="form-control" id="cpuCoolerRpm" disabled [value]="cpuCoolerInfo.rpm">
-            </div>
-            <div class="mb-3">
-              <label for="cpuCoolerMaterial" class="form-label">Malzeme</label>
-              <input type="text" class="form-control" id="cpuCoolerMaterial" disabled [value]="cpuCoolerInfo.material">
-            </div>
-            <div class="mb-3">
-              <label for="cpuCoolerLed" class="form-label">LED</label>
-              <input type="text" class="form-control" id="cpuCoolerLed" disabled [value]="cpuCoolerInfo.led">
-            </div>
-            <div class="mb-3">
-              <label for="cpuCoolerBrand" class="form-label">Marka</label>
-              <input type="text" class="form-control" id="cpuCoolerBrand" disabled [value]="cpuCoolerInfo.brand">
-            </div>
-            <div class="mb-3">
-              <label for="cpuCoolerModel" class="form-label">Model</label>
-              <input type="text" class="form-control" id="cpuCoolerModel" disabled [value]="cpuCoolerInfo.model">
-            </div>
+            <form>
+
+            </form>            
 
           } 
           
@@ -305,317 +290,336 @@
 
           <!-- CPU tipi seçildiğinde görüntülenecek içerik -->
           <div *ngIf="selectedType === 'CPU'">
-            <div class="mb-3">
-              <label for="cpuBrand" class="form-label">Brand</label>
-              <select class="form-control" id="cpuBrand">     
-                <option value="" selected>Seçiniz...</option>                           
-                <option value="AMD">AMD</option>
-                <option value="INTEL">INTEL</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="cpuClockSpeed" class="form-label">Clock Speed (GHz)</label>
-              <input type="number" class="form-control" id="cpuClockSpeed" step="0.01">
-            </div>
-            <div class="mb-3">
-              <label for="cpuSocketType" class="form-label">Socket Type</label>
-              <input type="text" class="form-control" id="cpuSocketType">
-            </div>
-            <div class="mb-3">
-              <label for="cpuGeneration" class="form-label">Generation</label>
-              <input type="text" class="form-control" id="cpuGeneration">
-            </div>
-            <div class="mb-3">
-              <label for="cpuSeries" class="form-label">Series</label>
-              <input type="text" class="form-control" id="cpuSeries">
-            </div>
-            <div class="mb-3">
-              <label for="cpuCoreCount" class="form-label">Core Count</label>
-              <input type="text" class="form-control" id="cpuCoreCount">
-            </div>
-            <div class="mb-3">
-              <label for="cpuModel" class="form-label">Model</label>
-              <input type="text" class="form-control" id="cpuModel">
-            </div>
-            <div class="mb-3">
-              <label for="cpuQuantity" class="form-label">Quantity</label>
-              <input type="number" class="form-control" id="cpuQuantity">
-            </div>
+            <form [formGroup]="cpuForm">
+              <div class="mb-3">
+                <label for="cpuBrand" class="form-label">Brand</label>
+                <select class="form-control" id="cpuBrand" formControlName="brand">     
+                  <option value="" selected>Seçiniz...</option>                           
+                  <option value="AMD">AMD</option>
+                  <option value="INTEL">INTEL</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="cpuClockSpeed" class="form-label">Clock Speed (GHz)</label>
+                <input type="number" class="form-control" id="cpuClockSpeed" step="0.01" formControlName="clockSpeed">
+              </div>
+              <div class="mb-3">
+                <label for="cpuSocketType" class="form-label">Socket Type</label>
+                <input type="text" class="form-control" id="cpuSocketType" formControlName="socketType">
+              </div>
+              <div class="mb-3">
+                <label for="cpuGeneration" class="form-label">Generation</label>
+                <input type="text" class="form-control" id="cpuGeneration" formControlName="generation">
+              </div>
+              <div class="mb-3">
+                <label for="cpuSeries" class="form-label">Series</label>
+                <input type="text" class="form-control" id="cpuSeries" formControlName="series">
+              </div>
+              <div class="mb-3">
+                <label for="cpuCoreCount" class="form-label">Core Count</label>
+                <input type="text" class="form-control" id="cpuCoreCount" formControlName="coreCount">
+              </div>
+              <div class="mb-3">
+                <label for="cpuModel" class="form-label">Model</label>
+                <input type="text" class="form-control" id="cpuModel" formControlName="model">
+              </div>
+              <div class="mb-3">
+                <label for="cpuQuantity" class="form-label">Quantity</label>
+                <input type="number" class="form-control" id="cpuQuantity" formControlName="quantity">
+              </div>
+            </form>
+           
           </div>         
             <!-- GPU tipi seçildiğinde görüntülenecek içerik -->
             <div *ngIf="selectedType === 'GPU'">
-              <div class="mb-3">
-                <label for="gpuBrand" class="form-label">Brand</label>
-                <input type="text" class="form-control" id="gpuBrand">
-              </div>
-              <div class="mb-3">
-                <label for="gpuProducer" class="form-label">GPU Producer</label>
-                <input type="text" class="form-control" id="gpuProducer">
-              </div>
-              <div class="mb-3">
-                <label for="gpuSeries" class="form-label">Series</label>
-                <input type="text" class="form-control" id="gpuSeries">
-              </div>
-              <div class="mb-3">
-                <label for="gpuModel" class="form-label">Model</label>
-                <input type="text" class="form-control" id="gpuModel">
-              </div>
-              <div class="mb-3">
-                <label for="gpuVram" class="form-label">VRAM</label>
-                <input type="text" class="form-control" id="gpuVram">
-              </div>
-              <div class="mb-3">
-                <label for="gpuMemoryInterface" class="form-label">Memory Interface</label>
-                <input type="text" class="form-control" id="gpuVram">
-              </div>
-              <div class="mb-3">
-                <label for="gpuQuantity" class="form-label">Quantity</label>
-                <input type="number" class="form-control" id="gpuQuantity" min="1">
-              </div>
-            </div>
-          
+              <form [formGroup]="gpuForm">
+                <div class="mb-3">
+                  <label for="gpuBrand" class="form-label">Brand</label>
+                  <input type="text" class="form-control" id="gpuBrand">
+                </div>
+                <div class="mb-3">
+                  <label for="gpuProducer" class="form-label">GPU Producer</label>
+                  <input type="text" class="form-control" id="gpuProducer">
+                </div>
+                <div class="mb-3">
+                  <label for="gpuSeries" class="form-label">Series</label>
+                  <input type="text" class="form-control" id="gpuSeries">
+                </div>
+                <div class="mb-3">
+                  <label for="gpuModel" class="form-label">Model</label>
+                  <input type="text" class="form-control" id="gpuModel">
+                </div>
+                <div class="mb-3">
+                  <label for="gpuVram" class="form-label">VRAM</label>
+                  <input type="text" class="form-control" id="gpuVram">
+                </div>
+                <div class="mb-3">
+                  <label for="gpuMemoryInterface" class="form-label">Memory Interface</label>
+                  <input type="text" class="form-control" id="gpuVram">
+                </div>
+                <div class="mb-3">
+                  <label for="gpuQuantity" class="form-label">Quantity</label>
+                  <input type="number" class="form-control" id="gpuQuantity" min="1">
+                </div>
+              </form>              
+            </div>          
 
           <!-- RAM tipi seçildiğinde görüntülenecek içerik -->
           <div *ngIf="selectedType === 'RAM'">
-            <div class="mb-3">
-              <label for="quantity" class="form-label">Brand</label>
-              <input type="text" class="form-control" id="ramBrand" aria-label="Number value for quantity">
-            </div>
-
-            <div class="mb-3">
-              <label for="ramType" class="form-label">RAM Type</label>
-              <input type="text" class="form-control" id="ramType">
-            </div>
-
-            <div class="mb-3">
-              <label for="ramCapacity" class="form-label">RAM Capacity</label>
-              <input type="text" class="form-control" id="ramType">
-            </div>
-
-            <div class="mb-3">
-              <label for="ramFrequency" class="form-label">Frequency Speed</label>
-              <input type="number" class="form-control" id="ramFrequency" aria-label="Number value for quantity" min="1">
-            </div>
-                  
+            <form [formGroup]="ramForm">
+              <div class="mb-3">
+                <label for="quantity" class="form-label">Brand</label>
+                <input type="text" class="form-control" id="ramBrand" aria-label="Number value for quantity">
+              </div>
+  
+              <div class="mb-3">
+                <label for="ramType" class="form-label">RAM Type</label>
+                <input type="text" class="form-control" id="ramType">
+              </div>
+  
+              <div class="mb-3">
+                <label for="ramCapacity" class="form-label">RAM Capacity</label>
+                <input type="text" class="form-control" id="ramType">
+              </div>
+  
+              <div class="mb-3">
+                <label for="ramFrequency" class="form-label">Frequency Speed</label>
+                <input type="number" class="form-control" id="ramFrequency" aria-label="Number value for quantity" min="1">
+              </div>
+                    
+              
+              <div class="mb-3">
+                <label for="ramModel" class="form-label">Model</label>
+                <input type="text" class="form-control" id="ramModel" aria-label="Number value for quantity" min="1">
+              </div>   
+              
+              <div class="mb-3">
+                <label for="ramCapacity" class="form-label">Channel Type</label>
+                <select class="form-control" id="ramCapacity">                
+                  <option value="" selected>Seçiniz...</option>
+                  <option value="singleChannel">Single Channel</option>
+                  <option value="dualChannel">Dual Channel</option>                
+                </select>
+              </div>
+  
+              <div class="mb-3">
+                <label for="ramCompatibility" class="form-label">Compatibility</label>
+                <select class="form-control" id="ramCompatibility">                
+                  <option value="" selected>Seçiniz...</option>
+                  <option value="desktopRam">Desktop Ram</option>
+                  <option value="notebookRam">Notebook Ram</option>                
+                </select>
+              </div>
+  
+              <div class="mb-3">
+                <label for="quantity" class="form-label">Quantity</label>
+                <input type="number" class="form-control" id="ramQuantity" aria-label="Number value for quantity" min="1">
+              </div>  
+            </form>
             
-            <div class="mb-3">
-              <label for="ramModel" class="form-label">Model</label>
-              <input type="text" class="form-control" id="ramModel" aria-label="Number value for quantity" min="1">
-            </div>   
-            
-            <div class="mb-3">
-              <label for="ramCapacity" class="form-label">Channel Type</label>
-              <select class="form-control" id="ramCapacity">                
-                <option value="" selected>Seçiniz...</option>
-                <option value="singleChannel">Single Channel</option>
-                <option value="dualChannel">Dual Channel</option>                
-              </select>
-            </div>
-
-            <div class="mb-3">
-              <label for="ramCompatibility" class="form-label">Compatibility</label>
-              <select class="form-control" id="ramCompatibility">                
-                <option value="" selected>Seçiniz...</option>
-                <option value="desktopRam">Desktop Ram</option>
-                <option value="notebookRam">Notebook Ram</option>                
-              </select>
-            </div>
-
-            <div class="mb-3">
-              <label for="quantity" class="form-label">Quantity</label>
-              <input type="number" class="form-control" id="ramQuantity" aria-label="Number value for quantity" min="1">
-            </div>  
           </div>
 
           <!-- PSU tipi seçildiğinde görüntülenecek içerik -->
           <div *ngIf="selectedType === 'PSU'">
-            <div class="mb-3">
-              <label for="psuWatt" class="form-label">Watt</label>
-              <input type="number" class="form-control" id="psuWatt">
-            </div>
-            <div class="mb-3">
-              <label for="psuEfficiency" class="form-label">Efficiency</label>
-              <input type="text" class="form-control" id="psuEfficiency">
-            </div>
-            <div class="mb-3">
-              <label for="psuModular" class="form-label">Modular</label>
-              <select class="form-control" id="psuModular">
-                <option value="" selected>Seçiniz...</option>
-                <option value="Fully Modular">Fully Modular</option>
-                <option value="Semi Modular">Semi Modular</option>
-                <option value="Non Modular">Non Modular</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="psuType" class="form-label">Type</label>
-              <input type="text" class="form-control" id="psuWatt">
-            </div>
-            <div class="mb-3">
-              <label for="psuPcieGen5Support" class="form-label">PCIe Gen 5 Support</label>
-              <select class="form-control" id="psuPcieGen5Support">
-                <option value="" selected>Seçiniz...</option>
-                <option value="VAR">VAR</option>
-                <option value="YOK">YOK</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="psuBrand" class="form-label">Brand</label>
-              <select class="form-control" id="psuBrand">     
-                <option value="" selected>Seçiniz...</option>                           
-                <option value="ASUS">ASUS</option>
-                <option value="COOLER MASTER">COOLER MASTER </option>
-                <option value="CORSAIR">CORSAIR </option>
-                <option value="FSP">FSP</option>
-                <option value="MSI">MSI </option>
-                <option value="THERMALTAKE">THERMALTAKE </option>
-                <option value="NZXT">NZXT </option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="psuModel" class="form-label">Model</label>
-              <input type="text" class="form-control" id="psuModel">
-            </div>
-            <div class="mb-3">
-              <label for="psuQuantity" class="form-label">Quantity</label>
-              <input type="number" class="form-control" id="psuQuantity" min="1">
-            </div>
+            <form [formGroup]="psuForm">
+              <div class="mb-3">
+                <label for="psuWatt" class="form-label">Watt</label>
+                <input type="number" class="form-control" id="psuWatt">
+              </div>
+              <div class="mb-3">
+                <label for="psuEfficiency" class="form-label">Efficiency</label>
+                <input type="text" class="form-control" id="psuEfficiency">
+              </div>
+              <div class="mb-3">
+                <label for="psuModular" class="form-label">Modular</label>
+                <select class="form-control" id="psuModular">
+                  <option value="" selected>Seçiniz...</option>
+                  <option value="Fully Modular">Fully Modular</option>
+                  <option value="Semi Modular">Semi Modular</option>
+                  <option value="Non Modular">Non Modular</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="psuType" class="form-label">Type</label>
+                <input type="text" class="form-control" id="psuWatt">
+              </div>
+              <div class="mb-3">
+                <label for="psuPcieGen5Support" class="form-label">PCIe Gen 5 Support</label>
+                <select class="form-control" id="psuPcieGen5Support">
+                  <option value="" selected>Seçiniz...</option>
+                  <option value="VAR">VAR</option>
+                  <option value="YOK">YOK</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="psuBrand" class="form-label">Brand</label>
+                <select class="form-control" id="psuBrand">     
+                  <option value="" selected>Seçiniz...</option>                           
+                  <option value="ASUS">ASUS</option>
+                  <option value="COOLER MASTER">COOLER MASTER </option>
+                  <option value="CORSAIR">CORSAIR </option>
+                  <option value="FSP">FSP</option>
+                  <option value="MSI">MSI </option>
+                  <option value="THERMALTAKE">THERMALTAKE </option>
+                  <option value="NZXT">NZXT </option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="psuModel" class="form-label">Model</label>
+                <input type="text" class="form-control" id="psuModel">
+              </div>
+              <div class="mb-3">
+                <label for="psuQuantity" class="form-label">Quantity</label>
+                <input type="number" class="form-control" id="psuQuantity" min="1">
+              </div>
+            </form>
+            
           </div>
           <!-- Anakart tipi seçildiğinde görüntülenecek içerik -->
           <div *ngIf="selectedType === 'Motherboard'">
-            <div class="mb-3">
-              <label for="motherboardBrand" class="form-label">Brand</label>              
-              <input type="text" class="form-control" id="motherboardBrand">
-            </div>
-            <div class="mb-3">
-              <label for="motherboardCpuCompatibility" class="form-label">CPU Compatibility</label>
-              <select class="form-control" id="motherboardCpuCompatibility">
-                <option value="" selected>Seçiniz...</option>
-                <option value="AMD">AMD Uyumlu</option>
-                <option value="INTEL">INTEL Uyumlu</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="motherboardCpuSocketType" class="form-label">CPU Socket Type</label>
-              <input type="text" class="form-control" id="motherboardCpuSocketType">
-            </div>
-            <div class="mb-3">
-              <label for="motherboardRamType" class="form-label">RAM Type</label>
-              <input type="text" class="form-control" id="motherboardRamType">
-            </div>
-            <div class="mb-3">
-              <label for="motherboardSize" class="form-label">Size</label>
-              <input type="text" class="form-control" id="motherboardSize">
-            </div>
-            <div class="mb-3">
-              <label for="motherboardRamSlots" class="form-label">RAM Slots</label>
-              <input type="quantity" class="form-control" id="motherboardRamSlots" min="2">
-            </div>
-
-            <div class="mb-3">
-              <label for="motherboardModel" class="form-label">Model</label>
-              <input type="text" class="form-control" id="motherboardModel">
-            </div>
-            <div class="mb-3">
-              <label for="motherboardQuantity" class="form-label">Quantity</label>
-              <input type="number" class="form-control" id="motherboardQuantity" min="1">
-            </div>
+            <form [formGroup]="motherboardForm">
+              <div class="mb-3">
+                <label for="motherboardBrand" class="form-label">Brand</label>              
+                <input type="text" class="form-control" id="motherboardBrand">
+              </div>
+              <div class="mb-3">
+                <label for="motherboardCpuCompatibility" class="form-label">CPU Compatibility</label>
+                <select class="form-control" id="motherboardCpuCompatibility">
+                  <option value="" selected>Seçiniz...</option>
+                  <option value="AMD">AMD Uyumlu</option>
+                  <option value="INTEL">INTEL Uyumlu</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="motherboardCpuSocketType" class="form-label">CPU Socket Type</label>
+                <input type="text" class="form-control" id="motherboardCpuSocketType">
+              </div>
+              <div class="mb-3">
+                <label for="motherboardRamType" class="form-label">RAM Type</label>
+                <input type="text" class="form-control" id="motherboardRamType">
+              </div>
+              <div class="mb-3">
+                <label for="motherboardSize" class="form-label">Size</label>
+                <input type="text" class="form-control" id="motherboardSize">
+              </div>
+              <div class="mb-3">
+                <label for="motherboardRamSlots" class="form-label">RAM Slots</label>
+                <input type="quantity" class="form-control" id="motherboardRamSlots" min="2">
+              </div>
+  
+              <div class="mb-3">
+                <label for="motherboardModel" class="form-label">Model</label>
+                <input type="text" class="form-control" id="motherboardModel">
+              </div>
+              <div class="mb-3">
+                <label for="motherboardQuantity" class="form-label">Quantity</label>
+                <input type="number" class="form-control" id="motherboardQuantity" min="1">
+              </div>
+            </form>
+            
           </div>
 
           <!-- İşlemci soğutucusu tipi seçildiğinde görüntülenecek içerik
           BURAYA UYUMLU SOKETLER EKLENMESİ LAZIM  -->
           <div *ngIf="selectedType === 'CPU Cooler'">
-            <div class="mb-3">
-              <label for="cpuCoolerType" class="form-label">Type</label>
-              <select class="form-control" id="cpuCoolerType">
-                <option value="" selected>Seçiniz...</option>
-                <option value="Hava Soğutma">Hava Soğutma</option>
-                <option value="Sıvı Soğutma">Sıvı Soğutma</option>   
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="cpuCoolerFanLength" class="form-label">Fan Length</label>
-              <input type="text" class="form-control" id="cpuCoolerFanLength">
-            </div>
-            <div class="mb-3">
-              <label for="cpuCoolerRPM" class="form-label">RPM</label>
-              <input type="number" class="form-control" id="cpuCoolerRPM">
-            </div>
-            <div class="mb-3">
-              <label for="cpuCoolerMaterial" class="form-label">Material</label>
-              <input type="text" class="form-control" id="cpuCoolerMaterial">
-            </div>
-            <div class="mb-3">
-              <label for="cpuCoolerLED"class="form-label">LED</label>
-              <input type="text" class="form-control" id="cpuCoolerLED">
+            <form [formGroup]="cpuCoolerForm">
+              <div class="mb-3">
+                <label for="cpuCoolerType" class="form-label">Type</label>
+                <select class="form-control" id="cpuCoolerType">
+                  <option value="" selected>Seçiniz...</option>
+                  <option value="Hava Soğutma">Hava Soğutma</option>
+                  <option value="Sıvı Soğutma">Sıvı Soğutma</option>   
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="cpuCoolerFanLength" class="form-label">Fan Length</label>
+                <input type="text" class="form-control" id="cpuCoolerFanLength">
+              </div>
+              <div class="mb-3">
+                <label for="cpuCoolerRPM" class="form-label">RPM</label>
+                <input type="number" class="form-control" id="cpuCoolerRPM">
+              </div>
+              <div class="mb-3">
+                <label for="cpuCoolerMaterial" class="form-label">Material</label>
+                <input type="text" class="form-control" id="cpuCoolerMaterial">
+              </div>
+              <div class="mb-3">
+                <label for="cpuCoolerLED"class="form-label">LED</label>
+                <input type="text" class="form-control" id="cpuCoolerLED">
+              
+              </div>
+              <div class="mb-3">
+                <label for="cpuCoolerBrand" class="form-label">Brand</label>
+                <input type="text" class="form-control" id="cpuCoolerBrand">
+              </div>
+              <div class="mb-3">
+                <label for="cpuCoolerModel" class="form-label">Model</label>
+                <input type="text" class="form-control" id="cpuCoolerModel">
+              </div>
+              <div class="mb-3">
+                <label for="cpuCoolerQuantity" class="form-label">Quantity</label>
+                <input type="number" class="form-control" id="cpuCoolerQuantity" aria-label="Number value for quantity" min="1">
+              </div>
+            </form>
             
-            </div>
-            <div class="mb-3">
-              <label for="cpuCoolerBrand" class="form-label">Brand</label>
-              <input type="text" class="form-control" id="cpuCoolerBrand">
-            </div>
-            <div class="mb-3">
-              <label for="cpuCoolerModel" class="form-label">Model</label>
-              <input type="text" class="form-control" id="cpuCoolerModel">
-            </div>
-            <div class="mb-3">
-              <label for="cpuCoolerQuantity" class="form-label">Quantity</label>
-              <input type="number" class="form-control" id="cpuCoolerQuantity" aria-label="Number value for quantity" min="1">
-            </div>
           </div>
 
           <!-- Bilgisayar kasası tipi seçildiğinde görüntülenecek içerik -->
           <div *ngIf="selectedType === 'Computer Case'">
-            <div class="mb-3">
-              <label for="caseBrand" class="form-label">Brand</label>
-              <input type="text" class="form-control" id="caseBrand">
-            </div>
-            <div class="mb-3">
-              <label for="caseModel" class="form-label">Model</label>
-              <input type="text" class="form-control" id="caseModel">
-            </div>
-            <div class="mb-3">
-              <label for="caseType" class="form-label">Type</label>
-              <select class="form-control" id="caseType">
-                <option value="" selected>Seçiniz...</option>
-                <option value="ATX Full Tower">ATX Full Tower</option>
-                <option value="ATX Mid Tower">ATX Mid Tower</option>
-                <option value="MicroATX">MicroATX</option>  
-                <option value="Mini-ITX">Mini-ITX</option>  
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="casePSU" class="form-label">PSU</label>
-              <select class="form-control" id="caseTransparent">
-                <option value="" selected>Seçiniz...</option>
-                <option value="VAR">VAR</option>  
-                <option value="YOK">YOK</option>  
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="casePSULocation" class="form-label">PSU Location</label>
-              <select class="form-control" id="caseType">
-                <option value="" selected>Seçiniz...</option>
-                <option value="Aşağıda">Aşağıda</option>
-                <option value="Yukarıda">Yukarıda</option>
-                <option value="Gizli Yan Panel">Gizli Yan Panel</option>  
-              </select>
-            </div>
-            <div class="mb-3">
-            <label for="caseTransparent" class="form-control">Şeffaf Kasa</label>
-              <select class="form-control" id="caseTransparent">
-                <option value="" selected>Seçiniz...</option>
-                <option value="EVET">EVET</option>  
-                <option value="HAYIR">HAYIR</option>  
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="casePSUWatt" class="form-label">PSU Watt</label>
-              <input type="number" class="form-control" id="casePSUWatt" min="100">
-            </div>
-            <div class="mb-3">
-              <label for="caseQuantity" class="form-label">Quantity</label>
-              <input type="number" class="form-control" id="caseQuantity" aria-label="Number value for quantity" min="1">
-            </div>
+            <form [formGroup]="desktopCaseForm">
+              <div class="mb-3">
+                <label for="caseBrand" class="form-label">Brand</label>
+                <input type="text" class="form-control" id="caseBrand">
+              </div>
+              <div class="mb-3">
+                <label for="caseModel" class="form-label">Model</label>
+                <input type="text" class="form-control" id="caseModel">
+              </div>
+              <div class="mb-3">
+                <label for="caseType" class="form-label">Type</label>
+                <select class="form-control" id="caseType">
+                  <option value="" selected>Seçiniz...</option>
+                  <option value="ATX Full Tower">ATX Full Tower</option>
+                  <option value="ATX Mid Tower">ATX Mid Tower</option>
+                  <option value="MicroATX">MicroATX</option>  
+                  <option value="Mini-ITX">Mini-ITX</option>  
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="casePSU" class="form-label">PSU</label>
+                <select class="form-control" id="caseTransparent">
+                  <option value="" selected>Seçiniz...</option>
+                  <option value="VAR">VAR</option>  
+                  <option value="YOK">YOK</option>  
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="casePSULocation" class="form-label">PSU Location</label>
+                <select class="form-control" id="caseType">
+                  <option value="" selected>Seçiniz...</option>
+                  <option value="Aşağıda">Aşağıda</option>
+                  <option value="Yukarıda">Yukarıda</option>
+                  <option value="Gizli Yan Panel">Gizli Yan Panel</option>  
+                </select>
+              </div>
+              <div class="mb-3">
+              <label for="caseTransparent" class="form-control">Şeffaf Kasa</label>
+                <select class="form-control" id="caseTransparent">
+                  <option value="" selected>Seçiniz...</option>
+                  <option value="EVET">EVET</option>  
+                  <option value="HAYIR">HAYIR</option>  
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="casePSUWatt" class="form-label">PSU Watt</label>
+                <input type="number" class="form-control" id="casePSUWatt" min="100">
+              </div>
+              <div class="mb-3">
+                <label for="caseQuantity" class="form-label">Quantity</label>
+                <input type="number" class="form-control" id="caseQuantity" aria-label="Number value for quantity" min="1">
+              </div>
+            </form>
+            
           </div>                    
         </form>
       </div>

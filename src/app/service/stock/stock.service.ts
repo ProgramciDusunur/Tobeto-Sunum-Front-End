@@ -13,6 +13,7 @@ export class StockService {
 
   private getAllStocksUrl = this.apiUrl+'/stock/get/all';
   private removeSpecificStockUrl = this.apiUrl + '/stock/del';
+  private addStockUrl = this.apiUrl + '/stock/add'
 
 
   constructor(private http: HttpClient) { }
@@ -33,7 +34,14 @@ export class StockService {
   removeSpecificStock(stockId: number): Observable<Stock> {
     const headers = this.createAuthHeader();
     const body = { id: stockId }; // Gövde içeriği
-    return this.http.post<Stock>(this.removeSpecificStockUrl, body, { headers });
-    
+    return this.http.post<Stock>(this.removeSpecificStockUrl, body, { headers });    
+  }
+
+  addStock(stock: Stock): Observable<Stock> {    
+    const headers = this.createAuthHeader();
+    const body = { quantity: stock.quantity,
+                   type: stock.type,
+                   typeId: stock.typeId}; // Gövde içeriği
+    return this.http.post<Stock>(this.addStockUrl, body, { headers });    
   }
 }
