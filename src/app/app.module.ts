@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderComponent } from './dashboard/header/header.component';
 import { FooterComponent } from './dashboard/footer/footer.component';
-import { SidebarComponent } from './dashboard/sidebar/sidebar.component';
+
 import { HomeComponent } from './content/home/home.component';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -19,7 +19,7 @@ import { EmployeeComponent } from './content/employee/employee.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { ProductComponent } from './content/product/product.component';
+
 import { TypeComponent } from './content/type/type.component';
 
 
@@ -29,17 +29,14 @@ import { TypeComponent } from './content/type/type.component';
     AppComponent,
     DashboardComponent,
     HeaderComponent,
-    FooterComponent,
-    SidebarComponent,
+    FooterComponent,    
     HomeComponent,
     LoginComponent,
     ShelfComponent,
     StockalertComponent,
     StockComponent,
-    EmployeeComponent,
-
-    ProductComponent,
-      TypeComponent    
+    EmployeeComponent,    
+    TypeComponent    
 
   ],
   imports: [

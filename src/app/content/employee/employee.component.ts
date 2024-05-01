@@ -74,15 +74,15 @@ export class EmployeeComponent implements OnInit {
     this.selectedEmployeeIdForRemove = this.employees[index].email;
   }
 
-  removeEmployee() {
-    this.employeeService.removeSpecificEmployee(this.selectedEmployeeIdForRemove).subscribe(
-      (data) => {
-        this.toastr.success("Employee succesfully removed.");        
+  removeEmployee() {    
+    this.employeeService.removeSpecificEmployee(this.selectedEmployeeIdForRemove).subscribe({
+      next: (data) => {        
+        this.toastr.info("Kullanıcı başarıyla silindi.");
       },
-      (error) => {
-        this.toastr.error("Employee can't removed.");        
+      error: (error) => {
+        this.toastr.error("Kullanıcı silinmesi başarısız.");
       }
-    );
+    });   
   }
   
 
@@ -117,14 +117,14 @@ export class EmployeeComponent implements OnInit {
   }
 
   changePassword(newPassword: string, email: string) {
-    this.employeeService.changePasswordAdmin(newPassword, email).subscribe(
-      (data) => {
+    this.employeeService.changePasswordAdmin(newPassword, email).subscribe({
+      next: (data) => {
         this.toastr.success("Admin tarafından kullanıcının şifresi başarıyla değiştirildi.");        
       },
-      (error) => {
+      error: (error) => {
         this.toastr.error("Admin tarafından kullanıcının şifre değişimi başarısız oldu.");        
       }
-    );
+    });
   }
 
   saveChangedPassword() {
@@ -149,14 +149,14 @@ export class EmployeeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.employeeService.getAllEmployees().subscribe(
-      (data: Employee[]) => {
+    this.employeeService.getAllEmployees().subscribe({
+      next: (data: Employee[]) => {
         this.employees = data;                
       },
-      (error) => {
+      error: (error) => {
         console.error('Error fetching employees:', error);
       }
-    );
+  });
   }
 
   

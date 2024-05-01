@@ -79,15 +79,4 @@ export class LoginService {
 
     return JSON.parse(jsonPayload);
   }
-
-  /*userHasRole(roleAdi: string): boolean {
-    let hasRole = false;
-    this.roller.forEach(rol => {
-      if (rol === roleAdi) {
-        hasRole = true;
-      }
-    })
-    return hasRole;
-  }*/
-
 }

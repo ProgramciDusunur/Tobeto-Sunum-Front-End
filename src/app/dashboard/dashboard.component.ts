@@ -112,14 +112,14 @@ export class DashboardComponent implements OnInit {
       // Tüm form elemanlarının değerleri geçerli
       //alert("emailiniz: " + this.loginService.email);
       
-       this.employeeService.changePassword(previousPasswordValue, newPasswordControlValue, this.loginService.email).subscribe(
-      (data) => {
+       this.employeeService.changePassword(previousPasswordValue, newPasswordControlValue, this.loginService.email).subscribe({
+      next: (data) => {
         this.toastr.success("Şifreniz başarıyla güncellendi.");        
       },
-      (error) => {
+      error: (error) => {
         this.toastr.error("Şifreniz güncellenirken bir hata oluştu.");        
       }
-    );      
+    });      
     } else if (isAllValid  && newPasswordControl.value !== newPasswordCheckControl.value) {
       alert("Yeni şifrenizi düzgün bir şekilde doğrulayın.");
     }
