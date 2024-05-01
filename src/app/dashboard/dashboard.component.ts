@@ -5,6 +5,7 @@ import { LoginService } from '../service/login/login.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { EmployeeService } from '../service/employee/employee.service';
 import { ToastrService } from 'ngx-toastr';
+import { Employee } from '../service/models/employee.model';
 
 
 @Component({
@@ -16,6 +17,23 @@ import { ToastrService } from 'ngx-toastr';
 
 
 export class DashboardComponent implements OnInit {
+  profileForm = new FormGroup({
+    name: new FormControl(""),
+    surname: new FormControl(""),
+    email: new FormControl(""),
+    role: new FormControl(""),
+    canEditName: new FormControl(false),
+    canEditSurname: new FormControl(false),
+    canEditRole:new FormControl(false),
+    canEditEmail:new FormControl(false) 
+  });
+canEditName: boolean=false ;
+canEditSurname: boolean=false;
+canEditRole: boolean=false;
+canEditEmail: boolean=false;
+isValid:boolean=false;
+
+
 
 
   toggleSidebar() {
@@ -23,7 +41,7 @@ export class DashboardComponent implements OnInit {
     if (sidebar instanceof HTMLElement) {
         sidebar.classList.toggle("expand");
     } else {
-        console.error("Element with id 'sidebar' not found.");
+        console.error("ElementemployeeId?: numberemployeeId: numberemployeeId: numberemployeeId: numberemployeeId?: numberemployeeId: number with id 'sidebar' not found.");
     }
   }
   
@@ -91,7 +109,8 @@ export class DashboardComponent implements OnInit {
     newPassword: new FormControl(""),
     newPasswordCheck: new FormControl(""),    
   });
-
+ 
+ 
   changePassword() {
     const previousPasswordControl = this.employeePasswordChangeForm.get('previousPassword');
     const newPasswordControl = this.employeePasswordChangeForm.get('newPassword');
@@ -135,4 +154,19 @@ export class DashboardComponent implements OnInit {
     this.loginService.logout();
     this.router.navigate(['login']);
   }
+  employeeInfo: Employee = {
+    name: "",
+    surname: "",
+    email: "",
+    role: "",
+    id: 0
+  }
+
+  getProfile() {    
+    this.employeeInfo.name=this.loginService.username;
+    this.employeeInfo.surname=this.loginService.surname;
+    this.employeeInfo.email=this.loginService.email;
+    this.employeeInfo.role=this.loginService.rol  
+  }
 }
+  

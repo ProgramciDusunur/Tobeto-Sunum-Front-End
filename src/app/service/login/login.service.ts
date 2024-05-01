@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 
 
 
+
 @Injectable({ providedIn: 'root' })
 export class LoginService {
   loggedIn = false;  
@@ -79,4 +80,6 @@ export class LoginService {
 
     return JSON.parse(jsonPayload);
   }
+  
+  
 }

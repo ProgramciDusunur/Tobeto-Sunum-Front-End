@@ -18,11 +18,13 @@
 
             <ul id="profile" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
               <li class="sidebar-item">
-                  <a class="sidebar-link">
+                  <a class="sidebar-link" >
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-vcard" viewBox="0 0 20 20">
                         <path d="M5 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m4-2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5M9 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 9 8m1 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5"/>
                         <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H8.96q.04-.245.04-.5C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1 1 0 0 1 1 12z"/>
-                    </svg> Profil
+                    </svg> 
+                    <span data-bs-toggle="modal" data-bs-target="#profileModal" (click)="getProfile()">Profil</span>
+                    
                   </a>
               </li>
               <li class="sidebar-item">
@@ -135,6 +137,39 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
                 <button type="button" class="btn btn-primary" (click)="changePassword()">Değiştir</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Profil modalı-->
+<div class="modal profile" id="profileModal" aria-hidden="true" aria-labelledby="profileModalLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="profileLabel">Profil</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+               
+                 <div class="mb-3">
+                    <label for="name" class="form-label">Ad</label>
+                    <input type="text"  class="form-control" id="name" [value]="employeeInfo.name" disabled> </div>
+                <div class="mb-3">
+                    <label for="surname" class="form-label">Soyad</label>
+                    <input type="text"  class="form-control" id="surname" [value]="employeeInfo.surname" disabled> </div>
+                <div class="mb-3">
+                    <label for="role" class="form-label">Rol</label>
+                    <input type="text"  class="form-control" id="role" [value]="employeeInfo.role" disabled> </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email"  class="form-control" id="email" [value]="employeeInfo.email" disabled> </div>
+                    
+               
+                  
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
+               
             </div>
         </div>
     </div>
