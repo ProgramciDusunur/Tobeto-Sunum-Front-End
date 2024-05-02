@@ -27,11 +27,6 @@ export class DashboardComponent implements OnInit {
     canEditRole:new FormControl(false),
     canEditEmail:new FormControl(false) 
   });
-canEditName: boolean=false ;
-canEditSurname: boolean=false;
-canEditRole: boolean=false;
-canEditEmail: boolean=false;
-isValid:boolean=false;
 
 
 

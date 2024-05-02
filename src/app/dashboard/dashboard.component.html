@@ -79,7 +79,7 @@
           }
           
           <li class="sidebar-item">
-              <a class="sidebar-link">
+              <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#notificationModal">
                   <i class="lni lni-alarm"></i>
                   <span>Notification</span>
               </a>
@@ -141,7 +141,7 @@
         </div>
     </div>
 </div>
-<!--Profil modalı-->
+<!--Profile Modal-->
 <div class="modal profile" id="profileModal" aria-hidden="true" aria-labelledby="profileModalLabel" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -153,16 +153,20 @@
                
                  <div class="mb-3">
                     <label for="name" class="form-label">Ad</label>
-                    <input type="text"  class="form-control" id="name" [value]="employeeInfo.name" disabled> </div>
+                    <input type="text"  class="form-control" id="name" [value]="employeeInfo.name" disabled> 
+                </div>
                 <div class="mb-3">
                     <label for="surname" class="form-label">Soyad</label>
-                    <input type="text"  class="form-control" id="surname" [value]="employeeInfo.surname" disabled> </div>
+                    <input type="text"  class="form-control" id="surname" [value]="employeeInfo.surname" disabled> 
+                </div>
                 <div class="mb-3">
                     <label for="role" class="form-label">Rol</label>
-                    <input type="text"  class="form-control" id="role" [value]="employeeInfo.role" disabled> </div>
+                    <input type="text"  class="form-control" id="role" [value]="employeeInfo.role" disabled> 
+                </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email"  class="form-control" id="email" [value]="employeeInfo.email" disabled> </div>
+                    <input type="email"  class="form-control" id="email" [value]="employeeInfo.email" disabled> 
+                </div>
                     
                
                   
@@ -170,6 +174,23 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
                
+            </div>
+        </div>
+    </div>
+</div>
+<!--Notification Modal-->
+<div class="modal fade" id="notificationModal" aria-hidden="true" aria-labelledby="notificationModalLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="notificationModalLabel">Bildirimler</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+               
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>                
             </div>
         </div>
     </div>

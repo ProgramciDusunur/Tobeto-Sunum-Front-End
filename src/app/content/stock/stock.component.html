@@ -21,14 +21,14 @@
         <div class="shelfDataDiv">{{ stock.quantity }}</div>
         <div class="shelfDataDiv">{{ stock.typeId}}</div>                         
         <div class="grid-container">
-          <div class="grid-item"><i class="bi bi-pen"></i></div>      
+          <div class="grid-item"><i class="bi bi-pen" (click)="typeInformation(stock.type, stock.typeId)" data-bs-toggle="modal" data-bs-target="#editModalToggle"></i></div>      
           <div class="grid-item"><i class="bi bi-trash3" data-bs-toggle="modal" data-bs-target="#stockRemoveModalToggle"></i></div>                     
           <div class="grid-item"><i class="bi bi-info-circle" (click)="typeInformation(stock.type, stock.typeId)" data-bs-toggle="modal" data-bs-target="#exampleModalToggle"></i></div>
         </div> 
       </div>     
 </div>
 
-<!-- Modal -->
+<!-- Information Modal -->
 <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -239,16 +239,42 @@
 
           } @else if (selectedGlobalType === 'cpuCooler') {
             <form>
-
-            </form>            
-
-          } 
+              <div class="mb-3">
+                <label for="cpuCoolerBrand" class="form-label">Marka</label>
+                <input type="text" class="form-control" id="cpuCoolerBrand" disabled [value]="cpuCoolerInfo.brand">
+              </div>
+              <div class="mb-3">
+                <label for="cpuCoolerModel" class="form-label">Model</label>
+                <input type="text" class="form-control" id="cpuCoolerModel" disabled [value]="cpuCoolerInfo.model">
+              </div>
+              <div class="mb-3">
+                <label for="cpuCoolerFanLength" class="form-label">Fan Uzunluğu</label>
+                <input type="text" class="form-control" id="cpuCoolerFanLength" disabled [value]="cpuCoolerInfo.fanLength">
+              </div>
+              <div class="mb-3">
+                <label for="cpuCoolerLED" class="form-label">LED</label>
+                <input type="text" class="form-control" id="cpuCoolerLED" disabled [value]="cpuCoolerInfo.led">
+              </div>
+              <div class="mb-3">
+                <label for="cpuCoolerRPM" class="form-label">RPM</label>
+                <input type="text" class="form-control" id="cpuCoolerRPM" disabled [value]="cpuCoolerInfo.rpm">
+              </div>
+              <div class="mb-3">
+                <label for="cpuCoolerMaterial" class="form-label">Malzeme</label>
+                <input type="text" class="form-control" id="cpuCoolerMaterial" disabled [value]="cpuCoolerInfo.material">
+              </div>
+              <div class="mb-3">
+                <label for="cpuCoolerType" class="form-label">Tip</label>
+                <input type="text" class="form-control" id="cpuCoolerType" disabled [value]="cpuCoolerInfo.type">
+              </div>
+            </form>
+          }
+          
           
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
-        <button type="button" class="btn btn-primary">Kaydet</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>        
       </div>
     </div>
   </div>
@@ -627,6 +653,262 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
         <button type="button" class="btn btn-danger" (click)="removeStock()">Sil</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editModalToggle" aria-hidden="true" aria-labelledby="editModalToggleLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalToggleLabel">Ürün Bilgileri</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Stok bilgilerini düzenleme formu -->
+        <form>
+          <div class="mb-3">
+            <label for="stockId" class="form-label">Ürünün Stok ID</label>
+            <input type="text" class="form-control" id="stockId" [value]="selectedStock?.id" disabled>
+          </div>
+          <div class="mb-3">
+            <label for="type" class="form-label">Hangi Parça</label>
+            <input type="text" class="form-control" id="type" [value]="selectedStock?.type" disabled>
+          </div>
+          <div class="mb-3">
+            <label for="quantity" class="form-label">Ürün Sayısı</label>
+            <input type="number" class="form-control" id="quantity" aria-label="Number value for quantity" [value]="selectedStock?.quantity" disabled>
+          </div>        
+          @if (selectedGlobalType === 'gpu') {
+            <form>
+              <div class="mb-3">
+                <label for="typeBrand" class="form-label">Marka</label>
+                <input type="text" class="form-control" id="typeBrand" [disabled]="!canEditComputerComponent()" [value]="gpuInfo.brand">
+              </div> 
+              <div class="mb-3">
+                <label for="typeModel" class="form-label">Model</label>
+                <input type="text" class="form-control" id="typeModel" [disabled]="!canEditComputerComponent()" [value]="gpuInfo.model">
+              </div> 
+              <div class="mb-3">
+                <label for="typeProducer" class="form-label">Üretici</label>
+                <input type="text" class="form-control" id="typeProducer" [disabled]="!canEditComputerComponent()" [value]="gpuInfo.producer">
+              </div> 
+              <div class="mb-3">
+                <label for="typeSeries" class="form-label">Seri</label>
+                <input type="text" class="form-control" id="typeSeries" [disabled]="!canEditComputerComponent()" [value]="gpuInfo.series">
+              </div>  
+              <div class="mb-3">
+                <label for="typeVram" class="form-label">Grafik Belleği</label>
+                <input type="text" class="form-control" id="typeVram" [disabled]="!canEditComputerComponent()" [value]="gpuInfo.vram">
+              </div>  
+              <div class="mb-3">
+                <label for="typeMemoryInterface" class="form-label">Bellek Arayüzü</label>
+                <input type="text" class="form-control" id="typeMemoryInterface" [disabled]="!canEditComputerComponent()" [value]="gpuInfo.memoryInterface">
+              </div>
+            </form>  
+                      
+            
+          } @else if (selectedGlobalType === 'cpu') {
+            <form>
+              <div class="mb-3">
+                <label for="cpuBrand" class="form-label">Marka</label>
+                <input type="text" class="form-control" id="cpuBrand" disabled [value]="cpuInfo.brand">
+              </div>
+              <div class="mb-3">
+                <label for="cpuClockSpeed" class="form-label">Clock Hızı</label>
+                <input type="text" class="form-control" id="cpuClockSpeed" disabled [value]="cpuInfo.clockSpeed">
+              </div>
+              <div class="mb-3">
+                <label for="cpuSocketType" class="form-label">Soket Tipi</label>
+                <input type="text" class="form-control" id="cpuSocketType" disabled [value]="cpuInfo.socketType">
+              </div>
+              <div class="mb-3">
+                <label for="cpuGeneration" class="form-label">Nesil</label>
+                <input type="text" class="form-control" id="cpuGeneration" disabled [value]="cpuInfo.generation">
+              </div>
+              <div class="mb-3">
+                <label for="cpuSeries" class="form-label">Seri</label>
+                <input type="text" class="form-control" id="cpuSeries" disabled [value]="cpuInfo.series">
+              </div>
+              <div class="mb-3">
+                <label for="cpuCoreCount" class="form-label">Çekirdek Sayısı</label>
+                <input type="text" class="form-control" id="cpuCoreCount" disabled [value]="cpuInfo.coreCount">
+              </div>
+              <div class="mb-3">
+                <label for="cpuModel" class="form-label">Model</label>
+                <input type="text" class="form-control" id="cpuModel" disabled [value]="cpuInfo.model">
+              </div>
+            </form>            
+          } @else if (selectedGlobalType === 'psu') {
+            <form>
+              <div class="mb-3">
+                <label for="psuWatt" class="form-label">Watt</label>
+                <input type="text" class="form-control" id="psuWatt" disabled [value]="psuInfo.watt">
+              </div>
+              <div class="mb-3">
+                <label for="psuEfficiency" class="form-label">Verimlilik</label>
+                <input type="text" class="form-control" id="psuEfficiency" disabled [value]="psuInfo.efficiency">
+              </div>
+              <div class="mb-3">
+                <label for="psuModular" class="form-label">Modüler</label>
+                <input type="text" class="form-control" id="psuModular" disabled [value]="psuInfo.modular">
+              </div>
+              <div class="mb-3">
+                <label for="psuType" class="form-label">Tip</label>
+                <input type="text" class="form-control" id="psuType" disabled [value]="psuInfo.type">
+              </div>
+              <div class="mb-3">
+                <label for="psuPcieGen5Support" class="form-label">PCIe Gen5 Desteği</label>
+                <input type="text" class="form-control" id="psuPcieGen5Support" disabled [value]="psuInfo.pcieGen5Support">
+              </div>
+              <div class="mb-3">
+                <label for="psuBrand" class="form-label">Marka</label>
+                <input type="text" class="form-control" id="psuBrand" disabled [value]="psuInfo.brand">
+              </div>
+              <div class="mb-3">
+                <label for="psuModel" class="form-label">Model</label>
+                <input type="text" class="form-control" id="psuModel" disabled [value]="psuInfo.model">
+              </div>
+            </form>           
+          } @else if (selectedGlobalType === 'ram') {
+            <form>
+              <div class="mb-3">
+                <label for="ramType" class="form-label">RAM Türü</label>
+                <input type="text" class="form-control" id="ramType" disabled [value]="ramInfo.type">
+              </div>
+              <div class="mb-3">
+                <label for="ramSize" class="form-label">Boyut</label>
+                <input type="text" class="form-control" id="ramSize" disabled [value]="ramInfo.capacity">
+              </div>
+              <div class="mb-3">
+                <label for="ramFrequency" class="form-label">Frekans Hızı</label>
+                <input type="text" class="form-control" id="ramFrequency" disabled [value]="ramInfo.frequencySpeed">
+              </div>
+              <div class="mb-3">
+                <label for="ramChannelType" class="form-label">Tek Yada Çift Kanal</label>
+                <input type="text" class="form-control" id="ramChannelType" disabled [value]="ramInfo.channelType">
+              </div>
+              <div class="mb-3">
+                <label for="ramCompatibility" class="form-label">RAM Uyumluluğu</label>
+                <input type="text" class="form-control" id="ramCompatibility" disabled [value]="ramInfo.compatibility">
+              </div>
+              <div class="mb-3">
+                <label for="ramBrand" class="form-label">Brand</label>
+                <input type="text" class="form-control" id="ramBrand" disabled [value]="ramInfo.brand">
+              </div>
+              <div class="mb-3">
+                <label for="ramModel" class="form-label">Model</label>
+                <input type="text" class="form-control" id="ramModel" disabled [value]="ramInfo.model">
+              </div>
+            </form>            
+
+          } @else if (selectedGlobalType === 'motherboard') {
+            <form>
+              <div class="mb-3">
+                <label for="mbCpuSocketType" class="form-label">CPU Soket Tipi</label>
+                <input type="text" class="form-control" id="mbCpuSocketType" disabled [value]="motherboardInfo.cpuSocketType">
+              </div>
+              <div class="mb-3">
+                <label for="mbCpuCompatibility" class="form-label">CPU Uyumluluğu</label>
+                <input type="text" class="form-control" id="mbCpuCompatibility" disabled [value]="motherboardInfo.cpuCompatibility">
+              </div>
+              <div class="mb-3">
+                <label for="mbRamType" class="form-label">RAM Türü</label>
+                <input type="text" class="form-control" id="mbRamType" disabled [value]="motherboardInfo.ramType">
+              </div>
+              <div class="mb-3">
+                <label for="mbSize" class="form-label">Boyut</label>
+                <input type="text" class="form-control" id="mbSize" disabled [value]="motherboardInfo.size">
+              </div>
+              <div class="mb-3">
+                <label for="mbRamSlots" class="form-label">RAM Yuvaları</label>
+                <input type="text" class="form-control" id="mbRamSlots" disabled [value]="motherboardInfo.ramSlots">
+              </div>
+              <div class="mb-3">
+                <label for="mbBrand" class="form-label">Marka</label>
+                <input type="text" class="form-control" id="mbBrand" disabled [value]="motherboardInfo.brand">
+              </div>
+              <div class="mb-3">
+                <label for="mbModel" class="form-label">Model</label>
+                <input type="text" class="form-control" id="mbModel" disabled [value]="motherboardInfo.model">
+              </div>
+            </form>
+            
+          } @else if (selectedGlobalType === 'desktopCase') {
+            <form>
+              <div class="mb-3">
+                <label for="desktopCaseBrand" class="form-label">Marka</label>
+                <input type="text" class="form-control" id="desktopCaseBrand" disabled [value]="desktopCaseInfo.brand">
+              </div>
+              <div class="mb-3">
+                <label for="desktopCasePsu" class="form-label">PSU</label>
+                <input type="text" class="form-control" id="desktopCasePsu" disabled [value]="desktopCaseInfo.psu ? 'Evet' : 'Hayır'">
+              </div>
+              <div class="mb-3">
+                <label for="desktopCasePsuLocation" class="form-label">PSU Yeri</label>
+                <input type="text" class="form-control" id="desktopCasePsuLocation" disabled [value]="desktopCaseInfo.psuLocation">
+              </div>
+              <div class="mb-3">
+                <label for="desktopCaseTransparent" class="form-label">Şeffaflık</label>
+                <input type="text" class="form-control" id="desktopCaseTransparent" disabled [value]="desktopCaseInfo.transparent ? 'Evet' : 'Hayır'">
+              </div>
+              <div class="mb-3">
+                <label for="desktopCasePsuWatt" class="form-label">PSU Watt</label>
+                <input type="text" class="form-control" id="desktopCasePsuWatt" disabled [value]="desktopCaseInfo.psuWatt">
+              </div>
+              <div class="mb-3">
+                <label for="desktopCaseModel" class="form-label">Model</label>
+                <input type="text" class="form-control" id="desktopCaseModel" disabled [value]="desktopCaseInfo.model">
+              </div>
+              <div class="mb-3">
+                <label for="desktopCaseType" class="form-label">Tip</label>
+                <input type="text" class="form-control" id="desktopCaseType" disabled [value]="desktopCaseInfo.type">
+              </div>
+            </form>            
+
+          } @else if (selectedGlobalType === 'cpuCooler') {
+            <form>
+              <div class="mb-3">
+                <label for="cpuCoolerBrand" class="form-label">Marka</label>
+                <input type="text" class="form-control" id="cpuCoolerBrand" disabled [value]="cpuCoolerInfo.brand">
+              </div>
+              <div class="mb-3">
+                <label for="cpuCoolerModel" class="form-label">Model</label>
+                <input type="text" class="form-control" id="cpuCoolerModel" disabled [value]="cpuCoolerInfo.model">
+              </div>
+              <div class="mb-3">
+                <label for="cpuCoolerFanLength" class="form-label">Fan Uzunluğu</label>
+                <input type="text" class="form-control" id="cpuCoolerFanLength" disabled [value]="cpuCoolerInfo.fanLength">
+              </div>
+              <div class="mb-3">
+                <label for="cpuCoolerLED" class="form-label">LED</label>
+                <input type="text" class="form-control" id="cpuCoolerLED" disabled [value]="cpuCoolerInfo.led">
+              </div>
+              <div class="mb-3">
+                <label for="cpuCoolerRPM" class="form-label">RPM</label>
+                <input type="text" class="form-control" id="cpuCoolerRPM" disabled [value]="cpuCoolerInfo.rpm">
+              </div>
+              <div class="mb-3">
+                <label for="cpuCoolerMaterial" class="form-label">Malzeme</label>
+                <input type="text" class="form-control" id="cpuCoolerMaterial" disabled [value]="cpuCoolerInfo.material">
+              </div>
+              <div class="mb-3">
+                <label for="cpuCoolerType" class="form-label">Tip</label>
+                <input type="text" class="form-control" id="cpuCoolerType" disabled [value]="cpuCoolerInfo.type">
+              </div>
+            </form>
+          }
+          
+          
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>     
+        <button type="button" class="btn btn-primary" (click)="editProductAndStock()">Kaydet</button>   
       </div>
     </div>
   </div>

@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { TypeService } from '../../service/type/type.service';
 import { Cpu, CpuCooler, DesktopCase, Gpu, Motherboard, Psu, Ram } from '../../service/models/type.model';
 import { FormControl, FormGroup } from '@angular/forms';
+import { LoginService } from '../../service/login/login.service';
 
 @Component({
   selector: 'app-stock',
@@ -34,14 +35,23 @@ export class StockComponent implements OnInit {
     private stockService: StockService,
     private toastr: ToastrService,
     private typeService: TypeService,
-    
-
+    private loginService: LoginService    
   ) {}
+
+  userRole: string = "";
+
+  
 
   stock: Stock[] = [];
   ngOnInit(): void {
-    this.fetchStocks();
+    this.fetchStocks();    
+    this.userRole = this.loginService.rol;
   }
+
+  canEditComputerComponent(): boolean {
+    return this.userRole === 'admin';
+  }
+  
 
   fetchStocks(): void {
     this.stockService.getAllStocks().subscribe({
@@ -960,6 +970,48 @@ cpuCoolerFormCheck() {
         break;
         
       }      
+    }
+  }
+
+  editProductAndStock() {
+    alert(this.selectedGlobalType);
+    switch(this.selectedGlobalType) {
+      case "cpu":
+        alert("CPU eklemek istiyorsunuz.");
+        this.cpuFormCheck();
+      break;
+
+      case "gpu":
+        alert("GPU eklemek istiyorsunuz.");
+        this.gpuFormCheck();
+      break;
+
+      case "ram":
+        alert("RAM eklemek istiyorsunuz.");
+        this.ramFormCheck();
+      break;
+
+      case "psu":
+        alert("PSU eklemek istiyorsunuz.");
+        this.psuFormCheck();
+      break;
+
+      case "motherboard":
+        alert("Anakart eklemek istiyorsunuz.");
+        this.motherboardFormCheck();
+      break;
+
+
+      case "desktopCase":
+        alert("Kasa eklemek istiyorsunuz.");
+        this.desktopCaseFormCheck();
+      break;
+
+      case "CPU Cooler":
+        alert("Soğutucu eklemek istiyorsunuz.");
+        this.cpuCoolerFormCheck();
+      break;
+      
     }
   }
 
