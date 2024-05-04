@@ -2,46 +2,45 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Stock } from '../models/stock.models';
+import { EditStock, Stock } from '../models/stock.models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StockService {
 
-  apiUrl = environment.serverURL;
 
-  private getAllStocksUrl = this.apiUrl+'/stock/get/all';
-  private removeSpecificStockUrl = this.apiUrl + '/stock/del';
-  private addStockUrl = this.apiUrl + '/stock/add'
+
+  private getAllStocksUrl ='/stock/get/all';
+  private removeSpecificStockUrl ='/stock/del';
+  private addStockUrl ='/stock/add'
+  private editStockUrl ='/stock/put'
 
 
   constructor(private http: HttpClient) { }
 
-  createAuthHeader() {
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer '+ localStorage.getItem("token"),      
-    });
-    return headers;
-  }
 
 
   getAllStocks(): Observable<Stock[]> {
-    const headers = this.createAuthHeader();
-    return this.http.get<Stock[]>(this.getAllStocksUrl, {headers});
+    return this.http.get<Stock[]>(this.getAllStocksUrl);
   }
 
   removeSpecificStock(stockId: number): Observable<Stock> {
-    const headers = this.createAuthHeader();
     const body = { id: stockId }; // Gövde içeriği
-    return this.http.post<Stock>(this.removeSpecificStockUrl, body, { headers });    
+    return this.http.post<Stock>(this.removeSpecificStockUrl, body);    
   }
 
   addStock(stock: Stock): Observable<Stock> {    
-    const headers = this.createAuthHeader();
     const body = { quantity: stock.quantity,
                    type: stock.type,
                    typeId: stock.typeId}; // Gövde içeriği
-    return this.http.post<Stock>(this.addStockUrl, body, { headers });    
+    return this.http.post<Stock>(this.addStockUrl, body);    
+  }
+
+  editStock(stock: EditStock):Observable<Stock> { 
+    const body = { 
+      quantity: stock.quantity,
+      id: stock.id}
+    return this.http.post<Stock>(this.editStockUrl, body);    
   }
 }

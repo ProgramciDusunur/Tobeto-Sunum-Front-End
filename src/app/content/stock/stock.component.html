@@ -83,50 +83,50 @@
             <form>
               <div class="mb-3">
                 <label for="cpuBrand" class="form-label">Marka</label>
-                <input type="text" class="form-control" id="cpuBrand" disabled [value]="cpuInfo.brand">
+                <input type="text"  class="form-control" id="cpuBrand" disabled [value]="cpuInfo.brand">
               </div>
               <div class="mb-3">
                 <label for="cpuClockSpeed" class="form-label">Clock Hızı</label>
-                <input type="text" class="form-control" id="cpuClockSpeed" disabled [value]="cpuInfo.clockSpeed">
+                <input type="text"  class="form-control" id="cpuClockSpeed" disabled [value]="cpuInfo.clockSpeed">
               </div>
               <div class="mb-3">
                 <label for="cpuSocketType" class="form-label">Soket Tipi</label>
-                <input type="text" class="form-control" id="cpuSocketType" disabled [value]="cpuInfo.socketType">
+                <input type="text"  class="form-control" id="cpuSocketType" disabled [value]="cpuInfo.socketType">
               </div>
               <div class="mb-3">
                 <label for="cpuGeneration" class="form-label">Nesil</label>
-                <input type="text" class="form-control" id="cpuGeneration" disabled [value]="cpuInfo.generation">
+                <input type="text"  class="form-control" id="cpuGeneration" disabled [value]="cpuInfo.generation">
               </div>
               <div class="mb-3">
                 <label for="cpuSeries" class="form-label">Seri</label>
-                <input type="text" class="form-control" id="cpuSeries" disabled [value]="cpuInfo.series">
+                <input type="text"  class="form-control" id="cpuSeries" disabled [value]="cpuInfo.series">
               </div>
               <div class="mb-3">
                 <label for="cpuCoreCount" class="form-label">Çekirdek Sayısı</label>
-                <input type="text" class="form-control" id="cpuCoreCount" disabled [value]="cpuInfo.coreCount">
+                <input type="text"  class="form-control" id="cpuCoreCount" disabled [value]="cpuInfo.coreCount">
               </div>
               <div class="mb-3">
                 <label for="cpuModel" class="form-label">Model</label>
-                <input type="text" class="form-control" id="cpuModel" disabled [value]="cpuInfo.model">
+                <input type="text"  class="form-control" id="cpuModel" disabled [value]="cpuInfo.model">
               </div>
             </form>            
           } @else if (selectedGlobalType === 'psu') {
             <form>
               <div class="mb-3">
                 <label for="psuWatt" class="form-label">Watt</label>
-                <input type="text" class="form-control" id="psuWatt" disabled [value]="psuInfo.watt">
+                <input type="text"  class="form-control" id="psuWatt" disabled [value]="psuInfo.watt">
               </div>
               <div class="mb-3">
                 <label for="psuEfficiency" class="form-label">Verimlilik</label>
-                <input type="text" class="form-control" id="psuEfficiency" disabled [value]="psuInfo.efficiency">
+                <input type="text"  class="form-control" id="psuEfficiency" disabled [value]="psuInfo.efficiency">
               </div>
               <div class="mb-3">
                 <label for="psuModular" class="form-label">Modüler</label>
-                <input type="text" class="form-control" id="psuModular" disabled [value]="psuInfo.modular">
+                <input type="text"  class="form-control" id="psuModular" disabled [value]="psuInfo.modular">
               </div>
               <div class="mb-3">
                 <label for="psuType" class="form-label">Tip</label>
-                <input type="text" class="form-control" id="psuType" disabled [value]="psuInfo.type">
+                <input type="text"  class="form-control" id="psuType" disabled [value]="psuInfo.type">
               </div>
               <div class="mb-3">
                 <label for="psuPcieGen5Support" class="form-label">PCIe Gen5 Desteği</label>
@@ -134,74 +134,74 @@
               </div>
               <div class="mb-3">
                 <label for="psuBrand" class="form-label">Marka</label>
-                <input type="text" class="form-control" id="psuBrand" disabled [value]="psuInfo.brand">
+                <input type="text"  class="form-control" id="psuBrand" disabled [value]="psuInfo.brand">
               </div>
               <div class="mb-3">
                 <label for="psuModel" class="form-label">Model</label>
-                <input type="text" class="form-control" id="psuModel" disabled [value]="psuInfo.model">
+                <input type="text"  class="form-control" id="psuModel" disabled [value]="psuInfo.model">
               </div>
             </form>           
           } @else if (selectedGlobalType === 'ram') {
-            <form>
+            <form >
               <div class="mb-3">
                 <label for="ramType" class="form-label">RAM Türü</label>
-                <input type="text" class="form-control" id="ramType" disabled [value]="ramInfo.type">
+                <input type="text"  class="form-control" id="ramType" disabled [value]="ramInfo.type">
               </div>
               <div class="mb-3">
                 <label for="ramSize" class="form-label">Boyut</label>
-                <input type="text" class="form-control" id="ramSize" disabled [value]="ramInfo.capacity">
+                <input type="text"  class="form-control" id="ramSize" disabled [value]="ramInfo.capacity">
               </div>
               <div class="mb-3">
                 <label for="ramFrequency" class="form-label">Frekans Hızı</label>
-                <input type="text" class="form-control" id="ramFrequency" disabled [value]="ramInfo.frequencySpeed">
+                <input type="text"  class="form-control" id="ramFrequency" disabled [value]="ramInfo.frequencySpeed">
               </div>
               <div class="mb-3">
                 <label for="ramChannelType" class="form-label">Tek Yada Çift Kanal</label>
-                <input type="text" class="form-control" id="ramChannelType" disabled [value]="ramInfo.channelType">
+                <input type="text"  class="form-control" id="ramChannelType" disabled [value]="ramInfo.channelType">
               </div>
               <div class="mb-3">
                 <label for="ramCompatibility" class="form-label">RAM Uyumluluğu</label>
-                <input type="text" class="form-control" id="ramCompatibility" disabled [value]="ramInfo.compatibility">
+                <input type="text"  class="form-control" id="ramCompatibility" disabled [value]="ramInfo.compatibility">
               </div>
               <div class="mb-3">
                 <label for="ramBrand" class="form-label">Brand</label>
-                <input type="text" class="form-control" id="ramBrand" disabled [value]="ramInfo.brand">
+                <input type="text"  class="form-control" id="ramBrand" disabled [value]="ramInfo.brand">
               </div>
               <div class="mb-3">
                 <label for="ramModel" class="form-label">Model</label>
-                <input type="text" class="form-control" id="ramModel" disabled [value]="ramInfo.model">
+                <input type="text"  class="form-control" id="ramModel" disabled [value]="ramInfo.model">
               </div>
             </form>            
 
           } @else if (selectedGlobalType === 'motherboard') {
-            <form>
+            <form >
               <div class="mb-3">
                 <label for="mbCpuSocketType" class="form-label">CPU Soket Tipi</label>
-                <input type="text" class="form-control" id="mbCpuSocketType" disabled [value]="motherboardInfo.cpuSocketType">
+                <input type="text"   class="form-control" id="mbCpuSocketType" disabled [value]="motherboardInfo.cpuSocketType">
               </div>
               <div class="mb-3">
                 <label for="mbCpuCompatibility" class="form-label">CPU Uyumluluğu</label>
-                <input type="text" class="form-control" id="mbCpuCompatibility" disabled [value]="motherboardInfo.cpuCompatibility">
+                <input type="text"   class="form-control" id="mbCpuCompatibility" disabled [value]="motherboardInfo.cpuCompatibility">
               </div>
               <div class="mb-3">
                 <label for="mbRamType" class="form-label">RAM Türü</label>
-                <input type="text" class="form-control" id="mbRamType" disabled [value]="motherboardInfo.ramType">
+                <input type="text"   class="form-control" id="mbRamType" disabled [value]="motherboardInfo.ramType">
               </div>
               <div class="mb-3">
                 <label for="mbSize" class="form-label">Boyut</label>
-                <input type="text" class="form-control" id="mbSize" disabled [value]="motherboardInfo.size">
+                <input type="text"   class="form-control" id="mbSize" disabled [value]="motherboardInfo.size">
               </div>
               <div class="mb-3">
                 <label for="mbRamSlots" class="form-label">RAM Yuvaları</label>
-                <input type="text" class="form-control" id="mbRamSlots" disabled [value]="motherboardInfo.ramSlots">
+                <input type="text"   class="form-control" id="mbRamSlots" disabled [value]="motherboardInfo.ramSlots">
               </div>
               <div class="mb-3">
                 <label for="mbBrand" class="form-label">Marka</label>
-                <input type="text" class="form-control" id="mbBrand" disabled [value]="motherboardInfo.brand">
+                <input type="text"  class="form-control" id="mbBrand" disabled [value]="motherboardInfo.brand">
               </div>
               <div class="mb-3">
                 <label for="mbModel" class="form-label">Model</label>
-                <input type="text" class="form-control" id="mbModel" disabled [value]="motherboardInfo.model">
+                <input type="text"   class="form-control" id="mbModel" disabled [value]="motherboardInfo.model">
               </div>
             </form>
             
@@ -209,51 +209,51 @@
             <form>
               <div class="mb-3">
                 <label for="desktopCaseBrand" class="form-label">Marka</label>
-                <input type="text" class="form-control" id="desktopCaseBrand" disabled [value]="desktopCaseInfo.brand">
+                <input type="text"  class="form-control" id="desktopCaseBrand" disabled [value]="desktopCaseInfo.brand">
               </div>
               <div class="mb-3">
                 <label for="desktopCasePsu" class="form-label">PSU</label>
-                <input type="text" class="form-control" id="desktopCasePsu" disabled [value]="desktopCaseInfo.psu ? 'Evet' : 'Hayır'">
+                <input type="text"  class="form-control" id="desktopCasePsu" disabled [value]="desktopCaseInfo.psu ? 'Evet' : 'Hayır'">
               </div>
               <div class="mb-3">
                 <label for="desktopCasePsuLocation" class="form-label">PSU Yeri</label>
-                <input type="text" class="form-control" id="desktopCasePsuLocation" disabled [value]="desktopCaseInfo.psuLocation">
+                <input type="text"  class="form-control" id="desktopCasePsuLocation" disabled [value]="desktopCaseInfo.psuLocation">
               </div>
               <div class="mb-3">
                 <label for="desktopCaseTransparent" class="form-label">Şeffaflık</label>
-                <input type="text" class="form-control" id="desktopCaseTransparent" disabled [value]="desktopCaseInfo.transparent ? 'Evet' : 'Hayır'">
+                <input type="text"  class="form-control" id="desktopCaseTransparent" disabled [value]="desktopCaseInfo.transparent ? 'Evet' : 'Hayır'">
               </div>
               <div class="mb-3">
                 <label for="desktopCasePsuWatt" class="form-label">PSU Watt</label>
-                <input type="text" class="form-control" id="desktopCasePsuWatt" disabled [value]="desktopCaseInfo.psuWatt">
+                <input type="text"  class="form-control" id="desktopCasePsuWatt" disabled [value]="desktopCaseInfo.psuWatt">
               </div>
               <div class="mb-3">
                 <label for="desktopCaseModel" class="form-label">Model</label>
-                <input type="text" class="form-control" id="desktopCaseModel" disabled [value]="desktopCaseInfo.model">
+                <input type="text"  class="form-control" id="desktopCaseModel" disabled [value]="desktopCaseInfo.model">
               </div>
               <div class="mb-3">
                 <label for="desktopCaseType" class="form-label">Tip</label>
-                <input type="text" class="form-control" id="desktopCaseType" disabled [value]="desktopCaseInfo.type">
+                <input type="text"  class="form-control" id="desktopCaseType" disabled [value]="desktopCaseInfo.type">
               </div>
             </form>            
 
           } @else if (selectedGlobalType === 'cpuCooler') {
-            <form>
+            <form >
               <div class="mb-3">
                 <label for="cpuCoolerBrand" class="form-label">Marka</label>
-                <input type="text" class="form-control" id="cpuCoolerBrand" disabled [value]="cpuCoolerInfo.brand">
+                <input type="text"  class="form-control" id="cpuCoolerBrand" disabled [value]="cpuCoolerInfo.brand">
               </div>
               <div class="mb-3">
                 <label for="cpuCoolerModel" class="form-label">Model</label>
-                <input type="text" class="form-control" id="cpuCoolerModel" disabled [value]="cpuCoolerInfo.model">
+                <input type="text"class="form-control" id="cpuCoolerModel" disabled [value]="cpuCoolerInfo.model">
               </div>
               <div class="mb-3">
                 <label for="cpuCoolerFanLength" class="form-label">Fan Uzunluğu</label>
-                <input type="text" class="form-control" id="cpuCoolerFanLength" disabled [value]="cpuCoolerInfo.fanLength">
+                <input type="text"  class="form-control" id="cpuCoolerFanLength" disabled [value]="cpuCoolerInfo.fanLength">
               </div>
               <div class="mb-3">
                 <label for="cpuCoolerLED" class="form-label">LED</label>
-                <input type="text" class="form-control" id="cpuCoolerLED" disabled [value]="cpuCoolerInfo.led">
+                <input type="text"  class="form-control" id="cpuCoolerLED" disabled [value]="cpuCoolerInfo.led">
               </div>
               <div class="mb-3">
                 <label for="cpuCoolerRPM" class="form-label">RPM</label>
@@ -265,11 +265,10 @@
               </div>
               <div class="mb-3">
                 <label for="cpuCoolerType" class="form-label">Tip</label>
-                <input type="text" class="form-control" id="cpuCoolerType" disabled [value]="cpuCoolerInfo.type">
+                <input type="text"  class="form-control" id="cpuCoolerType" disabled [value]="cpuCoolerInfo.type">
               </div>
             </form>
           }
-          
           
         </form>
       </div>
@@ -307,13 +306,7 @@
               </select>
             </div>
           </div>
-
-          <div *ngIf="selectedProcess === 'Decrease Quantity'">
-            <div class="mb-3">
-              <label for="type" class="form-label">Naber</label>
-            </div>
-          </div>
-
+          
           <!-- CPU tipi seçildiğinde görüntülenecek içerik -->
           <div *ngIf="selectedType === 'CPU'">
             <form [formGroup]="cpuForm">
@@ -602,10 +595,10 @@
               </div>
               <div class="mb-3">
                 <label for="casePSULocation" class="form-label">PSU Location</label>
-                <select class="form-control" id="caseType" formControlName="psuLocation">
+                <select class="form-control" id="casePSULocation" formControlName="psuLocation">
                   <option value="" selected>Seçiniz...</option>
-                  <option value="Aşağıda">Aşağıda</option>
-                  <option value="Yukarıda">Yukarıda</option>
+                  <option value="Asagida">Aşağıda</option>
+                  <option value="Yukarida">Yukarıda</option>
                   <option value="Gizli Yan Panel">Gizli Yan Panel</option>  
                 </select>
               </div>
@@ -619,7 +612,7 @@
               </div>
               <div class="mb-3">
                 <label for="casePSUWatt" class="form-label">PSU Watt</label>
-                <input type="number" class="form-control" id="casePSUWatt" min="100" formControlName="psuWatt">
+                <input type="number" class="form-control" id="casePSUWatt" min="1" formControlName="psuWatt">
               </div>
               <div class="mb-3">
                 <label for="caseQuantity" class="form-label">Quantity</label>
@@ -651,7 +644,7 @@
         <p class="text-center">Bu işlemi gerçekleştirmek istediğinizden emin misiniz?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
         <button type="button" class="btn btn-danger" (click)="removeStock()">Sil</button>
       </div>
     </div>
@@ -670,7 +663,7 @@
       </div>
       <div class="modal-body">
         <!-- Stok bilgilerini düzenleme formu -->
-        <form>
+        <form >
           <div class="mb-3">
             <label for="stockId" class="form-label">Ürünün Stok ID</label>
             <input type="text" class="form-control" id="stockId" [value]="selectedStock?.id" disabled>
@@ -680,225 +673,254 @@
             <input type="text" class="form-control" id="type" [value]="selectedStock?.type" disabled>
           </div>
           <div class="mb-3">
-            <label for="quantity" class="form-label">Ürün Sayısı</label>
-            <input type="number" class="form-control" id="quantity" aria-label="Number value for quantity" [value]="selectedStock?.quantity" disabled>
+            <label for="quantity" class="form-label">Mevcut Ürün Sayısı</label>
+            <input type="number" class="form-control" id="quantity" aria-label="Number value for quantity" disabled [value]="selectedStock?.quantity" >
           </div>        
           @if (selectedGlobalType === 'gpu') {
-            <form>
+            <form [formGroup]="gpuEditForm">
               <div class="mb-3">
                 <label for="typeBrand" class="form-label">Marka</label>
-                <input type="text" class="form-control" id="typeBrand" [disabled]="!canEditComputerComponent()" [value]="gpuInfo.brand">
+                <input type="text" formControlName="brand"  class="form-control" id="typeBrand" [disabled]="!canEditComputerComponent()" [value]="gpuInfo.brand">
               </div> 
               <div class="mb-3">
                 <label for="typeModel" class="form-label">Model</label>
-                <input type="text" class="form-control" id="typeModel" [disabled]="!canEditComputerComponent()" [value]="gpuInfo.model">
+                <input type="text" formControlName="model"class="form-control" id="typeModel" [disabled]="!canEditComputerComponent()" [value]="gpuInfo.model">
               </div> 
               <div class="mb-3">
                 <label for="typeProducer" class="form-label">Üretici</label>
-                <input type="text" class="form-control" id="typeProducer" [disabled]="!canEditComputerComponent()" [value]="gpuInfo.producer">
+                <input type="text" formControlName="producer" class="form-control" id="typeProducer" [disabled]="!canEditComputerComponent()" [value]="gpuInfo.producer">
               </div> 
               <div class="mb-3">
                 <label for="typeSeries" class="form-label">Seri</label>
-                <input type="text" class="form-control" id="typeSeries" [disabled]="!canEditComputerComponent()" [value]="gpuInfo.series">
+                <input type="text" formControlName="series"class="form-control" id="typeSeries" [disabled]="!canEditComputerComponent()" [value]="gpuInfo.series">
               </div>  
               <div class="mb-3">
                 <label for="typeVram" class="form-label">Grafik Belleği</label>
-                <input type="text" class="form-control" id="typeVram" [disabled]="!canEditComputerComponent()" [value]="gpuInfo.vram">
+                <input type="text" formControlName="vram"class="form-control" id="typeVram" [disabled]="!canEditComputerComponent()" [value]="gpuInfo.vram">
               </div>  
               <div class="mb-3">
                 <label for="typeMemoryInterface" class="form-label">Bellek Arayüzü</label>
-                <input type="text" class="form-control" id="typeMemoryInterface" [disabled]="!canEditComputerComponent()" [value]="gpuInfo.memoryInterface">
+                <input type="text" formControlName="memoryInterface"class="form-control" id="typeMemoryInterface" [disabled]="!canEditComputerComponent()" [value]="gpuInfo.memoryInterface">
+              </div>
+              <div class="mb-3">
+                <label for="quantity" class="form-label">Yeni Ürün Sayısı</label>
+                <input type="number" formControlName="quantity" class="form-control" id="quantity" aria-label="Number value for quantity" [disabled]="!canEditComputerComponent()" >
               </div>
             </form>  
                       
             
           } @else if (selectedGlobalType === 'cpu') {
-            <form>
+            <form [formGroup]="cpuEditForm">
               <div class="mb-3">
                 <label for="cpuBrand" class="form-label">Marka</label>
-                <input type="text" class="form-control" id="cpuBrand" disabled [value]="cpuInfo.brand">
+                <input type="text" formControlName="brand" form class="form-control" id="cpuBrand" [disabled]="!canEditComputerComponent()" [value]="cpuInfo.brand">
               </div>
               <div class="mb-3">
                 <label for="cpuClockSpeed" class="form-label">Clock Hızı</label>
-                <input type="text" class="form-control" id="cpuClockSpeed" disabled [value]="cpuInfo.clockSpeed">
+                <input type="text" formControlName="clockSpeed" class="form-control" id="cpuClockSpeed" [disabled]="!canEditComputerComponent()" [value]="cpuInfo.clockSpeed">
               </div>
               <div class="mb-3">
                 <label for="cpuSocketType" class="form-label">Soket Tipi</label>
-                <input type="text" class="form-control" id="cpuSocketType" disabled [value]="cpuInfo.socketType">
+                <input type="text" formControlName="socketType" class="form-control" id="cpuSocketType" [disabled]="!canEditComputerComponent()" [value]="cpuInfo.socketType">
               </div>
               <div class="mb-3">
                 <label for="cpuGeneration" class="form-label">Nesil</label>
-                <input type="text" class="form-control" id="cpuGeneration" disabled [value]="cpuInfo.generation">
+                <input type="text" formControlName="generation" class="form-control" id="cpuGeneration" [disabled]="!canEditComputerComponent()" [value]="cpuInfo.generation">
               </div>
               <div class="mb-3">
                 <label for="cpuSeries" class="form-label">Seri</label>
-                <input type="text" class="form-control" id="cpuSeries" disabled [value]="cpuInfo.series">
+                <input type="text" formControlName="series" class="form-control" id="cpuSeries" [disabled]="!canEditComputerComponent()" [value]="cpuInfo.series">
               </div>
               <div class="mb-3">
                 <label for="cpuCoreCount" class="form-label">Çekirdek Sayısı</label>
-                <input type="text" class="form-control" id="cpuCoreCount" disabled [value]="cpuInfo.coreCount">
+                <input type="text" formControlName="coreCount" class="form-control" id="cpuCoreCount" [disabled]="!canEditComputerComponent()" [value]="cpuInfo.coreCount">
               </div>
               <div class="mb-3">
                 <label for="cpuModel" class="form-label">Model</label>
-                <input type="text" class="form-control" id="cpuModel" disabled [value]="cpuInfo.model">
+                <input type="text" formControlName="model" class="form-control" id="cpuModel" [disabled]="!canEditComputerComponent()" [value]="cpuInfo.model">
+              </div>
+              <div class="mb-3">
+                <label for="quantity" class="form-label">Yeni Ürün Sayısı</label>
+                <input type="number" formControlName="quantity" class="form-control" id="quantity" aria-label="Number value for quantity" [disabled]="!canEditComputerComponent()" >
               </div>
             </form>            
           } @else if (selectedGlobalType === 'psu') {
-            <form>
+            <form [formGroup]="psuEditForm">
               <div class="mb-3">
                 <label for="psuWatt" class="form-label">Watt</label>
-                <input type="text" class="form-control" id="psuWatt" disabled [value]="psuInfo.watt">
+                <input type="text" formControlName="watt" class="form-control" id="psuWatt" [disabled]="!canEditComputerComponent()" [value]="psuInfo.watt">
               </div>
               <div class="mb-3">
                 <label for="psuEfficiency" class="form-label">Verimlilik</label>
-                <input type="text" class="form-control" id="psuEfficiency" disabled [value]="psuInfo.efficiency">
+                <input type="text"formControlName="efficiency" class="form-control" id="psuEfficiency" [disabled]="!canEditComputerComponent()" [value]="psuInfo.efficiency">
               </div>
               <div class="mb-3">
                 <label for="psuModular" class="form-label">Modüler</label>
-                <input type="text" class="form-control" id="psuModular" disabled [value]="psuInfo.modular">
+                <input type="text" formControlName="modular" class="form-control" id="psuModular" [disabled]="!canEditComputerComponent()" [value]="psuInfo.modular">
               </div>
               <div class="mb-3">
                 <label for="psuType" class="form-label">Tip</label>
-                <input type="text" class="form-control" id="psuType" disabled [value]="psuInfo.type">
+                <input type="text" formControlName="type" class="form-control" id="psuType" [disabled]="!canEditComputerComponent()" [value]="psuInfo.type">
               </div>
               <div class="mb-3">
                 <label for="psuPcieGen5Support" class="form-label">PCIe Gen5 Desteği</label>
-                <input type="text" class="form-control" id="psuPcieGen5Support" disabled [value]="psuInfo.pcieGen5Support">
+                <input type="text" formControlName="pcieGen5Support" class="form-control" id="psuPcieGen5Support" [disabled]="!canEditComputerComponent()" [value]="psuInfo.pcieGen5Support">
               </div>
               <div class="mb-3">
                 <label for="psuBrand" class="form-label">Marka</label>
-                <input type="text" class="form-control" id="psuBrand" disabled [value]="psuInfo.brand">
+                <input type="text" formControlName="brand" class="form-control" id="psuBrand" [disabled]="!canEditComputerComponent()" [value]="psuInfo.brand">
               </div>
               <div class="mb-3">
                 <label for="psuModel" class="form-label">Model</label>
-                <input type="text" class="form-control" id="psuModel" disabled [value]="psuInfo.model">
+                <input type="text" formControlName="model" class="form-control" id="psuModel" [disabled]="!canEditComputerComponent()" [value]="psuInfo.model">
+              </div>
+              <div class="mb-3">
+                <label for="quantity" class="form-label">Yeni Ürün Sayısı</label>
+                <input type="number" formControlName="quantity" class="form-control" id="quantity" aria-label="Number value for quantity" [disabled]="!canEditComputerComponent()" >
               </div>
             </form>           
           } @else if (selectedGlobalType === 'ram') {
-            <form>
+            <form [formGroup]="ramEditForm">
               <div class="mb-3">
                 <label for="ramType" class="form-label">RAM Türü</label>
-                <input type="text" class="form-control" id="ramType" disabled [value]="ramInfo.type">
+                <input type="text"  formControlName="type" class="form-control" id="ramType" [disabled]="!canEditComputerComponent()" [value]="ramInfo.type">
               </div>
               <div class="mb-3">
-                <label for="ramSize" class="form-label">Boyut</label>
-                <input type="text" class="form-control" id="ramSize" disabled [value]="ramInfo.capacity">
+                <label for="ramcapacity" class="form-label">Boyut</label>
+                <input type="text" formControlName="capacity" class="form-control" id="ramSize" [disabled]="!canEditComputerComponent()" [value]="ramInfo.capacity">
               </div>
               <div class="mb-3">
-                <label for="ramFrequency" class="form-label">Frekans Hızı</label>
-                <input type="text" class="form-control" id="ramFrequency" disabled [value]="ramInfo.frequencySpeed">
+                <label for="ramfrequencySpeedy" class="form-label">Frekans Hızı</label>
+                <input type="text" formControlName="frequencySpeed" class="form-control" id="ramFrequency" [disabled]="!canEditComputerComponent()" [value]="ramInfo.frequencySpeed">
               </div>
               <div class="mb-3">
                 <label for="ramChannelType" class="form-label">Tek Yada Çift Kanal</label>
-                <input type="text" class="form-control" id="ramChannelType" disabled [value]="ramInfo.channelType">
+                <input type="text" formControlName="channelType"  class="form-control" id="ramChannelType" [disabled]="!canEditComputerComponent()" [value]="ramInfo.channelType">
               </div>
               <div class="mb-3">
                 <label for="ramCompatibility" class="form-label">RAM Uyumluluğu</label>
-                <input type="text" class="form-control" id="ramCompatibility" disabled [value]="ramInfo.compatibility">
+                <input type="text" formControlName="compatibility" class="form-control" id="ramCompatibility" [disabled]="!canEditComputerComponent()" [value]="ramInfo.compatibility">
               </div>
               <div class="mb-3">
                 <label for="ramBrand" class="form-label">Brand</label>
-                <input type="text" class="form-control" id="ramBrand" disabled [value]="ramInfo.brand">
+                <input type="text" formControlName="brand" class="form-control" id="ramBrand" [disabled]="!canEditComputerComponent()" [value]="ramInfo.brand">
               </div>
               <div class="mb-3">
                 <label for="ramModel" class="form-label">Model</label>
-                <input type="text" class="form-control" id="ramModel" disabled [value]="ramInfo.model">
+                <input type="text" formControlName="model" class="form-control" id="ramModel" [disabled]="!canEditComputerComponent()" [value]="ramInfo.model">
+              </div>
+              <div class="mb-3">
+                <label for="quantity" class="form-label">Yeni Ürün Sayısı</label>
+                <input type="number" formControlName="quantity" class="form-control" id="quantity" aria-label="Number value for quantity" [disabled]="!canEditComputerComponent()" >
               </div>
             </form>            
 
           } @else if (selectedGlobalType === 'motherboard') {
-            <form>
+            <form [formGroup]="motherboardEditForm">
               <div class="mb-3">
                 <label for="mbCpuSocketType" class="form-label">CPU Soket Tipi</label>
-                <input type="text" class="form-control" id="mbCpuSocketType" disabled [value]="motherboardInfo.cpuSocketType">
+                <input type="text" formControlName="cpuSocketType" class="form-control" id="mbCpuSocketType" [disabled]="!canEditComputerComponent()"[value]="motherboardInfo.cpuSocketType">
               </div>
               <div class="mb-3">
                 <label for="mbCpuCompatibility" class="form-label">CPU Uyumluluğu</label>
-                <input type="text" class="form-control" id="mbCpuCompatibility" disabled [value]="motherboardInfo.cpuCompatibility">
+                <input type="text" formControlName="cpuCompatibility" class="form-control" id="mbCpuCompatibility" [disabled]="!canEditComputerComponent()" [value]="motherboardInfo.cpuCompatibility">
               </div>
               <div class="mb-3">
                 <label for="mbRamType" class="form-label">RAM Türü</label>
-                <input type="text" class="form-control" id="mbRamType" disabled [value]="motherboardInfo.ramType">
+                <input type="text" formControlName="ramType" class="form-control" id="mbRamType" [disabled]="!canEditComputerComponent()" [value]="motherboardInfo.ramType">
               </div>
               <div class="mb-3">
                 <label for="mbSize" class="form-label">Boyut</label>
-                <input type="text" class="form-control" id="mbSize" disabled [value]="motherboardInfo.size">
+                <input type="text" formControlName="size" class="form-control" id="mbSize" [disabled]="!canEditComputerComponent()" [value]="motherboardInfo.size">
               </div>
               <div class="mb-3">
                 <label for="mbRamSlots" class="form-label">RAM Yuvaları</label>
-                <input type="text" class="form-control" id="mbRamSlots" disabled [value]="motherboardInfo.ramSlots">
+                <input type="text" formControlName="ramSlots" class="form-control" id="mbRamSlots" [disabled]="!canEditComputerComponent()" [value]="motherboardInfo.ramSlots">
               </div>
               <div class="mb-3">
                 <label for="mbBrand" class="form-label">Marka</label>
-                <input type="text" class="form-control" id="mbBrand" disabled [value]="motherboardInfo.brand">
+                <input type="text" formControlName="brand" class="form-control" id="mbBrand" [disabled]="!canEditComputerComponent()" [value]="motherboardInfo.brand">
               </div>
               <div class="mb-3">
                 <label for="mbModel" class="form-label">Model</label>
-                <input type="text" class="form-control" id="mbModel" disabled [value]="motherboardInfo.model">
+                <input type="text" formControlName="model" class="form-control" id="mbModel" [disabled]="!canEditComputerComponent()" [value]="motherboardInfo.model">
+              </div>
+              <div class="mb-3">
+                <label for="quantity" class="form-label">Yeni Ürün Sayısı</label>
+                <input type="number" formControlName="quantity" class="form-control" id="quantity" aria-label="Number value for quantity" [disabled]="!canEditComputerComponent()" >
               </div>
             </form>
             
           } @else if (selectedGlobalType === 'desktopCase') {
-            <form>
+            <form [formGroup]="desktopCaseEditForm">
               <div class="mb-3">
                 <label for="desktopCaseBrand" class="form-label">Marka</label>
-                <input type="text" class="form-control" id="desktopCaseBrand" disabled [value]="desktopCaseInfo.brand">
+                <input type="text" formControlName="brand" class="form-control" id="desktopCaseBrand" [disabled]="!canEditComputerComponent()" [value]="desktopCaseInfo.brand">
               </div>
               <div class="mb-3">
                 <label for="desktopCasePsu" class="form-label">PSU</label>
-                <input type="text" class="form-control" id="desktopCasePsu" disabled [value]="desktopCaseInfo.psu ? 'Evet' : 'Hayır'">
+                <input type="text" formControlName="psu" class="form-control" id="desktopCasePsu" [disabled]="!canEditComputerComponent()" [value]="desktopCaseInfo.psu ? 'Evet' : 'Hayır'"> 
               </div>
+             
               <div class="mb-3">
                 <label for="desktopCasePsuLocation" class="form-label">PSU Yeri</label>
-                <input type="text" class="form-control" id="desktopCasePsuLocation" disabled [value]="desktopCaseInfo.psuLocation">
+                <input type="text" formControlName="psuLocation" class="form-control" id="desktopCasePsuLocation" [disabled]="!canEditComputerComponent()"[value]="desktopCaseInfo.psuLocation">
               </div>
               <div class="mb-3">
                 <label for="desktopCaseTransparent" class="form-label">Şeffaflık</label>
-                <input type="text" class="form-control" id="desktopCaseTransparent" disabled [value]="desktopCaseInfo.transparent ? 'Evet' : 'Hayır'">
+                <input type="text" formControlName="transparent" class="form-control" id="desktopCaseTransparent" [disabled]="!canEditComputerComponent()" [value]="desktopCaseInfo.transparent ? 'Evet' : 'Hayır'">
               </div>
               <div class="mb-3">
                 <label for="desktopCasePsuWatt" class="form-label">PSU Watt</label>
-                <input type="text" class="form-control" id="desktopCasePsuWatt" disabled [value]="desktopCaseInfo.psuWatt">
+                <input type="text" formControlName="psuWatt" class="form-control" id="desktopCasePsuWatt" [disabled]="!canEditComputerComponent()" [value]="desktopCaseInfo.psuWatt">
               </div>
               <div class="mb-3">
                 <label for="desktopCaseModel" class="form-label">Model</label>
-                <input type="text" class="form-control" id="desktopCaseModel" disabled [value]="desktopCaseInfo.model">
+                <input type="text" formControlName="model" class="form-control" id="desktopCaseModel" [disabled]="!canEditComputerComponent()" [value]="desktopCaseInfo.model">
               </div>
               <div class="mb-3">
                 <label for="desktopCaseType" class="form-label">Tip</label>
-                <input type="text" class="form-control" id="desktopCaseType" disabled [value]="desktopCaseInfo.type">
+                <input type="text" formControlName="type" class="form-control" id="desktopCaseType" [disabled]="!canEditComputerComponent()" [value]="desktopCaseInfo.type">
+              </div>
+              <div class="mb-3">
+                <label for="quantity" class="form-label">Yeni Ürün Sayısı</label>
+                <input type="number" formControlName="quantity" class="form-control" id="quantity" aria-label="Number value for quantity" [disabled]="!canEditComputerComponent()" >
               </div>
             </form>            
 
           } @else if (selectedGlobalType === 'cpuCooler') {
-            <form>
+            <form [formGroup]="cpuCoolerEditForm">
               <div class="mb-3">
                 <label for="cpuCoolerBrand" class="form-label">Marka</label>
-                <input type="text" class="form-control" id="cpuCoolerBrand" disabled [value]="cpuCoolerInfo.brand">
+                <input type="text" formControlName="brand" class="form-control" id="cpuCoolerBrand" [disabled]="!canEditComputerComponent()" [value]="cpuCoolerInfo.brand">
               </div>
               <div class="mb-3">
                 <label for="cpuCoolerModel" class="form-label">Model</label>
-                <input type="text" class="form-control" id="cpuCoolerModel" disabled [value]="cpuCoolerInfo.model">
+                <input type="text" formControlName="model" class="form-control" id="cpuCoolerModel" [disabled]="!canEditComputerComponent()" [value]="cpuCoolerInfo.model">
               </div>
               <div class="mb-3">
                 <label for="cpuCoolerFanLength" class="form-label">Fan Uzunluğu</label>
-                <input type="text" class="form-control" id="cpuCoolerFanLength" disabled [value]="cpuCoolerInfo.fanLength">
+                <input type="text" formControlName="fanLength" class="form-control" id="cpuCoolerFanLength" [disabled]="!canEditComputerComponent()" [value]="cpuCoolerInfo.fanLength">
               </div>
               <div class="mb-3">
-                <label for="cpuCoolerLED" class="form-label">LED</label>
-                <input type="text" class="form-control" id="cpuCoolerLED" disabled [value]="cpuCoolerInfo.led">
+                <label for="cpuCoolerLed" class="form-label">LED</label>
+                <input type="text" formControlName="led" class="form-control" id="cpuCoolerLED" [disabled]="!canEditComputerComponent()" [value]="cpuCoolerInfo.led">
               </div>
               <div class="mb-3">
-                <label for="cpuCoolerRPM" class="form-label">RPM</label>
-                <input type="text" class="form-control" id="cpuCoolerRPM" disabled [value]="cpuCoolerInfo.rpm">
+                <label for="cpuCoolerRpm" class="form-label">RPM</label>
+                <input type="text" formControlName="rpm" class="form-control" id="cpuCoolerRPM" [disabled]="!canEditComputerComponent()" [value]="cpuCoolerInfo.rpm">
               </div>
               <div class="mb-3">
                 <label for="cpuCoolerMaterial" class="form-label">Malzeme</label>
-                <input type="text" class="form-control" id="cpuCoolerMaterial" disabled [value]="cpuCoolerInfo.material">
+                <input type="text" formControlName="material" class="form-control" id="cpuCoolerMaterial" [disabled]="!canEditComputerComponent()" [value]="cpuCoolerInfo.material">
               </div>
               <div class="mb-3">
                 <label for="cpuCoolerType" class="form-label">Tip</label>
-                <input type="text" class="form-control" id="cpuCoolerType" disabled [value]="cpuCoolerInfo.type">
+                <input type="text" formControlName="type" class="form-control" id="cpuCoolerType" [disabled]="!canEditComputerComponent()" [value]="cpuCoolerInfo.type">
+              </div>
+              <div class="mb-3">
+                <label for="quantity" class="form-label">Yeni Ürün Sayısı</label>
+                <input type="number" formControlName="quantity" class="form-control" id="quantity" aria-label="Number value for quantity" [disabled]="!canEditComputerComponent()" >
               </div>
             </form>
           }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http'; // HttpClientModule import edildi
+import { HttpClientModule, provideHttpClient, withInterceptors } from '@angular/common/http'; // HttpClientModule import edildi
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,6 +21,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 import { TypeComponent } from './content/type/type.component';
+import { requestInterceptor } from './interceptor/request.interceptor';
+
+
 
 
 
@@ -47,7 +50,9 @@ import { TypeComponent } from './content/type/type.component';
     ReactiveFormsModule,
     ToastrModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    provideHttpClient(withInterceptors([requestInterceptor])),
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { StockService } from '../../service/stock/stock.service';
-import { Stock } from '../../service/models/stock.models';
+import { EditStock, Stock } from '../../service/models/stock.models';
 import { ToastrService } from 'ngx-toastr';
 import { TypeService } from '../../service/type/type.service';
 import { Cpu, CpuCooler, DesktopCase, Gpu, Motherboard, Psu, Ram } from '../../service/models/type.model';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../service/login/login.service';
 
 @Component({
@@ -14,9 +14,7 @@ import { LoginService } from '../../service/login/login.service';
 })
 export class StockComponent implements OnInit {
   processOptions: { value: string; label: string }[] = [
-    { value: 'Add Product', label: 'Add Product' },
-    { value: 'Remove Product', label: 'Remove Product' },
-    { value: 'Decrease Quantity', label: 'Decrease Quantity' }    
+    { value: 'Add Product', label: 'Add Product' }  
     // Add more options as needed
   ];
 
@@ -35,7 +33,8 @@ export class StockComponent implements OnInit {
     private stockService: StockService,
     private toastr: ToastrService,
     private typeService: TypeService,
-    private loginService: LoginService    
+    private loginService: LoginService,
+    private fb: FormBuilder,    
   ) {}
 
   userRole: string = "";
@@ -70,6 +69,7 @@ export class StockComponent implements OnInit {
   selectStock(index: number) {
       this.selectedStock = this.stock[index];
       this.selectedStockIdForRemove = this.stock[index].id;     
+    
   }
 
   selectedType: string = ''; // Initialize selected value
@@ -113,12 +113,29 @@ export class StockComponent implements OnInit {
     });   
   }
 
+  editStock(stock: EditStock) {
+    this.stockService.editStock(stock).subscribe(
+      {
+        next: (data) => {        
+          this.toastr.info("Stok başarıyla düzenlendi.");
+        },
+        error: (error) => {
+          this.toastr.error("Stok düzenlemesi başarısız.");
+        }
+      });
+  }
+
 
   typeStock: Stock = {
     id: 0,
     type: '',
     quantity: 0,
     typeId: 0
+  }
+
+  editStockInfo: EditStock = {
+    id: 0,
+    quantity: 0,
   }
 
   /**********************************\
@@ -141,15 +158,26 @@ export class StockComponent implements OnInit {
     model: ""  
   }
 
-  cpuForm = new FormGroup({
-    brand: new FormControl(""),
-    model: new FormControl(""),
-    clockSpeed: new FormControl(0),
-    socketType: new FormControl(""),
-    generation: new FormControl(""),
-    series: new FormControl(""),
-    coreCount: new FormControl(0),
-    quantity: new FormControl(0)
+  cpuForm = this.fb.nonNullable.group({
+    brand: ["",[Validators.required]],
+    model: ["",[Validators.required]],
+    clockSpeed: [0,[Validators.required]],
+    socketType: ["",[Validators.required]],
+    generation: ["",[Validators.required]],
+    series: ["",[Validators.required]],
+    coreCount: [0,[Validators.required,Validators.min(1)]],
+    quantity: [0,[Validators.required]]
+  });
+
+  cpuEditForm = this.fb.nonNullable.group({
+    brand: ["",[Validators.required]],
+    model: ["",[Validators.required]],
+    clockSpeed: [0,[Validators.required]],
+    socketType: ["",[Validators.required]],
+    generation: ["",[Validators.required]],
+    series: ["",[Validators.required]],
+    coreCount: [0,[Validators.required,Validators.min(1)]],
+    quantity: [0,[Validators.required]]
   });
 
   getCpu(cpuId: number) {    
@@ -181,51 +209,55 @@ export class StockComponent implements OnInit {
       }
     });    
   }
+  editCpu(cpu: Cpu, quantity: number) {
+    this.typeService.editCpu(cpu).subscribe({
+      next: (data) => {
+        this.cpuInfo = data;
+        this.editStockInfo.id = this.selectedStockIdForRemove;    
+        this.editStockInfo.quantity = quantity;        
+        this.editStock(this.editStockInfo);
+        console.log(data);
+        this.toastr.info("İşlemci başarıyla düzenlendi.");
+      },
+      error: (error) => {
+        this.toastr.error("İşlemci düzenlenmesi başarısız.");
+      }
+    });    
+
+  }
   
-  cpuFormCheck() {
-    const brandControl = this.cpuForm.get('brand');
-    const modelControl = this.cpuForm.get('model');
-    const clockSpeedControl = this.cpuForm.get('clockSpeed');    
-    const socketTypeControl = this.cpuForm.get('socketType');    
-    const generationControl = this.cpuForm.get('generation');    
-    const seriesControl = this.cpuForm.get('series');
-    const coreCountControl = this.cpuForm.get('coreCount');
-    const quantityControl = this.cpuForm.get('quantity');
-    
-    const brandValue = brandControl !== null ? (brandControl.value !== null ? brandControl.value : "") : "";
-    const modelValue = modelControl !== null ? (modelControl.value !== null ? modelControl.value : "") : "";
-    const clockSpeedValue = clockSpeedControl !== null ? (clockSpeedControl.value !== null ? clockSpeedControl.value : 0) : 0;
-    const socketTypeValue = socketTypeControl !== null ? (socketTypeControl.value !== null ? socketTypeControl.value : "") : "";
-    const generationValue = generationControl !== null ? (generationControl.value !== null ? generationControl.value : "") : "";
-    const seriesValue = seriesControl !== null ? (seriesControl.value !== null ? seriesControl.value : "") : "";
-    const coreCountValue = coreCountControl !== null ? (coreCountControl.value !== null ? coreCountControl.value : 0) : 0;
-    const quantityValue = quantityControl !== null ? (quantityControl.value !== null ? quantityControl.value : 0) : 0;
-
-    const isBrandValid = brandValue !== null && brandValue !== "";
-    const isModelValid = modelValue !== null && modelValue !== "";
-    const isClockSpeedValid = clockSpeedValue !== null && clockSpeedValue !== 0;
-    const isSocketTypeValid = socketTypeValue !== null && socketTypeValue !== "";
-    const isGenerationValid = generationValue !== null && generationValue !== "";
-    const isSeriesValid = seriesValue !== null && seriesValue !== "";
-    const isCoreCountValid = coreCountValue !== null && coreCountValue !== 0;
-    const isQuantityValid = quantityValue !== null && quantityValue !== 0;
-
-    
-    const isAllValid = isBrandValid && isModelValid && isClockSpeedValid && isSocketTypeValid && isGenerationValid && isSeriesValid && isCoreCountValid && isQuantityValid;
-    
-    
-    if (isAllValid) {
+  cpuAddFormCheck() {
+    if (this.cpuForm.valid ) {
       // Tüm form elemanlarının değerleri geçerli
-      this.cpuInfo.brand = brandValue;
-      this.cpuInfo.clockSpeed = clockSpeedValue;
-      this.cpuInfo.coreCount = coreCountValue;
-      this.cpuInfo.generation = generationValue;
-      this.cpuInfo.model = modelValue;
-      this.cpuInfo.series = seriesValue;
-      this.cpuInfo.socketType = socketTypeValue;
-      const stockQuantity = quantityValue;
+      this.cpuInfo.brand = this.cpuForm.get('brand')!.value;
+      this.cpuInfo.clockSpeed = this.cpuForm.get('clockSpeed')!.value;
+      this.cpuInfo.coreCount = this.cpuForm.get('coreCount')!.value;
+      this.cpuInfo.generation = this.cpuForm.get('generation')!.value;
+      this.cpuInfo.model = this.cpuForm.get('model')!.value;
+      this.cpuInfo.series = this.cpuForm.get('series')!.value;
+      this.cpuInfo.socketType = this.cpuForm.get('socketType')!.value;
+      const stockQuantity = this.cpuForm.get('quantity')!.value;
       this.addCpu(this.cpuInfo, stockQuantity);
-      
+    } else {
+      // En az bir form elemanının değeri geçerli değil
+      alert("Bütün alanları doldurun.");
+    }
+  }
+
+  cpuEditFormCheck() {
+    if (this.cpuEditForm.valid) {
+      // Tüm form elemanlarının değerleri geçerli
+      this.cpuInfo.brand = this.cpuEditForm.get('brand')!.value;
+      this.cpuInfo.clockSpeed = this.cpuEditForm.get('clockSpeed')!.value;
+      this.cpuInfo.coreCount = this.cpuEditForm.get('coreCount')!.value;
+      this.cpuInfo.generation = this.cpuEditForm.get('generation')!.value;
+      this.cpuInfo.model = this.cpuEditForm.get('model')!.value;
+      this.cpuInfo.series = this.cpuEditForm.get('series')!.value;
+      this.cpuInfo.socketType = this.cpuEditForm.get('socketType')!.value;
+      this.cpuInfo.id = this.selectedStock.typeId;
+      const stockQuantity = this.cpuEditForm.get('quantity')!.value;
+      this.editCpu(this.cpuInfo, stockQuantity);
+      alert("heyyo çalıştı")
     } else {
       // En az bir form elemanının değeri geçerli değil
       alert("Bütün alanları doldurun.");
@@ -254,17 +286,29 @@ export class StockComponent implements OnInit {
     model: ''
   }
 
-  cpuCoolerForm = new FormGroup({
-    brand: new FormControl(""),
-    model: new FormControl(""),
-    fanLength: new FormControl(""),
-    led: new FormControl(""),
-    rpm: new FormControl(0),
-    material: new FormControl(""),
-    type: new FormControl(""),
-    quantity: new FormControl(0)
+  cpuCoolerForm = this.fb.nonNullable.group({
+    brand: ["",[Validators.required]],
+    model: ["",[Validators.required]],
+    fanLength: ["",[Validators.required]],
+    led: ["",[Validators.required]],
+    rpm: [0,[Validators.required]],
+    material: ["",[Validators.required]],
+    type: ["",[Validators.required]],
+    quantity: [0,[Validators.required]]
   });
 
+  cpuCoolerEditForm = this.fb.nonNullable.group({
+    brand: ["",[Validators.required]],
+    model: ["",[Validators.required]],
+    fanLength: ["",[Validators.required]],
+    led: ["",[Validators.required]],
+    rpm: [0,[Validators.required]],
+    material: ["",[Validators.required]],
+    type: ["",[Validators.required]],
+    quantity: [0,[Validators.required]]
+  });
+
+ 
   getCpuCooler(cpuCoolerId: number) {    
     this.typeService.getCpuCooler(cpuCoolerId).subscribe({
       next: (data) => {
@@ -295,53 +339,60 @@ addCpuCooler(cpuCooler: CpuCooler, quantity: number) {
   });    
 }
 
-cpuCoolerFormCheck() {
-  const brandControl = this.cpuCoolerForm.get('brand');
-  const modelControl = this.cpuCoolerForm.get('model');
-  const fanLengthControl = this.cpuCoolerForm.get('fanLength');    
-  const ledControl = this.cpuCoolerForm.get('led');    
-  const rpmControl = this.cpuCoolerForm.get('rpm');    
-  const materialControl = this.cpuCoolerForm.get('material');
-  const typeControl = this.cpuCoolerForm.get('type');
-  const quantityControl = this.cpuCoolerForm.get('quantity');
-  
-  const brandValue = brandControl !== null ? (brandControl.value !== null ? brandControl.value : "") : "";
-  const modelValue = modelControl !== null ? (modelControl.value !== null ? modelControl.value : "") : "";
-  const fanLengthValue = fanLengthControl !== null ? (fanLengthControl.value !== null ? fanLengthControl.value : "") : "";
-  const ledValue = ledControl !== null ? (ledControl.value !== null ? ledControl.value : "") : "";
-  const rpmValue = rpmControl !== null ? (rpmControl.value !== null ? rpmControl.value : 0) : 0;
-  const materialValue = materialControl !== null ? (materialControl.value !== null ? materialControl.value : "") : "";
-  const typeValue = typeControl !== null ? (typeControl.value !== null ? typeControl.value : "") : "";
-  const quantityValue = quantityControl !== null ? (quantityControl.value !== null ? quantityControl.value : 0) : 0;
+editCpuCooler(cpuCooler: CpuCooler, quantity: number) {
+  this.typeService.editCpuCooler(cpuCooler).subscribe({
+    next: (data) => {
+      this.cpuCoolerInfo = data;
+      this.editStockInfo.id = this.selectedStockIdForRemove;    
+      this.editStockInfo.quantity = quantity;        
+      this.editStock(this.editStockInfo);
+      console.log(data);
+      this.toastr.info("CPU soğutucusu düzenlendi.");
+    },
+    error: (error) => {
+      this.toastr.error("CPU soğutucusu başarısız.");
+    }
+  });    
 
-  const isBrandValid = brandValue !== null && brandValue !== "";
-  const isModelValid = modelValue !== null && modelValue !== "";
-  const isFanLengthValid = fanLengthValue !== null && fanLengthValue !== "";
-  const isLedValid = ledValue !== null && ledValue !== "";
-  const isRpmValid = rpmValue !== null && rpmValue !== 0;
-  const isMaterialValid = materialValue !== null && materialValue !== "";
-  const isTypeValid = typeValue !== null && typeValue !== "";
-  const isQuantityValid = quantityValue !== null && quantityValue !== 0;
+}
 
-  const isAllValid = isBrandValid && isModelValid && isFanLengthValid && isLedValid && isRpmValid && isMaterialValid && isTypeValid && isQuantityValid;
-  //const isAllValid = isBrandValid && isModelValid && isFanLengthValid && isLedValid && isRpmValid;
-
-  if (isAllValid) {
+cpuCoolerAddFormCheck() {
+  if (this.cpuCoolerForm.valid) {
     // Tüm form elemanlarının değerleri geçerli
-    this.cpuCoolerInfo.brand = brandValue;
-    this.cpuCoolerInfo.fanLength = fanLengthValue;
-    this.cpuCoolerInfo.led = ledValue;
-    this.cpuCoolerInfo.material = materialValue;
-    this.cpuCoolerInfo.model = modelValue;
-    this.cpuCoolerInfo.rpm = rpmValue;
-    this.cpuCoolerInfo.type = typeValue;
-    const stockQuantity = quantityValue;    
+    this.cpuCoolerInfo.brand = this.cpuCoolerForm.get('brand')!.value;;
+    this.cpuCoolerInfo.fanLength = this.cpuCoolerForm.get('fanLength')!.value;;
+    this.cpuCoolerInfo.led =  this.cpuCoolerForm.get('led')!.value;;
+    this.cpuCoolerInfo.material = this.cpuCoolerForm.get('material')!.value;;
+    this.cpuCoolerInfo.model = this.cpuCoolerForm.get('model')!.value;;
+    this.cpuCoolerInfo.rpm = this.cpuCoolerForm.get('rpm')!.value;;  
+    this.cpuCoolerInfo.type = this.cpuCoolerForm.get('type')!.value;;
+    const stockQuantity = this.cpuCoolerForm.get('quantity')!.value;;
+     
     this.addCpuCooler(this.cpuCoolerInfo, stockQuantity);
   } else {
     // En az bir form elemanının değeri geçerli değil
     alert("Bütün alanları doldurun.");
   }
 }
+
+cpuCoolerEditFormCheck() {
+  if (this.cpuCoolerForm.valid) {
+    // Tüm form elemanlarının değerleri geçerli
+    this.cpuCoolerInfo.brand = this.cpuCoolerEditForm.get('brand')!.value;
+    this.cpuCoolerInfo.fanLength = this.cpuCoolerEditForm.get('fanLength')!.value;
+    this.cpuCoolerInfo.led = this.cpuCoolerEditForm.get('led')!.value; 
+    this.cpuCoolerInfo.material = this.cpuCoolerEditForm.get('material')!.value;
+    this.cpuCoolerInfo.model = this.cpuCoolerEditForm.get('model')!.value;
+    this.cpuCoolerInfo.rpm = this.cpuCoolerEditForm.get('rpm')!.value; 
+    this.cpuCoolerInfo.type = this.cpuCoolerEditForm.get('type')!.value;
+    const stockQuantity = this.cpuCoolerEditForm.get('quantity')!.value;   
+    this.editCpuCooler(this.cpuCoolerInfo, stockQuantity);
+  } else {
+    // En az bir form elemanının değeri geçerli değil
+    alert("Bütün alanları doldurun.");
+  }
+}
+
 
 
 
@@ -364,15 +415,27 @@ cpuCoolerFormCheck() {
     
   }
 
-  gpuForm = new FormGroup({
-    brand: new FormControl(""),
-    model: new FormControl(""),
-    producer: new FormControl(""),
-    series: new FormControl(""),
-    vram: new FormControl(0),
-    memoryInterface: new FormControl(0),
-    quantity: new FormControl(0)    
+  gpuForm = this.fb.nonNullable.group({
+    brand: ["",[Validators.required]],
+    model: ["",[Validators.required]],
+    producer: ["",[Validators.required]],
+    series: ["",[Validators.required]],
+    vram: [0,[Validators.required]],
+    memoryInterface: [0,[Validators.required]],
+    quantity: [0,[Validators.required]]   
   });
+
+  gpuEditForm = this.fb.nonNullable.group({
+    brand: ["",[Validators.required]],
+    model: ["",[Validators.required]],
+    producer: ["",[Validators.required]],
+    series: ["",[Validators.required]],
+    vram: [0,[Validators.required]],
+    memoryInterface: [0,[Validators.required]],
+    quantity:[0,[Validators.required]] 
+  });
+
+
 
   getGpu(gpuId: number) {    
     this.typeService.getGpu(gpuId).subscribe({
@@ -403,50 +466,57 @@ cpuCoolerFormCheck() {
       }
     });    
   }
+  editGpu(gpu: Gpu, quantity: number) {
+    this.typeService.editGpu(gpu).subscribe({
+      next: (data) => {
+        this.gpuInfo = data;
+        this.editStockInfo.id = this.selectedStockIdForRemove;    
+        this.editStockInfo.quantity = quantity;        
+        this.editStock(this.editStockInfo);
+        console.log(data);
+        this.toastr.info("Ekran kartı başarıyla düzenlendi.");
+      },
+      error: (error) => {
+        this.toastr.error("Ekran kartı düzenlenmesi başarısız.");
+      }
+    });    
   
-  gpuFormCheck() {
-    const brandControl = this.gpuForm.get('brand');
-    const modelControl = this.gpuForm.get('model');
-    const producerControl = this.gpuForm.get('producer');    
-    const seriesControl = this.gpuForm.get('series');    
-    const vramControl = this.gpuForm.get('vram');    
-    const memoryInterfaceControl = this.gpuForm.get('memoryInterface');    
-    const quantityControl = this.gpuForm.get('quantity');
-    
-    const brandValue = brandControl !== null ? (brandControl.value !== null ? brandControl.value : "") : "";
-    const modelValue = modelControl !== null ? (modelControl.value !== null ? modelControl.value : "") : "";
-    const producerValue = producerControl !== null ? (producerControl.value !== null ? producerControl.value : "") : "";
-    const seriesValue = seriesControl !== null ? (seriesControl.value !== null ? seriesControl.value : "") : "";
-    const vramValue = vramControl !== null ? (vramControl.value !== null ? vramControl.value : 0) : 0;
-    const memoryInterfaceValue = memoryInterfaceControl !== null ? (memoryInterfaceControl.value !== null ? memoryInterfaceControl.value : 0) : 0;
-    const quantityValue = quantityControl !== null ? (quantityControl.value !== null ? quantityControl.value : 0) : 0;
+  }
   
-    const isBrandValid = brandValue !== null && brandValue !== "";
-    const isModelValid = modelValue !== null && modelValue !== "";
-    const isProducerValid = producerValue !== null && producerValue !== "";
-    const isSeriesValid = seriesValue !== null && seriesValue !== "";
-    const isVramValid = vramValue !== null && vramValue !== 0;
-    const isMemoryInterfaceValid = memoryInterfaceValue !== null && memoryInterfaceValue !== 0;
-    const isQuantityValid = quantityValue !== null && quantityValue !== 0;
-  
-    const isAllValid = isBrandValid && isModelValid && isProducerValid && isSeriesValid && isVramValid && isMemoryInterfaceValid && isQuantityValid;
-  
-    if (isAllValid) {
+  gpuAddFormCheck() {
+    if (this.gpuForm.valid) {
       // Tüm form elemanlarının değerleri geçerli
-      this.gpuInfo.brand = brandValue;
-      this.gpuInfo.model = modelValue;
-      this.gpuInfo.producer = producerValue;
-      this.gpuInfo.series = seriesValue;
-      this.gpuInfo.vram = vramValue;
-      this.gpuInfo.memoryInterface = memoryInterfaceValue;
-      const stockQuantity = quantityValue;
+      this.gpuInfo.brand = this.gpuForm.get('brand')!.value;
+      this.gpuInfo.model = this.gpuForm.get('model')!.value;
+      this.gpuInfo.producer = this.gpuForm.get('producer')!.value; 
+      this.gpuInfo.series = this.gpuForm.get('series')!.value;
+      this.gpuInfo.vram = this.gpuForm.get('vram')!.value;   
+      this.gpuInfo.memoryInterface = this.gpuForm.get('memoryInterface')!.value;   
+      const stockQuantity = this.gpuForm.get('quantity')!.value;
       this.addGpu(this.gpuInfo, stockQuantity);
     } else {
       // En az bir form elemanının değeri geçerli değil
       alert("Bütün alanları doldurun.");
     }
   }
-  
+
+  gpuEditFormCheck() {
+    if (this.gpuForm.valid) {
+      // Tüm form elemanlarının değerleri geçerli
+      this.gpuInfo.brand = this.gpuEditForm.get('brand')!.value;
+      this.gpuInfo.model = this.gpuEditForm.get('model')!.value;
+      this.gpuInfo.producer = this.gpuEditForm.get('producer')!.value;
+      this.gpuInfo.series = this.gpuEditForm.get('series')!.value;
+      this.gpuInfo.vram =this.gpuEditForm.get('vram')!.value;    
+      this.gpuInfo.memoryInterface =this.gpuEditForm.get('memoryInterface')!.value;    
+      const stockQuantity = this.gpuEditForm.get('quantity')!.value;
+      this.editGpu(this.gpuInfo, stockQuantity);
+    } else {
+      // En az bir form elemanının değeri geçerli değil
+      alert("Bütün alanları doldurun.");
+    }
+  }
+
 
 
   /**********************************\
@@ -468,17 +538,28 @@ cpuCoolerFormCheck() {
     model: ""
   }
 
-  psuForm = new FormGroup({
-    watt: new FormControl(0),
-    efficiency: new FormControl(""),
-    modular: new FormControl(null),
-    type: new FormControl(""),
-    pcieGen5Support: new FormControl(null),
-    brand: new FormControl(""),
-    model: new FormControl(""),
-    quantity: new FormControl(0)      
+  psuForm = this.fb.nonNullable.group({
+    watt:[0,[Validators.required]],
+    efficiency: ["",[Validators.required]],
+    modular: [false,[Validators.required]],
+    type: ["",[Validators.required]],
+    pcieGen5Support: [false,[Validators.required]],
+    brand: ["",[Validators.required]],
+    model: ["",[Validators.required]],
+    quantity:[0,[Validators.required]]    
   });
- 
+  psuEditForm = this.fb.nonNullable.group({
+    watt: [0,[Validators.required]],
+    efficiency: ["",[Validators.required]],
+    modular: [false,[Validators.required]],
+    type: ["",[Validators.required]],
+    pcieGen5Support: [false,[Validators.required]],
+    brand: ["",[Validators.required]],
+    model: ["",[Validators.required]],
+    quantity: [0,[Validators.required]]     
+  });
+
+
   getPsu(psuId: number) {    
     this.typeService.getPsu(psuId).subscribe({
       next: (data) => {
@@ -508,53 +589,61 @@ cpuCoolerFormCheck() {
       }
     });    
   }
+
+  editPsu(psu: Psu, quantity: number) {
+    this.typeService.editPsu(psu).subscribe({
+      next: (data) => {
+        this.psuInfo = data;
+        this.editStockInfo.id = this.selectedStockIdForRemove;    
+        this.editStockInfo.quantity = quantity;        
+        this.editStock(this.editStockInfo);
+        console.log(data);
+        this.toastr.info("Güç kaynağı başarıyla düzenlendi.");
+      },
+      error: (error) => {
+        this.toastr.error("Güç kaynağı düzenlenmesi başarısız.");
+      }
+    });    
   
-  psuFormCheck() {
-    const wattControl = this.psuForm.get('watt');
-    const efficiencyControl = this.psuForm.get('efficiency');
-    const modularControl = this.psuForm.get('modular');    
-    const typeControl = this.psuForm.get('type');    
-    const pcieGen5SupportControl = this.psuForm.get('pcieGen5Support');    
-    const brandControl = this.psuForm.get('brand');
-    const modelControl = this.psuForm.get('model');
-    const quantityControl = this.psuForm.get('quantity');
-    
-    const wattValue = wattControl !== null ? (wattControl.value !== null ? wattControl.value : 0) : 0;
-    const efficiencyValue = efficiencyControl !== null ? (efficiencyControl.value !== null ? efficiencyControl.value : "") : "";
-    const modularValue = modularControl !== null ? (modularControl.value !== null ? modularControl.value : false) : false;
-    const typeValue = typeControl !== null ? (typeControl.value !== null ? typeControl.value : "") : "";
-    const pcieGen5SupportValue = pcieGen5SupportControl !== null ? (pcieGen5SupportControl.value !== null ? pcieGen5SupportControl.value : false) : false;
-    const brandValue = brandControl !== null ? (brandControl.value !== null ? brandControl.value : "") : "";
-    const modelValue = modelControl !== null ? (modelControl.value !== null ? modelControl.value : "") : "";
-    const quantityValue = quantityControl !== null ? (quantityControl.value !== null ? quantityControl.value : 0) : 0;
+  }
   
-    const isWattValid = wattValue !== null && wattValue !== 0;
-    const isEfficiencyValid = efficiencyValue !== null && efficiencyValue !== "";
-    const isModularValid = modularValue !== null;
-    const isTypeValid = typeValue !== null && typeValue !== "";
-    const isPcieGen5SupportValid = pcieGen5SupportValue !== null;
-    const isBrandValid = brandValue !== null && brandValue !== "";
-    const isModelValid = modelValue !== null && modelValue !== "";
-    const isQuantityValid = quantityValue !== null && quantityValue !== 0;
-  
-    const isAllValid = isWattValid && isEfficiencyValid && isModularValid && isTypeValid && isPcieGen5SupportValid && isBrandValid && isModelValid && isQuantityValid;
-  
-    if (isAllValid) {
+  psuAddFormCheck() {
+    if (this.psuForm.valid) {
       // Tüm form elemanlarının değerleri geçerli
-      this.psuInfo.watt = wattValue;
-      this.psuInfo.efficiency = efficiencyValue;
-      this.psuInfo.modular = modularValue;
-      this.psuInfo.type = typeValue;
-      this.psuInfo.pcieGen5Support = pcieGen5SupportValue;
-      this.psuInfo.brand = brandValue;
-      this.psuInfo.model = modelValue;
-      const stockQuantity = quantityValue;
+      this.psuInfo.watt = this.psuForm.get('watt')!.value;
+      this.psuInfo.efficiency = this.psuForm.get('efficiency')!.value;
+      this.psuInfo.modular = this.psuForm.get('modular')!.value; 
+      this.psuInfo.type = this.psuForm.get('type')!.value; 
+      this.psuInfo.pcieGen5Support =this.psuForm.get('pcieGen5Support')!.value;   
+      this.psuInfo.brand = this.psuForm.get('brand')!.value;
+      this.psuInfo.model = this.psuForm.get('model')!.value;
+      const stockQuantity =  this.psuForm.get('quantity')!.value;
       this.addPsu(this.psuInfo, stockQuantity);
     } else {
       // En az bir form elemanının değeri geçerli değil
       alert("Bütün alanları doldurun.");
     }
   }
+
+
+  psuEditFormCheck() {
+    if (this.psuForm.valid) {
+      // Tüm form elemanlarının değerleri geçerli
+      this.psuInfo.watt = this.psuEditForm.get('watt')!.value;
+      this.psuInfo.efficiency = this.psuEditForm.get('efficiency')!.value;
+      this.psuInfo.modular = this.psuEditForm.get('modular')!.value;  
+      this.psuInfo.type = this.psuEditForm.get('type')!.value;  
+      this.psuInfo.pcieGen5Support = this.psuEditForm.get('pcieGen5Support')!.value;   
+      this.psuInfo.brand = this.psuEditForm.get('brand')!.value;
+      this.psuInfo.model =this.psuEditForm.get('model')!.value;
+      const stockQuantity =  this.psuEditForm.get('quantity')!.value;
+      this.editPsu(this.psuInfo, stockQuantity);
+    } else {
+      // En az bir form elemanının değeri geçerli değil
+      alert("Bütün alanları doldurun.");
+    }
+  }
+
   
   
 
@@ -579,15 +668,26 @@ cpuCoolerFormCheck() {
     model: ''
   }
 
-  ramForm = new FormGroup({
-    type: new FormControl(""),
-    capacity: new FormControl(0),
-    frequencySpeed: new FormControl(0),
-    channelType: new FormControl(""),
-    compatibility: new FormControl(""),
-    brand: new FormControl(""),
-    model: new FormControl(""),
-    quantity: new FormControl(0)           
+  ramForm = this.fb.nonNullable.group({
+    type: ["",[Validators.required]],
+    capacity:[0,[Validators.required]],
+    frequencySpeed: [0,[Validators.required]],
+    channelType: ["",[Validators.required]],
+    compatibility: ["",[Validators.required]],
+    brand: ["",[Validators.required]],
+    model: ["",[Validators.required]],
+    quantity:[0,[Validators.required]]        
+  });
+
+  ramEditForm = this.fb.nonNullable.group({
+    type: ["",[Validators.required]],
+    capacity:[0,[Validators.required]],
+    frequencySpeed: [0,[Validators.required]],
+    channelType: ["",[Validators.required]],
+    compatibility:["",[Validators.required]],
+    brand: ["",[Validators.required]],
+    model: ["",[Validators.required]],
+    quantity: [0,[Validators.required]]         
   });
 
   getRam(ramId: number) {    
@@ -620,52 +720,60 @@ cpuCoolerFormCheck() {
     });    
   }
   
-  ramFormCheck() {
-    const typeControl = this.ramForm.get('type');
-    const capacityControl = this.ramForm.get('capacity');
-    const frequencySpeedControl = this.ramForm.get('frequencySpeed');    
-    const channelTypeControl = this.ramForm.get('channelType');    
-    const compatibilityControl = this.ramForm.get('compatibility');    
-    const brandControl = this.ramForm.get('brand');
-    const modelControl = this.ramForm.get('model');
-    const quantityControl = this.ramForm.get('quantity');
-    
-    const typeValue = typeControl !== null ? (typeControl.value !== null ? typeControl.value : "") : "";
-    const capacityValue = capacityControl !== null ? (capacityControl.value !== null ? capacityControl.value : 0) : 0;
-    const frequencySpeedValue = frequencySpeedControl !== null ? (frequencySpeedControl.value !== null ? frequencySpeedControl.value : 0) : 0;
-    const channelTypeValue = channelTypeControl !== null ? (channelTypeControl.value !== null ? channelTypeControl.value : "") : "";
-    const compatibilityValue = compatibilityControl !== null ? (compatibilityControl.value !== null ? compatibilityControl.value : "") : "";
-    const brandValue = brandControl !== null ? (brandControl.value !== null ? brandControl.value : "") : "";
-    const modelValue = modelControl !== null ? (modelControl.value !== null ? modelControl.value : "") : "";
-    const quantityValue = quantityControl !== null ? (quantityControl.value !== null ? quantityControl.value : 0) : 0;
+  editRam(ram: Ram, quantity: number) {
+    this.typeService.editRam(ram).subscribe({
+      next: (data) => {
+        this.ramInfo = data;
+        this.editStockInfo.id = this.selectedStockIdForRemove;    
+        this.editStockInfo.quantity = quantity;        
+        this.editStock(this.editStockInfo);
+        console.log(data);
+        this.toastr.info("RAM başarıyla düzenlendi.");
+      },
+      error: (error) => {
+        this.toastr.error("RAM düzenlenmesi başarısız.");
+      }
+    });    
   
-    const isTypeValid = typeValue !== null && typeValue !== "";
-    const isCapacityValid = capacityValue !== null && capacityValue !== 0;
-    const isFrequencySpeedValid = frequencySpeedValue !== null && frequencySpeedValue !== 0;
-    const isChannelTypeValid = channelTypeValue !== null && channelTypeValue !== "";
-    const isCompatibilityValid = compatibilityValue !== null && compatibilityValue !== "";
-    const isBrandValid = brandValue !== null && brandValue !== "";
-    const isModelValid = modelValue !== null && modelValue !== "";
-    const isQuantityValid = quantityValue !== null && quantityValue !== 0;
-  
-    const isAllValid = isTypeValid && isCapacityValid && isFrequencySpeedValid && isChannelTypeValid && isCompatibilityValid && isBrandValid && isModelValid && isQuantityValid;
-  
-    if (isAllValid) {
+  }
+  ramAddFormCheck() {
+    if (this.ramForm.valid) {
       // Tüm form elemanlarının değerleri geçerli
-      this.ramInfo.type = typeValue;
-      this.ramInfo.capacity = capacityValue;
-      this.ramInfo.frequencySpeed = frequencySpeedValue;
-      this.ramInfo.channelType = channelTypeValue;
-      this.ramInfo.compatibility = compatibilityValue;
-      this.ramInfo.brand = brandValue;
-      this.ramInfo.model = modelValue;
-      const stockQuantity = quantityValue;
+      this.ramInfo.type = this.ramForm.get('type')!.value;
+      this.ramInfo.capacity =this.ramForm.get('capacity')!.value;
+      this.ramInfo.frequencySpeed = this.ramForm.get('frequencySpeed')!.value;    
+      this.ramInfo.channelType = this.ramForm.get('channelType')!.value; 
+      this.ramInfo.compatibility = this.ramForm.get('compatibility')!.value;   
+      this.ramInfo.brand = this.ramForm.get('brand')!.value;
+      this.ramInfo.model = this.ramForm.get('model')!.value;
+      const stockQuantity = this.ramForm.get('quantity')!.value;
       this.addRam(this.ramInfo, stockQuantity);
     } else {
       // En az bir form elemanının değeri geçerli değil
       alert("Bütün alanları doldurun.");
     }
   }
+
+
+  ramEditFormCheck() {
+    if (this.ramForm.valid) {
+      // Tüm form elemanlarının değerleri geçerli
+      this.ramInfo.type = this.ramEditForm.get('type')!.value;
+      this.ramInfo.capacity =  this.ramEditForm.get('capacity')!.value;
+      this.ramInfo.frequencySpeed = this.ramEditForm.get('frequencySpeed')!.value;  
+      this.ramInfo.channelType =  this.ramEditForm.get('channelType')!.value;   
+      this.ramInfo.compatibility =this.ramEditForm.get('compatibility')!.value;   
+      this.ramInfo.brand = this.ramEditForm.get('brand')!.value;
+      this.ramInfo.model = this.ramEditForm.get('model')!.value;
+      const stockQuantity =this.ramEditForm.get('quantity')!.value;
+      this.editRam(this.ramInfo, stockQuantity);
+    } else {
+      // En az bir form elemanının değeri geçerli değil
+      alert("Bütün alanları doldurun.");
+    }
+  }
+ 
+
   
 
 
@@ -692,15 +800,26 @@ cpuCoolerFormCheck() {
     model: ''
   }
 
-  motherboardForm = new FormGroup({
-    brand: new FormControl(""),
-    size: new FormControl(""),
-    model: new FormControl(""),
-    ramType: new FormControl(""),
-    ramSlots: new FormControl(0),
-    cpuSocketType: new FormControl(""),
-    cpuCompatibility: new FormControl(null),
-    quantity: new FormControl(0)           
+  motherboardForm = this.fb.nonNullable.group({
+    brand: ["",[Validators.required]],
+    size: ["",[Validators.required]],
+    model: ["",[Validators.required]],
+    ramType: ["",[Validators.required]],
+    ramSlots: [0,[Validators.required]],
+    cpuSocketType: ["",[Validators.required]],
+    cpuCompatibility:[false,[Validators.required]],
+    quantity: [0,[Validators.required]],      
+  });
+  
+  motherboardEditForm =this.fb.nonNullable.group({
+    brand: ["",[Validators.required]],
+    size: ["",[Validators.required]],
+    model: ["",[Validators.required]],
+    ramType:["",[Validators.required]],
+    ramSlots: [0,[Validators.required]],
+    cpuSocketType: ["",[Validators.required]],
+    cpuCompatibility: [false,[Validators.required]],
+    quantity: [0,[Validators.required]],          
   });
 
   getMotherboard(motherboardId: number) {    
@@ -732,55 +851,59 @@ cpuCoolerFormCheck() {
       }
     });    
   }
+
+  editMotherboard(motherboard: Motherboard, quantity: number) {
+    this.typeService.editMotherboard(motherboard).subscribe({
+      next: (data) => {
+        this.motherboardInfo = data;
+        this.editStockInfo.id = this.selectedStockIdForRemove;    
+        this.editStockInfo.quantity = quantity;        
+        this.editStock(this.editStockInfo);
+        console.log(data);
+        this.toastr.info("Anakart başarıyla düzenlendi.");
+      },
+      error: (error) => {
+        this.toastr.error("Anakart düzenlenmesi başarısız.");
+      }
+    });    
   
-  motherboardFormCheck() {
-    const brandControl = this.motherboardForm.get('brand');
-    const sizeControl = this.motherboardForm.get('size');
-    const modelControl = this.motherboardForm.get('model');    
-    const ramTypeControl = this.motherboardForm.get('ramType');    
-    const ramSlotsControl = this.motherboardForm.get('ramSlots');    
-    const cpuSocketTypeControl = this.motherboardForm.get('cpuSocketType');
-    const cpuCompatibilityControl = this.motherboardForm.get('cpuCompatibility');
-    const quantityControl = this.motherboardForm.get('quantity');
-    
-    const brandValue = brandControl !== null ? (brandControl.value !== null ? brandControl.value : "") : "";
-    const sizeValue = sizeControl !== null ? (sizeControl.value !== null ? sizeControl.value : "") : "";
-    const modelValue = modelControl !== null ? (modelControl.value !== null ? modelControl.value : "") : "";
-    const ramTypeValue = ramTypeControl !== null ? (ramTypeControl.value !== null ? ramTypeControl.value : "") : "";
-    const ramSlotsValue = ramSlotsControl !== null ? (ramSlotsControl.value !== null ? ramSlotsControl.value : 0) : 0;
-    const cpuSocketTypeValue = cpuSocketTypeControl !== null ? (cpuSocketTypeControl.value !== null ? cpuSocketTypeControl.value : "") : "";
-    const cpuCompatibilityValue = cpuCompatibilityControl !== null ? (cpuCompatibilityControl.value !== null ? cpuCompatibilityControl.value : null) : null;
-    const quantityValue = quantityControl !== null ? (quantityControl.value !== null ? quantityControl.value : 0) : 0;
+  }
   
-    const isBrandValid = brandValue !== null && brandValue !== "";
-    const isSizeValid = sizeValue !== null && sizeValue !== "";
-    const isModelValid = modelValue !== null && modelValue !== "";
-    const isRamTypeValid = ramTypeValue !== null && ramTypeValue !== "";
-    const isRamSlotsValid = ramSlotsValue !== null && ramSlotsValue !== 0;
-    const isCpuSocketTypeValid = cpuSocketTypeValue !== null && cpuSocketTypeValue !== "";
-    const isCpuCompatibilityValid = cpuCompatibilityValue !== null;
-    const isQuantityValid = quantityValue !== null && quantityValue !== 0;
-  
-    const isAllValid = isBrandValid && isSizeValid && isModelValid && isRamTypeValid && isRamSlotsValid && isCpuSocketTypeValid && isCpuCompatibilityValid && isQuantityValid;
-  
-    if (isAllValid) {
-      // Tüm form elemanlarının değerleri geçerli
-      this.motherboardInfo.brand = brandValue;
-      this.motherboardInfo.size = sizeValue;
-      this.motherboardInfo.model = modelValue;
-      this.motherboardInfo.ramType = ramTypeValue;
-      this.motherboardInfo.ramSlots = ramSlotsValue;
-      this.motherboardInfo.cpuSocketType = cpuSocketTypeValue;
-      // cpuCompatibilityValue'nun değerine göre doğru değeri atayın
-      this.motherboardInfo.cpuCompatibility = cpuCompatibilityValue === "INTEL Uyumlu" ? true : false;
-      const stockQuantity = quantityValue;
+  motherboardAddFormCheck() {
+    if (this.motherboardForm.valid) {
+      this.motherboardInfo.brand = this.motherboardForm.get('brand')!.value;
+      this.motherboardInfo.size = this.motherboardForm.get('size')!.value;
+      this.motherboardInfo.model = this.motherboardForm.get('model')!.value;   
+      this.motherboardInfo.ramType = this.motherboardForm.get('ramType')!.value; 
+      this.motherboardInfo.ramSlots =  this.motherboardForm.get('ramSlots')!.value; 
+      this.motherboardInfo.cpuSocketType = this.motherboardForm.get('cpuSocketType')!.value;
+      this.motherboardInfo.cpuCompatibility = this.motherboardForm.get('cpuCompatibility')!.value;
+      const stockQuantity = this.motherboardForm.get('quantity')!.value;
       this.addMotherboard(this.motherboardInfo, stockQuantity);
     } else {
       // En az bir form elemanının değeri geçerli değil
       alert("Bütün alanları doldurun.");
     }
   }
-  
+
+
+  motherboardEditFormCheck() {
+    if (this.motherboardForm.valid) {
+      this.motherboardInfo.brand = this.motherboardForm.get('brand')!.value;
+      this.motherboardInfo.size = this.motherboardForm.get('size')!.value;
+      this.motherboardInfo.model = this.motherboardForm.get('model')!.value;   
+      this.motherboardInfo.ramType = this.motherboardForm.get('ramType')!.value; 
+      this.motherboardInfo.ramSlots =  this.motherboardForm.get('ramSlots')!.value; 
+      this.motherboardInfo.cpuSocketType = this.motherboardForm.get('cpuSocketType')!.value;
+      this.motherboardInfo.cpuCompatibility = this.motherboardForm.get('cpuCompatibility')!.value;
+      const stockQuantity = this.motherboardForm.get('quantity')!.value;
+      this.editMotherboard(this.motherboardInfo, stockQuantity);
+    } else {
+      // En az bir form elemanının değeri geçerli değil
+      alert("Bütün alanları doldurun.");
+    }
+  }
+
 
   /**********************************\
    ==================================
@@ -800,18 +923,29 @@ cpuCoolerFormCheck() {
     transparent: false,
     psuWatt: 0
   }
+  
 
-  desktopCaseForm = new FormGroup({
-    psu: new FormControl(""),
-    psuLocation: new FormControl(""),
-    transparent: new FormControl(""),
-    psuWatt: new FormControl(0),
-    brand: new FormControl(""),
-    model: new FormControl(""),
-    type: new FormControl(""),
-    quantity: new FormControl(0)     
+    desktopCaseForm = this.fb.nonNullable.group({
+    psu:[false,[Validators.required]],
+    psuLocation: ["",[Validators.required]],
+    transparent: [false,[Validators.required]],
+    psuWatt: [0,[Validators.required]],
+    brand: ["",[Validators.required]],
+    model:["",[Validators.required]],
+    type:["",[Validators.required]],
+    quantity: [0,[Validators.required]]   
   });
 
+  desktopCaseEditForm = this.fb.nonNullable.group({
+    psu:[false,[Validators.required]],
+    psuLocation:["",[Validators.required]],
+    transparent: [false,[Validators.required]],
+    psuWatt: [0,[Validators.required]],
+    brand: ["",[Validators.required]],
+    model:["",[Validators.required]],
+    type:["",[Validators.required]],
+    quantity:[0,[Validators.required]]
+  });
 
   getDesktopCase(desktopCaseId: number) {
     this.typeService.getDesktopCase(desktopCaseId).subscribe({
@@ -842,49 +976,32 @@ cpuCoolerFormCheck() {
       }
     });    
   }
-
-  desktopCaseFormCheck() {
-    const psuControl = this.desktopCaseForm.get('psu');
-    const psuLocationControl = this.desktopCaseForm.get('psuLocation');
-    const transparentControl = this.desktopCaseForm.get('transparent');    
-    const psuWattControl = this.desktopCaseForm.get('psuWatt');    
-    const brandControl = this.desktopCaseForm.get('brand');    
-    const modelControl = this.desktopCaseForm.get('model');
-    const typeControl = this.desktopCaseForm.get('type');
-    const quantityControl = this.desktopCaseForm.get('quantity');
-    
-    const psuValue = psuControl !== null ? (psuControl.value !== null ? psuControl.value : null) : null;
-    const psuLocationValue = psuLocationControl !== null ? (psuLocationControl.value !== null ? psuLocationControl.value : "") : "";
-    const transparentValue = transparentControl !== null ? (transparentControl.value !== null ? transparentControl.value : null) : null;
-    const psuWattValue = psuWattControl !== null ? (psuWattControl.value !== null ? psuWattControl.value : 0) : 0;
-    const brandValue = brandControl !== null ? (brandControl.value !== null ? brandControl.value : "") : "";
-    const modelValue = modelControl !== null ? (modelControl.value !== null ? modelControl.value : "") : "";
-    const typeValue = typeControl !== null ? (typeControl.value !== null ? typeControl.value : "") : "";
-    const quantityValue = quantityControl !== null ? (quantityControl.value !== null ? quantityControl.value : 0) : 0;
+  editDesktopCase(desktopCase: DesktopCase, quantity: number) {
+    this.typeService.editDesktopCase(desktopCase).subscribe({
+      next: (data) => {
+        this.desktopCaseInfo = data;
+        this.editStockInfo.id = this.selectedStockIdForRemove;    
+        this.editStockInfo.quantity = quantity;        
+        this.editStock(this.editStockInfo);
+        console.log(data);
+        this.toastr.info("Kasa bilgisi başarıyla düzenlendi.");
+      },
+      error: (error) => {
+        this.toastr.error("Kasa bilgisidüzenlenmesi başarısız.");
+      }
+    });    
   
-    // PSU değerini true veya false olarak ayarla
-    const isPsuValid = psuValue === "VAR" ? true : false;
-    const isPsuLocationValid = psuLocationValue !== null && psuLocationValue !== "";
-    // Transparent değerini true veya false olarak ayarla
-    const isTransparentValid = transparentValue === "EVET" ? true : false;
-    const isPsuWattValid = psuWattValue !== null && psuWattValue !== 0;
-    const isBrandValid = brandValue !== null && brandValue !== "";
-    const isModelValid = modelValue !== null && modelValue !== "";
-    const isTypeValid = typeValue !== null && typeValue !== "";
-    const isQuantityValid = quantityValue !== null && quantityValue !== 0;
-  
-    const isAllValid = isPsuValid && isPsuLocationValid && isTransparentValid && isPsuWattValid && isBrandValid && isModelValid && isTypeValid && isQuantityValid;
-  
-    if (isAllValid) {
-      // Tüm form elemanlarının değerleri geçerli
-      this.desktopCaseInfo.psu = isPsuValid;
-      this.desktopCaseInfo.psuLocation = psuLocationValue;
-      this.desktopCaseInfo.transparent = isTransparentValid;
-      this.desktopCaseInfo.psuWatt = psuWattValue;
-      this.desktopCaseInfo.brand = brandValue;
-      this.desktopCaseInfo.model = modelValue;
-      this.desktopCaseInfo.type = typeValue;
-      const stockQuantity = quantityValue;
+  }
+  desktopCaseAddFormCheck() {
+    if (this.desktopCaseForm.valid) {
+      this.desktopCaseInfo.psu = this.desktopCaseForm.get('psu')!.value;
+      this.desktopCaseInfo.psuLocation = this.desktopCaseForm.get('psuLocation')!.value;
+      this.desktopCaseInfo.transparent =this.desktopCaseForm.get('transparent')!.value; 
+      this.desktopCaseInfo.psuWatt = this.desktopCaseForm.get('psuWatt')!.value;   
+      this.desktopCaseInfo.brand =  this.desktopCaseForm.get('brand')!.value;  
+      this.desktopCaseInfo.model = this.desktopCaseForm.get('model')!.value;
+      this.desktopCaseInfo.type =this.desktopCaseForm.get('type')!.value;
+      const stockQuantity = this.desktopCaseForm.get('quantity')!.value;
       this.addDesktopCase(this.desktopCaseInfo, stockQuantity);
     } else {
       // En az bir form elemanının değeri geçerli değil
@@ -892,6 +1009,23 @@ cpuCoolerFormCheck() {
     }
   }
   
+  desktopCaseEditFormCheck() {
+    if (this.desktopCaseForm.valid) {
+      this.desktopCaseInfo.psu = this.desktopCaseForm.get('psu')!.value;
+      this.desktopCaseInfo.psuLocation = this.desktopCaseForm.get('psuLocation')!.value;
+      this.desktopCaseInfo.transparent =this.desktopCaseForm.get('transparent')!.value; 
+      this.desktopCaseInfo.psuWatt = this.desktopCaseForm.get('psuWatt')!.value;   
+      this.desktopCaseInfo.brand =  this.desktopCaseForm.get('brand')!.value;  
+      this.desktopCaseInfo.model = this.desktopCaseForm.get('model')!.value;
+      this.desktopCaseInfo.type =this.desktopCaseForm.get('type')!.value;
+      const stockQuantity = this.desktopCaseForm.get('quantity')!.value;
+      this.editDesktopCase(this.desktopCaseInfo, stockQuantity);
+    } else {
+      // En az bir form elemanının değeri geçerli değil
+      alert("Bütün alanları doldurun.");
+    }
+  }
+
 
   /**********************************\
    ==================================
@@ -935,38 +1069,38 @@ cpuCoolerFormCheck() {
       switch(this.selectedType) {
         case "CPU":
           alert("CPU eklemek istiyorsunuz.");
-          this.cpuFormCheck();
+          this.cpuAddFormCheck();
         break;
 
         case "GPU":
           alert("GPU eklemek istiyorsunuz.");
-          this.gpuFormCheck();
+          this.gpuAddFormCheck();
         break;
 
         case "RAM":
           alert("RAM eklemek istiyorsunuz.");
-          this.ramFormCheck();
+          this.ramAddFormCheck();
         break;
 
         case "PSU":
           alert("PSU eklemek istiyorsunuz.");
-          this.psuFormCheck();
+          this.psuAddFormCheck();
         break;
 
         case "Motherboard":
           alert("Anakart eklemek istiyorsunuz.");
-          this.motherboardFormCheck();
+          this.motherboardAddFormCheck();
         break;
 
 
         case "Computer Case":
           alert("Kasa eklemek istiyorsunuz.");
-          this.desktopCaseFormCheck();
+          this.desktopCaseAddFormCheck();
         break;
 
         case "CPU Cooler":
           alert("Soğutucu eklemek istiyorsunuz.");
-          this.cpuCoolerFormCheck();
+          this.cpuCoolerAddFormCheck();
         break;
         
       }      
@@ -978,38 +1112,38 @@ cpuCoolerFormCheck() {
     switch(this.selectedGlobalType) {
       case "cpu":
         alert("CPU eklemek istiyorsunuz.");
-        this.cpuFormCheck();
+        this.cpuEditFormCheck();
       break;
 
       case "gpu":
         alert("GPU eklemek istiyorsunuz.");
-        this.gpuFormCheck();
+        this.gpuEditFormCheck();
       break;
 
       case "ram":
         alert("RAM eklemek istiyorsunuz.");
-        this.ramFormCheck();
+        this.ramEditFormCheck();
       break;
 
       case "psu":
         alert("PSU eklemek istiyorsunuz.");
-        this.psuFormCheck();
+        this.psuEditFormCheck();
       break;
 
       case "motherboard":
         alert("Anakart eklemek istiyorsunuz.");
-        this.motherboardFormCheck();
+        this.motherboardEditFormCheck();
       break;
 
 
       case "desktopCase":
         alert("Kasa eklemek istiyorsunuz.");
-        this.desktopCaseFormCheck();
+        this.desktopCaseEditFormCheck();
       break;
 
-      case "CPU Cooler":
+      case "cpuCooler":
         alert("Soğutucu eklemek istiyorsunuz.");
-        this.cpuCoolerFormCheck();
+        this.cpuCoolerEditFormCheck();
       break;
       
     }

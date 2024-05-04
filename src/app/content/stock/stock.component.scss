@@ -14,24 +14,27 @@
     align-items: center; /* Dikeyde ortala */
     text-align: center;    
     border-bottom: 0.5px solid #ccc; /* Açık gri alt kenarlık ekleme */
+    &:hover {
+        background-color: whitesmoke;
+    }
+    &:first-child {
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        height: 9vh;
+        display: grid;
+        font-size: calc(0.25 * 2.5vw + 0.25 * 2.5vh);
+    }
+    &:last-child { 
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+    
 }
 
-.containerComponent:hover {
-    background-color: whitesmoke;
-}
 
-.containerComponent:first-child {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    height: 9vh;
-    display: grid;
-    font-size: calc(0.25 * 2.5vw + 0.25 * 2.5vh);
-}
 
-.containerComponent:last-child {
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
+
+
 
 .containerInfo {
     text-align: center;

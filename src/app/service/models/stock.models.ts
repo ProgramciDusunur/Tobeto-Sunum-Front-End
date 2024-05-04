@@ -6,3 +6,10 @@ export interface Stock {
     typeId: number;
     // Diğer özellikler...
   }
+
+  export interface EditStock {
+    id: number;
+    quantity: number;
+
+    // Diğer özellikler...
+  }

@@ -12,53 +12,43 @@ export class EmployeeService {
     throw new Error('Method not implemented.');
   }
 
-  apiUrl = environment.serverURL;
 
-  private allEmployeesUrl = this.apiUrl+'/employee/get/all';
-  private addEmployeeUrl = this.apiUrl+'/employee/add';
-  private removeSpecificEmployeeUrl = this.apiUrl + '/employee/del';
-  private changePasswordEmployeeUrl = this.apiUrl+'/employee/edit/password'
-  private changePasswordAdminEmployeeUrl = this.apiUrl+'/employee/edit/password/admin'
+
+  private allEmployeesUrl = '/employee/get/all';
+  private addEmployeeUrl = '/employee/add';
+  private removeSpecificEmployeeUrl =  '/employee/del';
+  private changePasswordEmployeeUrl ='/employee/edit/password'
+  private changePasswordAdminEmployeeUrl = '/employee/edit/password/admin'
 
 
   constructor(private http: HttpClient) { }
 
-  createAuthHeader() {
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer '+ localStorage.getItem("token"),      
-    });
-    return headers;
-  }
+ 
 
   getAllEmployees(): Observable<Employee[]> {
-    const headers = this.createAuthHeader();
-    return this.http.get<Employee[]>(this.allEmployeesUrl, {headers});
+    return this.http.get<Employee[]>(this.allEmployeesUrl);
   }
 
   addEmployee(employee: RequestEmployee): Observable<RequestEmployee> {
-    const headers = this.createAuthHeader();
-    return this.http.post<RequestEmployee>(this.addEmployeeUrl, employee, { headers });
+    return this.http.post<RequestEmployee>(this.addEmployeeUrl, employee);
   }
 
   removeSpecificEmployee(employeeEmail: number): Observable<Employee> {
-    const headers = this.createAuthHeader();
     const body = { email: employeeEmail };
-    return this.http.post<Employee>(this.removeSpecificEmployeeUrl, body, { headers });
+    return this.http.post<Employee>(this.removeSpecificEmployeeUrl, body);
   }
 
   changePassword(previousPassword: string, newPassword: string, employeeEmail: string): Observable<Employee> {
-    const headers = this.createAuthHeader();
     const body = {previousPassword: previousPassword,
                   newPassword: newPassword,
                   email: employeeEmail};
-    return this.http.post<Employee>(this.changePasswordEmployeeUrl, body, { headers });
+    return this.http.post<Employee>(this.changePasswordEmployeeUrl, body);
   }
 
   changePasswordAdmin(newPassword: string, email: string): Observable<Employee> {
-    const headers = this.createAuthHeader();
     const body = {newPassword: newPassword,                  
                   email: email};
-    return this.http.post<Employee>(this.changePasswordAdminEmployeeUrl, body,  {headers});
+    return this.http.post<Employee>(this.changePasswordAdminEmployeeUrl, body);
   }
   
 }

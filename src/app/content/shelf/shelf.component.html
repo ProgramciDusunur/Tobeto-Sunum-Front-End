@@ -35,7 +35,7 @@
         <p class="text-center">Bu işlemi gerçekleştirmek istediğinizden emin misiniz?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kaydet</button>
         <button type="button" class="btn btn-danger" (click)="removeShelf()">Sil</button>
       </div>
     </div>
@@ -53,7 +53,7 @@
         <!-- Raf ekleme formu -->
         <form [formGroup]="shelfForm">
           <div class="mb-3">
-            <label for="type" class="form-label">Ürün Tipi</label>
+            <label for="type" class="form-label">İşlem Tipi</label>
             <select class="form-control" id="type" (change)="onTypeChange($event)">
               <option value="" selected>Seçiniz...</option>
               <option *ngFor="let typeOption of typeOptions" value="{{typeOption.value}}">{{typeOption.label}}</option>

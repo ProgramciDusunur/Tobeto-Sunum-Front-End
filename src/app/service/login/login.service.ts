@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { environment } from '../../environments/environment';
+
 
 
 
@@ -17,7 +17,7 @@ export class LoginService {
   username = "";
   surname = "";
   rol: string = "";
-  apiUrl = environment.serverURL;
+  
 
 
   constructor(private http: HttpClient) {    
@@ -29,7 +29,7 @@ export class LoginService {
     
     
     // HTTP isteği oluştururken headers parametresine oluşturduğumuz header'ları ekleyin
-    return this.http.post<any>(this.apiUrl+'/login', {email, password} ).pipe(
+    return this.http.post<any>('/login', {email, password} ).pipe(
       map(resp => {
         this.processLoginResponse(resp, email, password);        
         return resp;
@@ -55,9 +55,7 @@ export class LoginService {
     this.surname = sub;
     this.rol = role;              
   }
-  relogin():Observable<any> {
-    return this.login(this.email, this.password);
-  }
+  
   logout() {
     this.loggedIn = false;
     this.token = "";

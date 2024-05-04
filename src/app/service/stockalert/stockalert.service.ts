@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { StockAlert, RequestStockAlert } from '../models/stockalert.model';
 
@@ -10,36 +9,28 @@ import { StockAlert, RequestStockAlert } from '../models/stockalert.model';
 })
 export class StockAlertService {
 
-  apiUrl = environment.serverURL;
 
-  private getAllStockAlertUrl = this.apiUrl+'/stockalert/get/all';
-  private addStockAlertUrl = this.apiUrl+'/stockalert/add';
-  private removeStockAlertUrl = this.apiUrl+'/stockalert/del'
 
-  createAuthHeader() {
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer '+ localStorage.getItem("token"),      
-    });
-    return headers;
-  }
+  private getAllStockAlertUrl ='/stockalert/get/all';
+  private addStockAlertUrl ='/stockalert/add';
+  private removeStockAlertUrl ='/stockalert/del';
+
+
 
   constructor(private http: HttpClient) { }
 
   getAllStockAlerts(): Observable<StockAlert[]> {    
-    const headers = this.createAuthHeader();
-    return this.http.get<StockAlert[]>(this.getAllStockAlertUrl, {headers});
+    return this.http.get<StockAlert[]>(this.getAllStockAlertUrl);
   }
 
   addStockAlert(stockId: number, alertQuantity: number): Observable<RequestStockAlert> {
-    const headers = this.createAuthHeader();
     const body = { stockId: stockId, alertQuantity: alertQuantity};
-    return this.http.post<RequestStockAlert>(this.addStockAlertUrl, body, {headers});
+    return this.http.post<RequestStockAlert>(this.addStockAlertUrl, body);
   }
 
   removeStockAlert(id: number) {
-    const headers = this.createAuthHeader();
     const body = { id: id};
-    return this.http.post(this.removeStockAlertUrl, body, {headers});
+    return this.http.post(this.removeStockAlertUrl, body);
   }
 
 

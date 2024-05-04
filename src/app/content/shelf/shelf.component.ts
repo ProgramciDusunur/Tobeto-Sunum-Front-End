@@ -63,6 +63,7 @@ export class ShelfComponent  {
         this.toastr.error('Raf bilgileri alınırken hata oluştu. Lütfen daha sonra tekrar deneyin.');
       }
     });
+    
 }
 
 addShelf(shelf: RequestShelf): void {    

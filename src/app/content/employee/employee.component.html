@@ -6,7 +6,6 @@
     <div><button type="button" class="btn btn-primary addEmployee" data-bs-toggle="modal" data-bs-target="#exampleModalToggle">Kullanıcı Paneli</button></div>  
   </div>
     <div class="containerComponent">
-        <div class="containerInfo">Çalışan ID</div>
         <div class="containerInfo">İsim</div>        
         <div class="containerInfo">Soyisim</div>
         <div class="containerInfo">Email</div>
@@ -14,7 +13,6 @@
         <div class="containerInfo">Düzenle</div>
     </div>
     <div *ngFor="let employee of employees;let i = index" class="containerComponent" (click)="selectEmployee(i)">
-        <div class="employeeId">{{ employee.id }}</div>
         <div class="employeeDataDiv">{{ employee.name }}</div>
         <div class="employeeDataDiv">{{ employee.surname }}</div>
         <div class="employeeDataDiv">{{ employee.email }}</div>
@@ -117,7 +115,7 @@
         <p class="text-center">Bu işlemi gerçekleştirmek istediğinizden emin misiniz?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
         <button type="button" class="btn btn-danger" (click)="removeEmployee()">Sil</button>
       </div>
     </div>
