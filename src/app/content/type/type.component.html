@@ -1,1 +1,202 @@
-<p>type works!</p>
+<div class="container">
+    <div class="containerComponent">        
+        <div></div>
+        <div class="header"><b>İşlemci</b></div>                    
+    </div>
+
+    <div class="containerComponent cpuContainerComponent">
+        <div class="containerInfo">ID</div>
+        <div class="containerInfo">Marka</div>        
+        <div class="containerInfo">Saat Hızı</div>
+        <div class="containerInfo">Soket Tipi</div>
+        <div class="containerInfo">Kaçıncı Nesil</div>
+        <div class="containerInfo">Seri</div>
+        <div class="containerInfo">Çekirdek Sayısı</div>
+        <div class="containerInfo">Model</div>
+    </div>
+
+    <div *ngFor="let cpu of allProcessors; let i = index" class="containerComponent cpuContainerComponent">
+        <div class="shelfDataDiv">{{ cpu.id }}</div>
+        <div class="shelfDataDiv">{{ cpu.brand }}</div>
+        <div class="shelfDataDiv">{{ cpu.clockSpeed }}</div>                         
+        <div class="shelfDataDiv">{{ cpu.socketType }}</div>                         
+        <div class="shelfDataDiv">{{ cpu.generation }}</div>                         
+        <div class="shelfDataDiv">{{ cpu.series }}</div>                         
+        <div class="shelfDataDiv">{{ cpu.coreCount }}</div>                         
+        <div class="modelDataDiv">{{ cpu.model }}</div>                                 
+    </div>    
+</div>
+
+<div class="container">
+    <div class="containerComponent">        
+        <div></div>
+        <div class="header"><b>Grafik Kartı</b></div>                    
+    </div>
+
+    <div class="containerComponent gpuContainerComponent">
+        <div class="containerInfo">ID</div>
+        <div class="containerInfo">Marka</div>        
+        <div class="containerInfo">Üretici</div>
+        <div class="containerInfo">Seri</div>
+        <div class="containerInfo">Model</div>
+        <div class="containerInfo">Video Ram</div>
+        <div class="containerInfo">Bellek Arayüzü</div>                
+    </div>
+
+    <div *ngFor="let gpu of allGpu; let i = index" class="containerComponent gpuContainerComponent">
+        <div class="shelfDataDiv">{{ gpu.id }}</div>
+        <div class="shelfDataDiv">{{ gpu.brand }}</div>
+        <div class="shelfDataDiv">{{ gpu.producer }}</div>                         
+        <div class="shelfDataDiv">{{ gpu.series }}</div>                         
+        <div class="modelDataDiv">{{ gpu.model }}</div>                         
+        <div class="shelfDataDiv">{{ gpu.vram }}</div>                         
+        <div class="shelfDataDiv">{{ gpu.memoryInterface }}</div>        
+    </div>    
+</div>
+
+<div class="container">
+    <div class="containerComponent">        
+        <div></div>
+        <div class="header"><b>İşlemci Soğutucu</b></div>                    
+    </div>
+
+    <div class="containerComponent cpuCoolerContainerComponent">
+        <div class="containerInfo">ID</div>
+        <div class="containerInfo">Hangi Tip Soğutma</div>        
+        <div class="containerInfo">Fan Kalınlığı</div>
+        <div class="containerInfo">Dönüş Hızı</div>
+        <div class="containerInfo">Materyal</div>
+        <div class="containerInfo">Led Rengi</div>
+        <div class="containerInfo">Marka</div>                
+        <div class="containerInfo">Model</div>                
+    </div>
+
+    <div *ngFor="let cpuCooler of allCpuCoolers; let i = index" class="containerComponent cpuCoolerContainerComponent">
+        <div class="shelfDataDiv">{{ cpuCooler.id }}</div>
+        <div class="shelfDataDiv">{{ cpuCooler.type }}</div>
+        <div class="shelfDataDiv">{{ cpuCooler.fanLength }}</div>                         
+        <div class="shelfDataDiv">{{ cpuCooler.rpm }}</div>                         
+        <div class="shelfDataDiv">{{ cpuCooler.material }}</div>                         
+        <div class="shelfDataDiv">{{ cpuCooler.led }}</div>                         
+        <div class="shelfDataDiv">{{ cpuCooler.brand }}</div>        
+        <div class="modelDataDiv">{{ cpuCooler.model }}</div>
+    </div>    
+</div>
+
+<div class="container">
+    <div class="containerComponent">        
+        <div></div>
+        <div class="header"><b>Güç Kaynağı</b></div>                    
+    </div>
+
+    <div class="containerComponent psuContainerComponent">
+        <div class="containerInfo">ID</div>
+        <div class="containerInfo">Watt</div>        
+        <div class="containerInfo">Efficiency</div>
+        <div class="containerInfo">Modüler</div>
+        <div class="containerInfo">Tipi</div>
+        <div class="containerInfo">Pcie 5 Desteği</div>
+        <div class="containerInfo">Marka</div>                
+        <div class="containerInfo">Model</div>                
+    </div>
+
+    <div *ngFor="let psu of allPowerSupplies; let i = index" class="containerComponent psuContainerComponent">
+        <div class="shelfDataDiv">{{ psu.id }}</div>
+        <div class="shelfDataDiv">{{ psu.watt }}</div>
+        <div class="shelfDataDiv">{{ psu.efficiency }}</div>                                 
+        <div class="shelfDataDiv">{{ psu.modular ? 'EVET' : 'HAYIR' }}</div>
+        <div class="shelfDataDiv">{{ psu.type }}</div>                                 
+        <div class="shelfDataDiv">{{ psu.pcieGen5Support ? 'VAR' : 'YOK' }}</div>
+        <div class="shelfDataDiv">{{ psu.brand }}</div>        
+        <div class="modelDataDiv">{{ psu.model }}</div>
+    </div>    
+</div>
+
+<div class="container">
+    <div class="containerComponent">        
+        <div></div>
+        <div class="header"><b>Anakart</b></div>                    
+    </div>
+
+    <div class="containerComponent motherboardContainerComponent">
+        <div class="containerInfo">ID</div>
+        <div class="containerInfo">İşlemci Soket Tipi</div>        
+        <div class="containerInfo">İşlemci Uyumluluğu</div>
+        <div class="containerInfo">Ram Tipi</div>
+        <div class="containerInfo">Büyüklük</div>
+        <div class="containerInfo">Ram Slotları</div>
+        <div class="containerInfo">Marka</div>                
+        <div class="containerInfo">Model</div>                
+    </div>
+
+    <div *ngFor="let motherboard of allMotherboards; let i = index" class="containerComponent motherboardContainerComponent">
+        <div class="shelfDataDiv">{{ motherboard.id }}</div>
+        <div class="shelfDataDiv">{{ motherboard.cpuSocketType }}</div>
+        <div class="shelfDataDiv">{{ motherboard.cpuCompatibility ? 'INTEL' : 'AMD' }}</div>
+        <div class="shelfDataDiv">{{ motherboard.ramType }}</div>                         
+        <div class="shelfDataDiv">{{ motherboard.size }}</div>                         
+        <div class="shelfDataDiv">{{ motherboard.ramSlots }}</div>                         
+        <div class="shelfDataDiv">{{ motherboard.brand }}</div>        
+        <div class="modelDataDiv">{{ motherboard.model }}</div>
+    </div>    
+</div>
+
+<div class="container">
+    <div class="containerComponent">        
+        <div></div>
+        <div class="header"><b>RAM</b></div>                    
+    </div>
+
+    <div class="containerComponent ramContainerComponent">
+        <div class="containerInfo">ID</div>
+        <div class="containerInfo">Ram Tipi</div>        
+        <div class="containerInfo">Kapasite</div>
+        <div class="containerInfo">Freakans Hızı</div>
+        <div class="containerInfo">Kanal Tipi</div>
+        <div class="containerInfo">Uyumluluk</div>
+        <div class="containerInfo">Marka</div>                
+        <div class="containerInfo">Model</div>                
+    </div>
+
+    <div *ngFor="let ram of allRam; let i = index" class="containerComponent ramContainerComponent">
+        <div class="shelfDataDiv">{{ ram.id }}</div>
+        <div class="shelfDataDiv">{{ ram.type }}</div>
+        <div class="shelfDataDiv">{{ ram.capacity }}</div>                         
+        <div class="shelfDataDiv">{{ ram.frequencySpeed }}</div>                         
+        <div class="shelfDataDiv">{{ ram.channelType }}</div>                         
+        <div class="shelfDataDiv">{{ ram.compatibility }}</div>                         
+        <div class="modelDataDiv">{{ ram.brand }}</div>        
+        <div class="shelfDataDiv">{{ ram.model}}</div>
+    </div>    
+</div>
+
+
+<div class="container">
+    <div class="containerComponent">        
+        <div></div>
+        <div class="header"><b>Kasa</b></div>                    
+    </div>
+
+    <div class="containerComponent caseContainerComponent">
+        <div class="containerInfo">ID</div>
+        <div class="containerInfo">Marka</div>        
+        <div class="containerInfo">Model</div>        
+        <div class="containerInfo">Kasa Tipi</div>
+        <div class="containerInfo">PSU Var Mı</div>
+        <div class="containerInfo">PSU Yeri</div>                
+        <div class="containerInfo">Transparant Mı</div>
+        <div class="containerInfo">PSU Watt</div>
+    </div>
+
+    <div *ngFor="let case of allDesktopCases; let i = index" class="containerComponent caseContainerComponent">
+        <div class="shelfDataDiv">{{ case.id }}</div>
+        <div class="shelfDataDiv">{{ case.brand }}</div>
+        <div class="modelDataDiv">{{ case.model }}</div>                         
+        <div class="shelfDataDiv">{{ case.type }}</div>                                 
+        <div class="shelfDataDiv">{{ case.psu ? 'VAR' : 'YOK' }}</div>                         
+        <div class="shelfDataDiv">{{ case.psuLocation }}</div>                                 
+        <div class="shelfDataDiv">{{ case.transparent ? 'EVET' : 'HAYIR' }}</div>                         
+        <div class="shelfDataDiv">{{ case.psuWatt}}</div>
+    </div>    
+</div>
+

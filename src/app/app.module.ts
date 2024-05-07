@@ -7,8 +7,6 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderComponent } from './dashboard/header/header.component';
 import { FooterComponent } from './dashboard/footer/footer.component';
-
-import { HomeComponent } from './content/home/home.component';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ShelfComponent } from './content/shelf/shelf.component';
@@ -22,6 +20,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { TypeComponent } from './content/type/type.component';
 import { requestInterceptor } from './interceptor/request.interceptor';
+import { ChartComponent } from './content/chart/chart.component';
+import { ChartModule } from 'angular-highcharts';
 
 
 
@@ -32,14 +32,15 @@ import { requestInterceptor } from './interceptor/request.interceptor';
     AppComponent,
     DashboardComponent,
     HeaderComponent,
-    FooterComponent,    
-    HomeComponent,
+    ChartComponent,
+    FooterComponent,        
     LoginComponent,
     ShelfComponent,
     StockalertComponent,
     StockComponent,
     EmployeeComponent,    
-    TypeComponent    
+    TypeComponent, 
+    ChartComponent
 
   ],
   imports: [
@@ -48,7 +49,8 @@ import { requestInterceptor } from './interceptor/request.interceptor';
     HttpClientModule, // HttpClientModule AppModule içinde imports dizisine eklendi
     AppRoutingModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    ChartModule
   ],
   providers: [
     provideHttpClient(withInterceptors([requestInterceptor])),

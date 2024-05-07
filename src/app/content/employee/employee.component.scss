@@ -9,7 +9,7 @@
     margin-left: -1%;
     margin-right: -1%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     justify-content: center; /* Yatayda ortala */
     align-items: center; /* Dikeyde ortala */
     text-align: center;    
@@ -43,14 +43,13 @@
 
 .grid-container {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* 2 parçaya böl */
-    
-  }
+    grid-template-columns: 1fr; /* 2 parçaya böl */    
+}
   
-  .grid-item {    
+.grid-item {    
     text-align: center;
     cursor: pointer;
-  }
+}
 
 .employeeId {
     font-size: calc(0.25 * 1.125vw + 0.25 * 1.125vh);
@@ -58,12 +57,12 @@
 
 .header {
     grid-column-start: 3; 
-    grid-column: span 4;
+    //grid-column: span 5;
 }
 
 
 .addEmployee {
-    grid-column: 6;        
+    grid-column: 1;        
 }
 
 

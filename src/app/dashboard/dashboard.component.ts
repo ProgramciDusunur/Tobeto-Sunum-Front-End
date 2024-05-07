@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { DashboardService } from '../service/dashboard/dashboard.service';
 import { LoginService } from '../service/login/login.service';
@@ -6,6 +6,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { EmployeeService } from '../service/employee/employee.service';
 import { ToastrService } from 'ngx-toastr';
 import { Employee } from '../service/models/employee.model';
+import { StockAlert } from '../service/models/stockalert.model';
 
 
 @Component({
@@ -29,6 +30,9 @@ export class DashboardComponent implements OnInit {
   });
 
 
+  printLowStockAlerts: StockAlert[] = [];
+
+
 
 
   toggleSidebar() {
@@ -40,17 +44,9 @@ export class DashboardComponent implements OnInit {
     }
   }
   
+  
 
-  componentEnabled: { [key: string]: boolean } = {
-    'Anasayfa': false,
-    'Kontrol Paneli': false,
-    'Raf': false,
-    'Bootstrap': false,
-    'Ürün': false,
-    'Stok': false,
-    'Çalışan': false,
-    'Stok Uyarısı': false
-  };
+  currentUserRole: string = this.loginService.rol;
   
   currentUrl: string;
 
@@ -60,42 +56,30 @@ export class DashboardComponent implements OnInit {
     private loginService: LoginService,
     private employeeService: EmployeeService,
     private toastr: ToastrService,
-    
+    private renderer: Renderer2
     
     
   ) {
     this.currentUrl = this.router.url;    
+    setInterval(() => this.renderNotify(), 60000); // 1 dakika aralıklarla renderNotification çağrısı
   }
 
   ngOnInit(): void {
     // DashboardService'te yapılacak olan işlemleri burada gerçekleştirelim
-    this.dashboardService.ngOnInit();   
-    this.filterComponents();
-    
+    this.renderNotify();    
   }
-  filterComponents() {
-    const role = this.loginService.rol;
-    
-    // Kullanıcı rolüne göre bileşenleri etkinleştir veya devre dışı bırak
-    switch (role) {
-      case 'admin':
-        // Admin rolü için tüm bileşenleri etkinleştir
-        Object.keys(this.componentEnabled).forEach(key => this.componentEnabled[key] = true);        
-        break;
-      case 'depo_sorumlusu':
-        // User rolü için belirli bileşenleri etkinleştir veya devre dışı bırak                
-        this.componentEnabled['Ürün'] = true;
-        this.componentEnabled['Raf'] = true;
-        this.componentEnabled['Stok Uyarısı'] = true;
-        break;
-      case 'rapor_kullanicisi':
-        this.componentEnabled['Ürün'] = true;
-        this.componentEnabled['Stok Uyarısı'] = true;
-        
-      break;
-      // Diğer roller için gerekli işlemler yapılabilir
-    }
+
+  renderNotify()  {    
+    this.dashboardService.getStockAlertNotification().subscribe({
+      next: (resp) => {        
+        this.printLowStockAlerts = this.dashboardService.lowStockAlerts;
+      },
+      error: (err) => {
+       
+      }
+    });    
   }
+      
 
 
 

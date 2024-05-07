@@ -33,7 +33,7 @@
              </ul>
 
         </li>
-          @if (componentEnabled['Stok']) {
+          @if (this.currentUserRole === 'admin' || this.currentUserRole === 'depo_sorumlusu') {
             <li class="sidebar-item" >
                 <a  class="sidebar-link">
                     <i class="lni lni-archive"></i>
@@ -41,7 +41,12 @@
                 </a>
             </li>
           }
-          
+          <li class="sidebar-item" >
+            <a  class="sidebar-link">
+                <i class="bi bi-bar-chart"></i>
+                <span [routerLink]="'chart'">Dashboard</span>
+            </a>
+        </li>
           <li class="sidebar-item">
               <a  class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
                   data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
@@ -57,7 +62,7 @@
                   </li>
               </ul>
           </li>
-          @if (componentEnabled['Çalışan']) {
+          @if (this.currentUserRole === 'admin') {
             <li class="sidebar-item">
                 <a  class="sidebar-link">
                     <i class="bi bi-people"></i>
@@ -68,7 +73,7 @@
           
           <li class="sidebar-item">
               <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#notificationModal">
-                  <i class="lni lni-alarm"></i>
+                <i class="lni lni-alarm" [ngClass]="{'red-alarm': printLowStockAlerts.length > 0, 'white-alarm': printLowStockAlerts.length === 0}"></i>
                   <span>Notification</span>
               </a>
           </li>
@@ -168,7 +173,10 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-               
+                <div *ngFor="let lowStockAlert of printLowStockAlerts; let i = index">
+                    <label for="type" class="form-label">Düşük Stok Uyarısı</label>
+                    <input type="text" class="form-control" id="username" disabled [value]="'Stok ID: ' + lowStockAlert.stockId">
+                </div>                                   
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>                

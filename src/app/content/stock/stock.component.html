@@ -10,14 +10,19 @@
 
     <div class="containerComponent">
         <div class="containerInfo">Stok ID</div>
-        <div class="containerInfo">Tipi</div>        
+        <div class="containerInfo">Parça</div>        
         <div class="containerInfo">Sayısı</div>
-        <div class="containerInfo">Tip ID</div>
-        <div class="containerInfo">Düzenle</div>
+        <div class="containerInfo">Parça ID</div>
+        <div class="actionDiv">
+          <div>Düzenle</div>
+          <div>Sil</div>
+          <div>Bilgi</div>
+        </div>
+        
     </div>
     <div *ngFor="let stock of stock; let i = index" class="containerComponent" (click)="selectStock(i)">
         <div class="shelfDataDiv">{{ stock.id }}</div>
-        <div class="shelfDataDiv">{{ stock.type }}</div>
+        <div class="shelfDataDiv">{{ getTurkishType(stock.type) }}</div>
         <div class="shelfDataDiv">{{ stock.quantity }}</div>
         <div class="shelfDataDiv">{{ stock.typeId}}</div>                         
         <div class="grid-container">
@@ -854,38 +859,57 @@
           } @else if (selectedGlobalType === 'desktopCase') {
             <form [formGroup]="desktopCaseEditForm">
               <div class="mb-3">
-                <label for="desktopCaseBrand" class="form-label">Marka</label>
-                <input type="text" formControlName="brand" class="form-control" id="desktopCaseBrand" [disabled]="!canEditComputerComponent()" [value]="desktopCaseInfo.brand">
-              </div>
-              <div class="mb-3">
-                <label for="desktopCasePsu" class="form-label">PSU</label>
-                <input type="text" formControlName="psu" class="form-control" id="desktopCasePsu" [disabled]="!canEditComputerComponent()" [value]="desktopCaseInfo.psu ? 'Evet' : 'Hayır'"> 
-              </div>
-             
-              <div class="mb-3">
-                <label for="desktopCasePsuLocation" class="form-label">PSU Yeri</label>
-                <input type="text" formControlName="psuLocation" class="form-control" id="desktopCasePsuLocation" [disabled]="!canEditComputerComponent()"[value]="desktopCaseInfo.psuLocation">
-              </div>
-              <div class="mb-3">
-                <label for="desktopCaseTransparent" class="form-label">Şeffaflık</label>
-                <input type="text" formControlName="transparent" class="form-control" id="desktopCaseTransparent" [disabled]="!canEditComputerComponent()" [value]="desktopCaseInfo.transparent ? 'Evet' : 'Hayır'">
-              </div>
-              <div class="mb-3">
-                <label for="desktopCasePsuWatt" class="form-label">PSU Watt</label>
-                <input type="text" formControlName="psuWatt" class="form-control" id="desktopCasePsuWatt" [disabled]="!canEditComputerComponent()" [value]="desktopCaseInfo.psuWatt">
-              </div>
-              <div class="mb-3">
-                <label for="desktopCaseModel" class="form-label">Model</label>
-                <input type="text" formControlName="model" class="form-control" id="desktopCaseModel" [disabled]="!canEditComputerComponent()" [value]="desktopCaseInfo.model">
-              </div>
-              <div class="mb-3">
-                <label for="desktopCaseType" class="form-label">Tip</label>
-                <input type="text" formControlName="type" class="form-control" id="desktopCaseType" [disabled]="!canEditComputerComponent()" [value]="desktopCaseInfo.type">
-              </div>
-              <div class="mb-3">
-                <label for="quantity" class="form-label">Yeni Ürün Sayısı</label>
-                <input type="number" formControlName="quantity" class="form-control" id="quantity" aria-label="Number value for quantity" [disabled]="!canEditComputerComponent()" >
-              </div>
+                <label for="caseBrand" class="form-label">Marka</label>
+                <input type="text" class="form-control" id="caseBrand" formControlName="brand" [disabled]="!canEditComputerComponent()" [value]="desktopCaseInfo.brand">
+            </div>
+            <div class="mb-3">
+                <label for="caseModel" class="form-label">Model</label>
+                <input type="text" class="form-control" id="caseModel" formControlName="model" [disabled]="!canEditComputerComponent()" [value]="desktopCaseInfo.model">
+            </div>
+            <div class="mb-3">
+                <label for="caseType" class="form-label">Tip</label>
+                <select class="form-control" id="caseType" formControlName="type" [disabled]="!canEditComputerComponent()">
+                    <option value="" selected>Seçiniz...</option>
+                    <option value="ATX Full Tower">ATX Full Tower</option>
+                    <option value="ATX Mid Tower">ATX Mid Tower</option>
+                    <option value="MicroATX">MicroATX</option>  
+                    <option value="Mini-ITX">Mini-ITX</option>  
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="casePSU" class="form-label">PSU</label>
+                <select class="form-control" id="casePSU" formControlName="psu" [disabled]="!canEditComputerComponent()" [value]="desktopCaseInfo.psu ? 'VAR' : 'YOK'">
+                    <option value="" selected>Seçiniz...</option>
+                    <option value="VAR">VAR</option>  
+                    <option value="YOK">YOK</option>  
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="casePSULocation" class="form-label">PSU Yeri</label>
+                <select class="form-control" id="casePSULocation" formControlName="psuLocation" [disabled]="!canEditComputerComponent()" [value]="desktopCaseInfo.psuLocation">
+                    <option value="" selected>Seçiniz...</option>
+                    <option value="Asagida">Aşağıda</option>
+                    <option value="Yukarida">Yukarıda</option>
+                    <option value="Gizli Yan Panel">Gizli Yan Panel</option>  
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="caseTransparent" class="form-label">Şeffaf Kasa</label>
+                <select class="form-control" id="caseTransparent" formControlName="transparent" [disabled]="!canEditComputerComponent()" [value]="desktopCaseInfo.transparent ? 'EVET' : 'HAYIR'">
+                    <option value="" selected>Seçiniz...</option>
+                    <option value="EVET">EVET</option>  
+                    <option value="HAYIR">HAYIR</option>  
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="casePSUWatt" class="form-label">PSU Watt</label>
+                <input type="number" class="form-control" id="casePSUWatt" min="1" formControlName="psuWatt" [disabled]="!canEditComputerComponent()" [value]="desktopCaseInfo.psuWatt">
+            </div>
+            <div class="mb-3">
+                <label for="caseQuantity" class="form-label">Adet</label>
+                <input type="number" class="form-control" id="caseQuantity" aria-label="Number value for quantity" min="1" formControlName="quantity" [disabled]="!canEditComputerComponent()" [value]="selectedStock?.quantity">
+            </div>
+            
             </form>            
 
           } @else if (selectedGlobalType === 'cpuCooler') {

@@ -4,12 +4,12 @@ import { Cpu, CpuCooler, DesktopCase, Gpu, Motherboard, Psu, Ram } from '../mode
 import { Observable } from 'rxjs';
 
  /**********************************\
- ==================================
+  ==================================
 
-               Get
+                Get
 
- ==================================
-\**********************************/
+  ==================================
+ \**********************************/
  const GET_CPU_URL = '/type/cpu/get';
  const GET_CPUCOOLER_URL = '/type/cpucooler/get';
  const GET_GPU_URL = '/type/gpu/get';
@@ -17,6 +17,16 @@ import { Observable } from 'rxjs';
  const GET_RAM_URL = '/type/ram/get';
  const GET_MOTHERBOARD_URL = '/type/motherboard/get';
  const GET_DESKTOPCASE_URL = '/type/case/get';
+
+ const GET_ALL_CPU_URL = '/type/cpu/get/all';
+ const GET_ALL_CPUCOOLER_URL = '/type/cpucooler/get/all';
+ const GET_ALL_GPU_URL = '/type/gpu/get/all';
+ const GET_ALL_PSU_URL = '/type/psu/get/all';
+ const GET_ALL_RAM_URL = '/type/ram/get/all';
+ const GET_ALL_MOTHERBOARD_URL = '/type/motherboard/get/all';
+ const GET_ALL_DESKTOPCASE_URL = '/type/case/get/all';
+
+
 
 /**********************************\
  ==================================
@@ -64,7 +74,7 @@ export class TypeService {
   /**********************************\
    ==================================
 
-                CPU
+                 CPU
 
    ==================================
   \**********************************/
@@ -99,92 +109,10 @@ export class TypeService {
       model: cpu.model};
       return this.http.post<Cpu>(EDIT_CPU_URL, body);
   }
-
   
-  editCpuCooler(cpuCooler: CpuCooler): Observable<CpuCooler> {
-    
-    const body = { 
-      id: cpuCooler.id,
-      brand: cpuCooler.brand,
-      fanLength: cpuCooler.fanLength,
-      led:  cpuCooler.led,
-      material:  cpuCooler.material,
-      model: cpuCooler.model,
-      rpm:  cpuCooler.rpm,
-      type:  cpuCooler.type};
-      return this.http.post<CpuCooler>(EDIT_CPUCOOLER_URL, body);
+  getAllProcessors(): Observable<Cpu[]> {
+    return this.http.get<Cpu[]>(GET_ALL_CPU_URL);
   }
-  editGpu(gpu: Gpu): Observable<Gpu> {
-    
-    const body = { 
-      id: gpu.id,
-      brand: gpu.brand,
-      memoryInterface: gpu.memoryInterface,
-      model:  gpu.model,
-      producer:  gpu.producer,
-      series: gpu.series,
-      vram:  gpu.vram,
-      };
-      return this.http.post<Gpu>(EDIT_GPU_URL, body);
-  }
-  editPsu(psu: Psu): Observable<Psu> {
-    
-    const body = { 
-      id: psu.id,
-      brand: psu.brand,
-      efficiency: psu.efficiency,
-      model:  psu.model,
-      modular:  psu.modular,
-      pcieGen5Support: psu.pcieGen5Support,
-      type:  psu.type,
-      watt:  psu.watt,
-      };
-      return this.http.post<Psu>(EDIT_PSU_URL, body);
-  }
-  editRam(ram: Ram): Observable<Ram> {
-    
-    const body = { 
-      id: ram.id,
-      brand: ram.brand,
-      capacity: ram.capacity,
-      model:  ram.model,
-      channelType:  ram.channelType,
-      compatibility: ram.compatibility,
-      frequencySpeed:  ram.frequencySpeed,
-      type:  ram.type,
-      };
-      return this.http.post<Ram>(EDIT_RAM_URL, body);
-  }
-  editMotherboard(motherboard: Motherboard): Observable<Motherboard> {
-    
-    const body = { 
-      id: motherboard.id,
-      brand: motherboard.brand,
-      cpuCompatibility: motherboard.cpuCompatibility,
-      cpuSocketType:  motherboard.cpuSocketType,
-      model:  motherboard.model,
-      ramSlots: motherboard.ramSlots,
-      ramType:  motherboard.ramType,
-      size:  motherboard.size,
-      };
-      return this.http.post<Motherboard>(EDIT_MOTHERBOARD_URL, body);
-  }
-
-  editDesktopCase(desktopCase: DesktopCase): Observable<DesktopCase> {
-    
-    const body = { 
-      id: desktopCase.id,
-      brand: desktopCase.brand,
-      model: desktopCase.model,
-      psu:  desktopCase.psu,
-      psuLocation:  desktopCase.psuLocation,
-      psuWatt: desktopCase.psuWatt,
-      transparent:  desktopCase.transparent,
-      type:  desktopCase.type,
-      };
-      return this.http.post<DesktopCase>(EDIT_DESKTOPCASE_URL, body);
-  }
-
 
   /**********************************\
    ==================================
@@ -211,9 +139,24 @@ export class TypeService {
                    model: cpuCooler.model};
     return this.http.post<CpuCooler>(POST_CPUCOOLER_URL, body);
   }
-  
 
-  
+  editCpuCooler(cpuCooler: CpuCooler): Observable<CpuCooler> {
+    
+    const body = { 
+      id: cpuCooler.id,
+      brand: cpuCooler.brand,
+      fanLength: cpuCooler.fanLength,
+      led:  cpuCooler.led,
+      material:  cpuCooler.material,
+      model: cpuCooler.model,
+      rpm:  cpuCooler.rpm,
+      type:  cpuCooler.type};
+      return this.http.post<CpuCooler>(EDIT_CPUCOOLER_URL, body);
+  }  
+
+  getAllCpuCoolers(): Observable<CpuCooler[]> {
+    return this.http.get<CpuCooler[]>(GET_ALL_CPUCOOLER_URL);
+  }
 
    /**********************************\
     ==================================
@@ -238,6 +181,24 @@ export class TypeService {
                    vram: gpu.vram,
                    memoryInterface: gpu.memoryInterface};
     return this.http.post<Gpu>(POST_GPU_URL, body);
+  }
+
+  editGpu(gpu: Gpu): Observable<Gpu> {
+    
+    const body = { 
+      id: gpu.id,
+      brand: gpu.brand,
+      memoryInterface: gpu.memoryInterface,
+      model:  gpu.model,
+      producer:  gpu.producer,
+      series: gpu.series,
+      vram:  gpu.vram,
+      };
+      return this.http.post<Gpu>(EDIT_GPU_URL, body);
+  }  
+
+  getAllGpu(): Observable<Gpu[]> {
+    return this.http.get<Gpu[]>(GET_ALL_GPU_URL);
   }
 
   /**********************************\
@@ -266,6 +227,24 @@ export class TypeService {
     return this.http.post<Psu>(POST_PSU_URL, body);
   }
 
+  editPsu(psu: Psu): Observable<Psu> {    
+    const body = { 
+      id: psu.id,
+      brand: psu.brand,
+      efficiency: psu.efficiency,
+      model:  psu.model,
+      modular:  psu.modular,
+      pcieGen5Support: psu.pcieGen5Support,
+      type:  psu.type,
+      watt:  psu.watt,
+      };
+      return this.http.post<Psu>(EDIT_PSU_URL, body);
+  }
+
+  getAllPowerSupplies(): Observable<Psu[]> {
+    return this.http.get<Psu[]>(GET_ALL_PSU_URL);
+  }
+
   /**********************************\
    ==================================
 
@@ -280,8 +259,7 @@ export class TypeService {
     return this.http.post<Ram>(GET_RAM_URL, body );
   }
 
-  addRam(ram: Ram): Observable<Ram> {
-    
+  addRam(ram: Ram): Observable<Ram> {    
     const body = { type: ram.type,
                    capacity: ram.capacity,
                    frequencySpeed: ram.frequencySpeed,
@@ -292,6 +270,28 @@ export class TypeService {
     return this.http.post<Ram>(POST_RAM_URL, body);
   }
 
+  editRam(ram: Ram): Observable<Ram> {    
+    const body = { 
+      id: ram.id,
+      brand: ram.brand,
+      capacity: ram.capacity,
+      model:  ram.model,
+      channelType:  ram.channelType,
+      compatibility: ram.compatibility,
+      frequencySpeed:  ram.frequencySpeed,
+      type:  ram.type,
+      };
+      return this.http.post<Ram>(EDIT_RAM_URL, body);
+  }
+
+  getAllRam(): Observable<Ram[]> {
+    return this.http.get<Ram[]>(GET_ALL_RAM_URL);
+  }
+
+
+
+  
+
    /**********************************\
     ==================================
 
@@ -301,8 +301,7 @@ export class TypeService {
    \**********************************/
 
 
-  getMotherboard(cpuId: number): Observable<Motherboard> {
-    
+  getMotherboard(cpuId: number): Observable<Motherboard> {    
     const body = { typeId: cpuId};
     return this.http.post<Motherboard>(GET_MOTHERBOARD_URL, body );
   }
@@ -318,6 +317,26 @@ export class TypeService {
                    model: motherboard.model};
     return this.http.post<Motherboard>(POST_MOTHERBOARD_URL, body);
   }
+
+  editMotherboard(motherboard: Motherboard): Observable<Motherboard> {    
+    const body = { 
+      id: motherboard.id,
+      brand: motherboard.brand,
+      cpuCompatibility: motherboard.cpuCompatibility,
+      cpuSocketType:  motherboard.cpuSocketType,
+      model:  motherboard.model,
+      ramSlots: motherboard.ramSlots,
+      ramType:  motherboard.ramType,
+      size:  motherboard.size,
+      };
+      return this.http.post<Motherboard>(EDIT_MOTHERBOARD_URL, body);
+  }
+
+  getAllMotherboards(): Observable<Motherboard[]> {
+    return this.http.get<Motherboard[]>(GET_ALL_MOTHERBOARD_URL);
+  }
+
+
 
    /**********************************\
     ==================================
@@ -343,5 +362,24 @@ export class TypeService {
                    model: desktopCase.model,
                    type: desktopCase.type};
     return this.http.post<DesktopCase>(POST_DESKTOPCASE_URL, body);
+  }
+
+  editDesktopCase(desktopCase: DesktopCase): Observable<DesktopCase> {
+    
+    const body = { 
+      id: desktopCase.id,
+      brand: desktopCase.brand,
+      model: desktopCase.model,
+      psu:  desktopCase.psu,
+      psuLocation:  desktopCase.psuLocation,
+      psuWatt: desktopCase.psuWatt,
+      transparent:  desktopCase.transparent,
+      type:  desktopCase.type,
+      };
+      return this.http.post<DesktopCase>(EDIT_DESKTOPCASE_URL, body);
+  }
+
+  getAllDesktopCases(): Observable<DesktopCase[]> {
+    return this.http.get<DesktopCase[]>(GET_ALL_DESKTOPCASE_URL);
   }
 }

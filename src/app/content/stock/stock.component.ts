@@ -47,6 +47,28 @@ export class StockComponent implements OnInit {
     this.userRole = this.loginService.rol;
   }
 
+
+  getTurkishType(type: string): string {
+    switch (type) {
+      case 'psu':
+        return 'Güç Kaynağı';
+      case 'ram':
+        return 'Bellek';
+      case 'motherboard':
+        return 'Anakart';
+      case 'desktopCase':
+        return 'Masaüstü Kasa';
+      case 'cpuCooler':
+        return 'İşlemci Soğutucusu';
+      case 'cpu':
+        return 'İşlemci';
+      case 'gpu':
+        return 'Ekran Kartı';
+      default:
+        return type; // Eğer Türkçe karşılığı bilinmiyorsa orijinal değeri döndür
+    }
+  }
+
   canEditComputerComponent(): boolean {
     return this.userRole === 'admin';
   }
@@ -807,7 +829,7 @@ cpuCoolerEditFormCheck() {
     ramType: ["",[Validators.required]],
     ramSlots: [0,[Validators.required]],
     cpuSocketType: ["",[Validators.required]],
-    cpuCompatibility:[false,[Validators.required]],
+    cpuCompatibility:["",[Validators.required]],
     quantity: [0,[Validators.required]],      
   });
   
@@ -818,7 +840,7 @@ cpuCoolerEditFormCheck() {
     ramType:["",[Validators.required]],
     ramSlots: [0,[Validators.required]],
     cpuSocketType: ["",[Validators.required]],
-    cpuCompatibility: [false,[Validators.required]],
+    cpuCompatibility: ["",[Validators.required]],
     quantity: [0,[Validators.required]],          
   });
 
@@ -877,7 +899,7 @@ cpuCoolerEditFormCheck() {
       this.motherboardInfo.ramType = this.motherboardForm.get('ramType')!.value; 
       this.motherboardInfo.ramSlots =  this.motherboardForm.get('ramSlots')!.value; 
       this.motherboardInfo.cpuSocketType = this.motherboardForm.get('cpuSocketType')!.value;
-      this.motherboardInfo.cpuCompatibility = this.motherboardForm.get('cpuCompatibility')!.value;
+      this.motherboardInfo.cpuCompatibility = this.motherboardForm.get('cpuCompatibility')!.value === 'INTEL' ? true : false;
       const stockQuantity = this.motherboardForm.get('quantity')!.value;
       this.addMotherboard(this.motherboardInfo, stockQuantity);
     } else {
@@ -889,14 +911,14 @@ cpuCoolerEditFormCheck() {
 
   motherboardEditFormCheck() {
     if (this.motherboardForm.valid) {
-      this.motherboardInfo.brand = this.motherboardForm.get('brand')!.value;
-      this.motherboardInfo.size = this.motherboardForm.get('size')!.value;
-      this.motherboardInfo.model = this.motherboardForm.get('model')!.value;   
-      this.motherboardInfo.ramType = this.motherboardForm.get('ramType')!.value; 
-      this.motherboardInfo.ramSlots =  this.motherboardForm.get('ramSlots')!.value; 
-      this.motherboardInfo.cpuSocketType = this.motherboardForm.get('cpuSocketType')!.value;
-      this.motherboardInfo.cpuCompatibility = this.motherboardForm.get('cpuCompatibility')!.value;
-      const stockQuantity = this.motherboardForm.get('quantity')!.value;
+      this.motherboardInfo.brand = this.motherboardEditForm.get('brand')!.value;
+      this.motherboardInfo.size = this.motherboardEditForm.get('size')!.value;
+      this.motherboardInfo.model = this.motherboardEditForm.get('model')!.value;   
+      this.motherboardInfo.ramType = this.motherboardEditForm.get('ramType')!.value; 
+      this.motherboardInfo.ramSlots =  this.motherboardEditForm.get('ramSlots')!.value; 
+      this.motherboardInfo.cpuSocketType = this.motherboardEditForm.get('cpuSocketType')!.value;
+      this.motherboardInfo.cpuCompatibility = this.motherboardForm.get('cpuCompatibility')!.value === 'INTEL' ? true : false;
+      const stockQuantity = this.motherboardEditForm.get('quantity')!.value;
       this.editMotherboard(this.motherboardInfo, stockQuantity);
     } else {
       // En az bir form elemanının değeri geçerli değil
@@ -925,10 +947,10 @@ cpuCoolerEditFormCheck() {
   }
   
 
-    desktopCaseForm = this.fb.nonNullable.group({
-    psu:[false,[Validators.required]],
+  desktopCaseForm = this.fb.nonNullable.group({
+    psu:["",[Validators.required]],
     psuLocation: ["",[Validators.required]],
-    transparent: [false,[Validators.required]],
+    transparent: ["",[Validators.required]],
     psuWatt: [0,[Validators.required]],
     brand: ["",[Validators.required]],
     model:["",[Validators.required]],
@@ -937,9 +959,9 @@ cpuCoolerEditFormCheck() {
   });
 
   desktopCaseEditForm = this.fb.nonNullable.group({
-    psu:[false,[Validators.required]],
+    psu:["",[Validators.required]],
     psuLocation:["",[Validators.required]],
-    transparent: [false,[Validators.required]],
+    transparent: ["",[Validators.required]],
     psuWatt: [0,[Validators.required]],
     brand: ["",[Validators.required]],
     model:["",[Validators.required]],
@@ -994,9 +1016,9 @@ cpuCoolerEditFormCheck() {
   }
   desktopCaseAddFormCheck() {
     if (this.desktopCaseForm.valid) {
-      this.desktopCaseInfo.psu = this.desktopCaseForm.get('psu')!.value;
+      this.desktopCaseInfo.psu = this.desktopCaseForm.get('psu')!.value === 'VAR' ? true : false;
       this.desktopCaseInfo.psuLocation = this.desktopCaseForm.get('psuLocation')!.value;
-      this.desktopCaseInfo.transparent =this.desktopCaseForm.get('transparent')!.value; 
+      this.desktopCaseInfo.transparent =this.desktopCaseForm.get('transparent')!.value === 'EVET' ? true : false; 
       this.desktopCaseInfo.psuWatt = this.desktopCaseForm.get('psuWatt')!.value;   
       this.desktopCaseInfo.brand =  this.desktopCaseForm.get('brand')!.value;  
       this.desktopCaseInfo.model = this.desktopCaseForm.get('model')!.value;
@@ -1011,9 +1033,9 @@ cpuCoolerEditFormCheck() {
   
   desktopCaseEditFormCheck() {
     if (this.desktopCaseForm.valid) {
-      this.desktopCaseInfo.psu = this.desktopCaseForm.get('psu')!.value;
+      this.desktopCaseInfo.psu = this.desktopCaseForm.get('psu')!.value === 'VAR' ? true : false;
       this.desktopCaseInfo.psuLocation = this.desktopCaseForm.get('psuLocation')!.value;
-      this.desktopCaseInfo.transparent =this.desktopCaseForm.get('transparent')!.value; 
+      this.desktopCaseInfo.transparent =this.desktopCaseForm.get('transparent')!.value === 'EVET' ? true : false; 
       this.desktopCaseInfo.psuWatt = this.desktopCaseForm.get('psuWatt')!.value;   
       this.desktopCaseInfo.brand =  this.desktopCaseForm.get('brand')!.value;  
       this.desktopCaseInfo.model = this.desktopCaseForm.get('model')!.value;

@@ -10,17 +10,16 @@
         <div class="containerInfo">Raf ID</div>
         <div class="containerInfo">Raf Ürün Sayısı</div>        
         <div class="containerInfo">Ürün ID</div>
-        <div class="containerInfo">Düzenle</div>
+        <div class="containerInfo">Sil</div>
     </div>
     <div *ngFor="let shelf of shelves; let i = index" class="containerComponent" (click)="selectShelf(i)">
         <div class="shelfDataDiv">{{ shelf.id }}</div>
         <div class="shelfDataDiv">{{ shelf.occupiedQuantity }}</div>
         <div class="shelfDataDiv">{{ shelf.stockId }}</div>                         
-        <div class="grid-container">
-          <div class="grid-item"><i class="bi bi-pen" data-bs-toggle="modal" data-bs-target="#exampleModalToggle"></i></div>      
+        <div class="grid-container">          
           <div class="grid-item"><i class="bi bi-trash3" data-bs-toggle="modal" data-bs-target="#shelfRemoveModalToggle"></i></div>                     
         </div> 
-      </div>     
+    </div>     
 </div>
 
 <!-- Stok Silme Modal -->
