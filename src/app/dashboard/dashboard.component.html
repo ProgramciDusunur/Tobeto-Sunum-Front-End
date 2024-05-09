@@ -92,7 +92,13 @@
   </aside>
   <div class="main p-3">
     <app-header></app-header>
-    <router-outlet></router-outlet>
+    @if (changeColdStart()) {                
+        <app-chart></app-chart>
+    } @else {
+        <router-outlet></router-outlet>
+    }
+    
+    
   </div>
 </div>
 

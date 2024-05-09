@@ -155,7 +155,7 @@ export class ChartComponent {
       },
       plotOptions: {
         pie: {
-          innerSize: '50%',
+          innerSize: '82.5%',
           depth: 45
         }
       },

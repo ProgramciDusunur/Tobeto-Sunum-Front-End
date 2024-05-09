@@ -31,6 +31,16 @@ export class DashboardComponent implements OnInit {
 
 
   printLowStockAlerts: StockAlert[] = [];
+  coldStart: boolean = true;
+
+  changeColdStart(): boolean {
+    if (this.coldStart) {
+      this.router.navigate(['/dashboard/chart']);
+      this.coldStart = false;
+      return true;
+    }
+    return false;
+  }
 
 
 
