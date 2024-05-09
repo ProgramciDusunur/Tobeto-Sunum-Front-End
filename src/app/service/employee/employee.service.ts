@@ -1,16 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
 import { Employee, RequestEmployee } from '../models/employee.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
-  static addEmployee() {
-    throw new Error('Method not implemented.');
-  }
+ 
+  
 
 
 
