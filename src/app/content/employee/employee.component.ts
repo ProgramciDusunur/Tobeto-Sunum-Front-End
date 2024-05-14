@@ -3,6 +3,7 @@ import { EmployeeService } from '../../service/employee/employee.service';
 import { AdminPasswordEmployee, Employee, RequestEmployee } from '../../service/models/employee.model';
 import { ToastrService } from 'ngx-toastr';
 import { FormControl, FormGroup } from "@angular/forms";
+import { LoginService } from '../../service/login/login.service';
 
 
 
@@ -17,6 +18,8 @@ export class EmployeeComponent implements OnInit {
     { value: 'changePassword', label: 'Şifre Değiştir' },    
     // Add more options as needed
   ];
+  currentUserName: any;
+  currentUserSurname: any;
 
   onTypeChange(event: any) {
     this.selectedType = event.target.value;    
@@ -41,6 +44,7 @@ export class EmployeeComponent implements OnInit {
   constructor(
     private employeeService: EmployeeService,
     private toastr: ToastrService,
+    private loginService: LoginService
   ) {}
 
   personForm = new FormGroup({
@@ -156,7 +160,14 @@ export class EmployeeComponent implements OnInit {
       error: (error) => {
         console.error('Error fetching employees:', error);
       }
-  });
+    });
+    this.currentUserName = this.loginService.username;
+    this.currentUserSurname = this.loginService.surname;
+    
+  }
+
+  isAdmin(currentAdminName: string, currentAdminSurname: string): boolean {
+    return currentAdminName !== this.currentUserName && currentAdminSurname !== this.currentUserSurname;
   }
 
   

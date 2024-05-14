@@ -12,15 +12,19 @@
         <div class="containerInfo">Rol</div>
         <div class="containerInfo">Sil</div>
     </div>
-    <div *ngFor="let employee of employees;let i = index" class="containerComponent" (click)="selectEmployee(i)">
-        <div class="employeeDataDiv">{{ employee.name }}</div>
-        <div class="employeeDataDiv">{{ employee.surname }}</div>
-        <div class="employeeDataDiv">{{ employee.email }}</div>
-        <div class="employeeDataDiv">{{ employee.role}}</div>                         
-        <div class="grid-container">          
+    <div *ngFor="let employee of employees; let i = index" class="containerComponent" (click)="selectEmployee(i)">
+      <div class="employeeDataDiv">{{ employee.name }}</div>
+      <div class="employeeDataDiv">{{ employee.surname }}</div>
+      <div class="employeeDataDiv">{{ employee.email }}</div>
+      <div class="employeeDataDiv">{{ employee.role }}</div>                         
+      <div class="grid-container">
+        @if (isAdmin(employee.name, employee.surname)) {          
           <div class="grid-item"><i class="bi bi-trash3" data-bs-toggle="modal" data-bs-target="#employeeRemoveModalToggle"></i></div>                     
-        </div> 
-    </div>     
+        }
+          
+      </div> 
+  </div>
+      
 </div>
 
 <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">

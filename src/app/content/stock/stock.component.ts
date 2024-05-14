@@ -4,8 +4,11 @@ import { EditStock, Stock } from '../../service/models/stock.models';
 import { ToastrService } from 'ngx-toastr';
 import { TypeService } from '../../service/type/type.service';
 import { Cpu, CpuCooler, DesktopCase, Gpu, Motherboard, Psu, Ram } from '../../service/models/type.model';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../../service/login/login.service';
+import jsPDF from 'jspdf'
+import autoTable from 'jspdf-autotable'
+import { Observable, catchError, forkJoin, map, of } from 'rxjs';
 
 @Component({
   selector: 'app-stock',
@@ -42,8 +45,9 @@ export class StockComponent implements OnInit {
   
 
   stock: Stock[] = [];
+  stockModels: string[] = [];
   ngOnInit(): void {
-    this.fetchStocks();    
+    this.fetchStocks();        
     this.userRole = this.loginService.rol;
   }
 
@@ -51,19 +55,19 @@ export class StockComponent implements OnInit {
   getTurkishType(type: string): string {
     switch (type) {
       case 'psu':
-        return 'Güç Kaynağı';
+        return 'Guc Kaynagi';
       case 'ram':
         return 'Bellek';
       case 'motherboard':
         return 'Anakart';
       case 'desktopCase':
-        return 'Masaüstü Kasa';
+        return 'Masaustu Kasa';
       case 'cpuCooler':
-        return 'İşlemci Soğutucusu';
+        return 'Islemci Sogutucusu';
       case 'cpu':
-        return 'İşlemci';
+        return 'Islemci';
       case 'gpu':
-        return 'Ekran Kartı';
+        return 'Ekran Karti';
       default:
         return type; // Eğer Türkçe karşılığı bilinmiyorsa orijinal değeri döndür
     }
@@ -77,13 +81,69 @@ export class StockComponent implements OnInit {
   fetchStocks(): void {
     this.stockService.getAllStocks().subscribe({
       next: (data: Stock[]) => {
-        this.stock = data;
+        this.stock = data;   
+        this.fetchStockModels();      
       },
       error: (error) => {
         this.toastr.error('Stoklar alınırken hata oluştu. Lütfen daha sonra tekrar deneyin.');
       }
     });
-}
+  }
+
+  fetchStockModels(): void {
+    // Boş bir dizi oluşturun
+    this.stockModels = [];
+  
+    // Her bir stok öğesini işleyin
+    this.stock.forEach((stockItem, index) => {
+      // Her bir stok öğesinin tipi ve typeId bilgisini kullanarak model bilgisini alın
+      console.log("Parçanın tipi: " + stockItem.type);
+      if (stockItem.type === "cpu") {
+        this.getCpuModel(stockItem.typeId).subscribe((model: string) => {
+          // Model bilgisini doğru index'e ekleyin
+          this.stockModels[index] = model;          
+        });
+      } else if (stockItem.type === "gpu") {
+        this.getGpuModel(stockItem.typeId).subscribe((model: string) => {
+          // Model bilgisini doğru index'e ekleyin
+          this.stockModels[index] = model;          
+        });
+      } else if (stockItem.type === "psu") {
+        this.getPsuModel(stockItem.typeId).subscribe((model: string) => {
+          // Model bilgisini doğru index'e ekleyin
+          this.stockModels[index] = model;          
+        });
+      } else if (stockItem.type === "ram") {
+        this.getRamModel(stockItem.typeId).subscribe((model: string) => {
+          // Model bilgisini doğru index'e ekleyin
+          this.stockModels[index] = model;          
+        });
+      } else if (stockItem.type === "cpuCooler") {
+        this.getCpuCoolerModel(stockItem.typeId).subscribe((model: string) => {
+          // Model bilgisini doğru index'e ekleyin
+          this.stockModels[index] = model;          
+        });
+      } else if (stockItem.type === "motherboard") {
+        this.getMotherboardModel(stockItem.typeId).subscribe((model: string) => {
+          // Model bilgisini doğru index'e ekleyin
+          this.stockModels[index] = model;          
+        });
+      } else if (stockItem.type === "desktopCase") {
+        this.getDesktopCaseModel(stockItem.typeId).subscribe((model: string) => {
+          // Model bilgisini doğru index'e ekleyin
+          this.stockModels[index] = model;          
+        });
+      }      
+    });
+  
+    // Tüm model bilgilerini alana kadar bekleyin
+    forkJoin(this.stockModels).subscribe(() => {
+      // Tüm model bilgileri alındığında işlem yapabilirsiniz
+      console.log("Tüm model bilgileri alındı:", this.stockModels);
+    });
+  }
+  
+
 
   selectedStock: any; // Seçilen stokun verilerini tutmak için bir değişken
   selectedStockIdForRemove: any;
@@ -206,7 +266,7 @@ export class StockComponent implements OnInit {
     this.typeService.getCpu(cpuId).subscribe({
       next: (data) => {
         this.cpuInfo = data;        
-        console.log(data);
+        
         this.toastr.info("İşlemci bilgisi başarıyla alındı.");        
       },
       error: (error) => {
@@ -222,8 +282,7 @@ export class StockComponent implements OnInit {
         this.typeStock.typeId = data.id;    
         this.typeStock.type = "cpu";
         this.typeStock.quantity = quantity;        
-        this.addStock(this.typeStock);
-        console.log(data);
+        this.addStock(this.typeStock);        
         this.toastr.info("İşlemci başarıyla eklendi.");
       },
       error: (error) => {
@@ -237,8 +296,7 @@ export class StockComponent implements OnInit {
         this.cpuInfo = data;
         this.editStockInfo.id = this.selectedStockIdForRemove;    
         this.editStockInfo.quantity = quantity;        
-        this.editStock(this.editStockInfo);
-        console.log(data);
+        this.editStock(this.editStockInfo);        
         this.toastr.info("İşlemci başarıyla düzenlendi.");
       },
       error: (error) => {
@@ -334,8 +392,7 @@ export class StockComponent implements OnInit {
   getCpuCooler(cpuCoolerId: number) {    
     this.typeService.getCpuCooler(cpuCoolerId).subscribe({
       next: (data) => {
-        this.cpuCoolerInfo = data;
-        console.log(data);
+        this.cpuCoolerInfo = data;        
         this.toastr.info("Soğutucu bilgisi başarıyla alındı.");        
       },
       error: (error) => {
@@ -351,8 +408,7 @@ addCpuCooler(cpuCooler: CpuCooler, quantity: number) {
       this.typeStock.typeId = data.id;    
       this.typeStock.type = "cpuCooler";
       this.typeStock.quantity = quantity;        
-      this.addStock(this.typeStock);
-      console.log(data);
+      this.addStock(this.typeStock);      
       this.toastr.info("CPU soğutucusu başarıyla eklendi.");
     },
     error: (error) => {
@@ -367,8 +423,7 @@ editCpuCooler(cpuCooler: CpuCooler, quantity: number) {
       this.cpuCoolerInfo = data;
       this.editStockInfo.id = this.selectedStockIdForRemove;    
       this.editStockInfo.quantity = quantity;        
-      this.editStock(this.editStockInfo);
-      console.log(data);
+      this.editStock(this.editStockInfo);      
       this.toastr.info("CPU soğutucusu düzenlendi.");
     },
     error: (error) => {
@@ -462,8 +517,7 @@ cpuCoolerEditFormCheck() {
   getGpu(gpuId: number) {    
     this.typeService.getGpu(gpuId).subscribe({
       next: (data) => {
-        this.gpuInfo = data;
-        console.log(data);
+        this.gpuInfo = data;        
         this.toastr.info("Ekran Kartı bilgisi başarıyla alındı.");        
       },
       error: (error) => {
@@ -479,8 +533,7 @@ cpuCoolerEditFormCheck() {
         this.typeStock.typeId = data.id;    
         this.typeStock.type = "gpu";
         this.typeStock.quantity = quantity;        
-        this.addStock(this.typeStock);
-        console.log(data);
+        this.addStock(this.typeStock);        
         this.toastr.info("Ekran kartı başarıyla eklendi.");
       },
       error: (error) => {
@@ -494,8 +547,7 @@ cpuCoolerEditFormCheck() {
         this.gpuInfo = data;
         this.editStockInfo.id = this.selectedStockIdForRemove;    
         this.editStockInfo.quantity = quantity;        
-        this.editStock(this.editStockInfo);
-        console.log(data);
+        this.editStock(this.editStockInfo);        
         this.toastr.info("Ekran kartı başarıyla düzenlendi.");
       },
       error: (error) => {
@@ -586,7 +638,7 @@ cpuCoolerEditFormCheck() {
     this.typeService.getPsu(psuId).subscribe({
       next: (data) => {
         this.psuInfo = data;
-        console.log(data);
+        
         this.toastr.info("Güç Kaynağı bilgisi başarıyla alındı.");        
       },
       error: (error) => {
@@ -602,8 +654,7 @@ cpuCoolerEditFormCheck() {
         this.typeStock.typeId = data.id;    
         this.typeStock.type = "psu";
         this.typeStock.quantity = quantity;        
-        this.addStock(this.typeStock);
-        console.log(data);
+        this.addStock(this.typeStock);        
         this.toastr.info("Güç kaynağı başarıyla eklendi.");
       },
       error: (error) => {
@@ -618,8 +669,7 @@ cpuCoolerEditFormCheck() {
         this.psuInfo = data;
         this.editStockInfo.id = this.selectedStockIdForRemove;    
         this.editStockInfo.quantity = quantity;        
-        this.editStock(this.editStockInfo);
-        console.log(data);
+        this.editStock(this.editStockInfo);        
         this.toastr.info("Güç kaynağı başarıyla düzenlendi.");
       },
       error: (error) => {
@@ -715,8 +765,7 @@ cpuCoolerEditFormCheck() {
   getRam(ramId: number) {    
     this.typeService.getRam(ramId).subscribe({
       next: (data) => {
-        this.ramInfo = data;
-        console.log(data);
+        this.ramInfo = data;        
         this.toastr.info("RAM bilgisi başarıyla alındı.");        
       },
       error: (error) => {
@@ -732,8 +781,7 @@ cpuCoolerEditFormCheck() {
         this.typeStock.typeId = data.id;    
         this.typeStock.type = "ram";
         this.typeStock.quantity = quantity;        
-        this.addStock(this.typeStock);
-        console.log(data);
+        this.addStock(this.typeStock);        
         this.toastr.info("RAM başarıyla eklendi.");
       },
       error: (error) => {
@@ -748,8 +796,7 @@ cpuCoolerEditFormCheck() {
         this.ramInfo = data;
         this.editStockInfo.id = this.selectedStockIdForRemove;    
         this.editStockInfo.quantity = quantity;        
-        this.editStock(this.editStockInfo);
-        console.log(data);
+        this.editStock(this.editStockInfo);        
         this.toastr.info("RAM başarıyla düzenlendi.");
       },
       error: (error) => {
@@ -847,8 +894,7 @@ cpuCoolerEditFormCheck() {
   getMotherboard(motherboardId: number) {    
     this.typeService.getMotherboard(motherboardId).subscribe({
       next: (data) => {
-        this.motherboardInfo = data;
-        console.log(data);
+        this.motherboardInfo = data;        
         this.toastr.info("Anakart bilgisi başarıyla alındı.");        
       },
       error: (error) => {
@@ -864,8 +910,7 @@ cpuCoolerEditFormCheck() {
         this.typeStock.typeId = data.id;    
         this.typeStock.type = "motherboard";
         this.typeStock.quantity = quantity;        
-        this.addStock(this.typeStock);
-        console.log(data);
+        this.addStock(this.typeStock);        
         this.toastr.info("Anakart başarıyla eklendi.");
       },
       error: (error) => {
@@ -880,8 +925,7 @@ cpuCoolerEditFormCheck() {
         this.motherboardInfo = data;
         this.editStockInfo.id = this.selectedStockIdForRemove;    
         this.editStockInfo.quantity = quantity;        
-        this.editStock(this.editStockInfo);
-        console.log(data);
+        this.editStock(this.editStockInfo);        
         this.toastr.info("Anakart başarıyla düzenlendi.");
       },
       error: (error) => {
@@ -972,8 +1016,7 @@ cpuCoolerEditFormCheck() {
   getDesktopCase(desktopCaseId: number) {
     this.typeService.getDesktopCase(desktopCaseId).subscribe({
       next: (data) => {
-        this.desktopCaseInfo = data;
-        console.log(data);
+        this.desktopCaseInfo = data;        
         this.toastr.info("Kasa bilgisi başarıyla alındı.");
       },
       error: (error) => {
@@ -989,8 +1032,7 @@ cpuCoolerEditFormCheck() {
         this.typeStock.typeId = data.id;    
         this.typeStock.type = "desktopCase";
         this.typeStock.quantity = quantity;        
-        this.addStock(this.typeStock);
-        console.log(data);
+        this.addStock(this.typeStock);        
         this.toastr.info("Kasa başarıyla eklendi.");
       },
       error: (error) => {
@@ -1004,8 +1046,7 @@ cpuCoolerEditFormCheck() {
         this.desktopCaseInfo = data;
         this.editStockInfo.id = this.selectedStockIdForRemove;    
         this.editStockInfo.quantity = quantity;        
-        this.editStock(this.editStockInfo);
-        console.log(data);
+        this.editStock(this.editStockInfo);        
         this.toastr.info("Kasa bilgisi başarıyla düzenlendi.");
       },
       error: (error) => {
@@ -1089,39 +1130,31 @@ cpuCoolerEditFormCheck() {
   addProductAndStock() {    
     if (this.selectedProcess === "Add Product") {
       switch(this.selectedType) {
-        case "CPU":
-          alert("CPU eklemek istiyorsunuz.");
+        case "CPU":          
           this.cpuAddFormCheck();
         break;
 
-        case "GPU":
-          alert("GPU eklemek istiyorsunuz.");
+        case "GPU":          
           this.gpuAddFormCheck();
         break;
 
-        case "RAM":
-          alert("RAM eklemek istiyorsunuz.");
+        case "RAM":          
           this.ramAddFormCheck();
         break;
 
-        case "PSU":
-          alert("PSU eklemek istiyorsunuz.");
+        case "PSU":          
           this.psuAddFormCheck();
         break;
 
-        case "Motherboard":
-          alert("Anakart eklemek istiyorsunuz.");
+        case "Motherboard":          
           this.motherboardAddFormCheck();
         break;
 
-
-        case "Computer Case":
-          alert("Kasa eklemek istiyorsunuz.");
+        case "Computer Case":          
           this.desktopCaseAddFormCheck();
         break;
 
-        case "CPU Cooler":
-          alert("Soğutucu eklemek istiyorsunuz.");
+        case "CPU Cooler":          
           this.cpuCoolerAddFormCheck();
         break;
         
@@ -1132,43 +1165,184 @@ cpuCoolerEditFormCheck() {
   editProductAndStock() {
     alert(this.selectedGlobalType);
     switch(this.selectedGlobalType) {
-      case "cpu":
-        alert("CPU eklemek istiyorsunuz.");
+      case "cpu":        
         this.cpuEditFormCheck();
       break;
 
-      case "gpu":
-        alert("GPU eklemek istiyorsunuz.");
+      case "gpu":        
         this.gpuEditFormCheck();
       break;
 
-      case "ram":
-        alert("RAM eklemek istiyorsunuz.");
+      case "ram":        
         this.ramEditFormCheck();
       break;
 
-      case "psu":
-        alert("PSU eklemek istiyorsunuz.");
+      case "psu":        
         this.psuEditFormCheck();
       break;
 
-      case "motherboard":
-        alert("Anakart eklemek istiyorsunuz.");
+      case "motherboard":        
         this.motherboardEditFormCheck();
       break;
 
 
-      case "desktopCase":
-        alert("Kasa eklemek istiyorsunuz.");
+      case "desktopCase":        
         this.desktopCaseEditFormCheck();
       break;
 
-      case "cpuCooler":
-        alert("Soğutucu eklemek istiyorsunuz.");
+      case "cpuCooler":        
         this.cpuCoolerEditFormCheck();
       break;
       
     }
   }
+  cpuModel: any = '';
+  
+  generatePDF() {
+    const doc = new jsPDF();    
+    // Text eklemesi
+    doc.text('Hello World', 40, 10);
+
+    // Tablo oluşturma
+    autoTable(doc, {
+        head: [['Stok ID', 'Parça', 'Sayisi', 'Model']],
+        body: this.stock.map((item, index) => [item.id, this.getTurkishType(item.type), item.quantity, this.stockModels[index]]),
+        // Tema ayarları
+        theme: 'grid', // Striped tema
+        styles: {
+            // Tablo stil ayarları
+            fontSize: 12, // Yazı boyutu
+            fontStyle: 'normal', // Yazı stili
+            font: 'helvetica', // Yazı tipi            
+        },
+        // Tablo hücreleri için padding ayarları
+        margin: { top: 20, right: 10, bottom: 10, left: 10 }, // Kenar boşlukları
+        bodyStyles: { textColor: [0, 0, 0], fontSize: 10 }, // Yazı rengi ve boyutu
+        alternateRowStyles: { fillColor: [240, 240, 240] }, // Sıralar arası arkaplan renkleri
+        columnStyles: { 0: { cellWidth: 40 }, 1: { cellWidth: 50 }, 2: { cellWidth: 50 } } // Sütun genişlikleri
+    });
+
+    // PDF'i kaydetme
+    doc.save('table.pdf');
+}
+
+
+
+
+
+getCpuModel(cpuId: number): Observable<string> {    
+    return this.typeService.getCpu(cpuId).pipe(
+        map((data: any) => {
+            const cpuModel = data.model; // response içindeki model değerini cpuModel değişkenine ata
+            
+            return cpuModel; // cpuModel değerini döndür
+        }),
+        catchError(error => {            
+            return of(""); // Hata durumunda boş bir string döndür
+        })
+    );
+}
+
+getGpuModel(gpuId: number): Observable<string> {    
+  return this.typeService.getGpu(gpuId).pipe(
+      map((data: any) => {
+          const gpuModel = data.model; // response içindeki model değerini cpuModel değişkenine ata          
+          return gpuModel; // cpuModel değerini döndür
+      }),
+      catchError(error => {          
+          return of(""); // Hata durumunda boş bir string döndür
+      })
+  );
+}
+
+getPsuModel(psuId: number): Observable<string> {    
+  return this.typeService.getPsu(psuId).pipe(
+      map((data: any) => {
+          const psuModel = data.model; // response içindeki model değerini cpuModel değişkenine ata          
+          return psuModel; // cpuModel değerini döndür
+      }),
+      catchError(error => {          
+          return of(""); // Hata durumunda boş bir string döndür
+      })
+  );
+}
+
+getRamModel(ramId: number): Observable<string> {    
+  return this.typeService.getRam(ramId).pipe(
+      map((data: any) => {
+          const ramModel = data.model; // response içindeki model değerini cpuModel değişkenine ata          
+          return ramModel; // cpuModel değerini döndür
+      }),
+      catchError(error => {          
+          return of(""); // Hata durumunda boş bir string döndür
+      })
+  );
+}
+
+getCpuCoolerModel(cpuCoolerId: number): Observable<string> {    
+  return this.typeService.getCpuCooler(cpuCoolerId).pipe(
+      map((data: any) => {
+          const cpuCoolerModel = data.model; // response içindeki model değerini cpuModel değişkenine ata          
+          return cpuCoolerModel; // cpuModel değerini döndür
+      }),
+      catchError(error => {          
+          return of(""); // Hata durumunda boş bir string döndür
+      })
+  );
+}
+
+getDesktopCaseModel(desktopCaseId: number): Observable<string> {    
+  return this.typeService.getDesktopCase(desktopCaseId).pipe(
+      map((data: any) => {
+          const desktopCaseModel = data.model; // response içindeki model değerini cpuModel değişkenine ata          
+          return desktopCaseModel; // cpuModel değerini döndür
+      }),
+      catchError(error => {          
+          return of(""); // Hata durumunda boş bir string döndür
+      })
+  );
+}
+
+getMotherboardModel(motherboardId: number): Observable<string> {    
+  return this.typeService.getMotherboard(motherboardId).pipe(
+      map((data: any) => {
+          const motherboardModel = data.model; // response içindeki model değerini cpuModel değişkenine ata          
+          return motherboardModel; // cpuModel değerini döndür
+      }),
+      catchError(error => {          
+          return of(""); // Hata durumunda boş bir string döndür
+      })
+  );
+}
+
+
+
+
+async getComponentModelForPdf(type: string, typeId: number): Promise<string> {
+  if (type === "cpu") {        
+    this.cpuModel = await this.getCpuModel(typeId).toPromise();
+    console.log("İçerideki model: " + this.cpuModel);
+    return this.cpuModel;
+  } else if (type === "gpu") {
+    return this.gpuInfo.model;
+  } else if (type === "psu") {      
+    return this.psuInfo.model;
+  } else if (type === "cpuCooler") {      
+    return this.cpuCoolerInfo.model;
+  } else if (type === "motherboard") {
+    return this.motherboardInfo.model;
+  } else if (type === "ram") {
+    return this.ramInfo.model;
+  } else if (type === "desktopCase") {
+    return this.desktopCaseInfo.model;
+  }
+  return "bos";
+}
+
+
+
+
+
+
 
 }

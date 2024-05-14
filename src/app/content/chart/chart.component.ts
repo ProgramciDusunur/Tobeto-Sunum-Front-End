@@ -43,9 +43,7 @@ export class ChartComponent {
   getAllProcessors(): void {
     this.typeService.getAllProcessors().subscribe({
       next: (processors: Cpu[]) => {
-        this.allProcessors = processors;
-        console.log(this.allProcessors);
-        console.log(this.allProcessors.length);
+        this.allProcessors = processors;        
         this.totalParts += this.allProcessors.length;
       },
       error: (error) => {
